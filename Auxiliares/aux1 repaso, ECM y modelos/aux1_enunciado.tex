@@ -1,0 +1,147 @@
+\documentclass[11pt]{article}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{multicol}
+\usepackage{mwe} % for blindtext and example-image-a in example
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{dsfont}
+
+
+\usepackage{amsmath,amssymb}
+\usepackage[utf8]{inputenc}
+
+
+\renewcommand{\labelenumi}{\normalsize\bfseries P\arabic{enumi}.}
+\renewcommand{\labelenumii}{\normalsize\bfseries (\alph{enumii})}
+\renewcommand{\labelenumiii}{\normalsize\bfseries \roman{enumiii})}
+
+\oddsidemargin -1.0cm
+\textwidth 18.4cm
+\topmargin -2.5cm
+\textheight 24cm
+
+\DeclareMathOperator{\sen}{sen}
+\DeclareMathOperator{\senh}{senh}
+\DeclareMathOperator{\arcsen}{arcsen}
+\DeclareMathOperator{\tg}{tg}
+\DeclareMathOperator{\arctg}{arctg}
+\DeclareMathOperator{\ctg}{ctg}
+\DeclareMathOperator{\dom}{Dom}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\rec}{Rec}
+\DeclareMathOperator{\inte}{Int}
+\DeclareMathOperator{\adh}{Adh}
+\DeclareMathOperator{\fr}{Fr}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\argmin}{\text{argmín}}
+
+\let\lim=\undefined\DeclareMathOperator*{\lim}{\text{lím}}
+\let\max=\undefined\DeclareMathOperator*{\max}{\text{máx}}
+\let\min=\undefined\DeclareMathOperator*{\min}{\text{mín}}
+\let\inf=\undefined\DeclareMathOperator*{\inf}{\text{ínf}}
+
+\providecommand{\abs}[1]{\lvert #1\rvert}
+
+
+\newcommand{\ssi}{\Longleftrightarrow}
+\newcommand{\imp}{\Longrightarrow}
+\newcommand{\pmi}{\Longleftarrow}
+\newcommand{\ipartial}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\ider}[2]{\dfrac{d #1}{d #2}}
+\newcommand{\iipartial}[2]{\dfrac{\partial^2 #1}{\partial #2^2}}
+\newcommand{\iider}[2]{\dfrac{d^2 #1}{d #2^2}}
+\newcommand{\ijpartial}[3]{\dfrac{\partial^2 #1}{\partial #2 \partial #3}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\sol}{\textbf{\emph{Solución: }}}
+\newcommand{\dem}{\textbf{\emph{Demostración: }}}
+\newcommand{\aux}[4]{\Large \textbf{Auxiliar #1: #2}\\ \normalsize \textbf{Profesor: } #3\\ \textbf{Auxiliares: }#4}
+\newcommand{\pauta}[4]{\Large \textbf{Pauta #1 N#2}\\ \normalsize \textbf{Profesor: }#3\\ \textbf{Auxiliares: }#4}
+\newcommand{\enc}[3]{\Large \textbf{#1}\\ \normalsize \textbf{Profesor: } #2\\ \textbf{\Auxiliares :} #3}
+
+\pagestyle{fancy}
+\usepackage[left=2cm,top=2cm,right=2cm]{geometry}
+
+\begin{document}
+
+
+\fancyhead[L]{{Facultad de Ciencias Físicas y Matemáticas}}
+\fancyhead[R]{{Universidad de Chile}}
+\begin{wrapfigure}{R}{0.3\textwidth} %this figure will be at the right
+    \vspace{-5mm}
+    \includegraphics[width=0.35\textwidth]{dim.pdf}
+\end{wrapfigure}
+\noindent Departamento de Ingeniería Matemática\\ 
+MA3402-1 Estadística\\ 
+07 de agosto de 2019
+
+\hfill\break
+\begin{center}
+\aux{1}{Modelos paramétricos, ECM y Recuerdos}{Felipe Tobar}{Diego Marchant, Francisco Vásquez}
+\end{center}
+
+\begin{enumerate}\setlength{\itemsep}{0.4cm}
+
+\item Estudios relacionados con el comportamiento de ciertos bichos indican que estos tienden a organizarse al azar, linealmente, en un intervalo de longitud $\theta > 0$, a la derecha de un punto donde se ubica una feromona. Nos gustaría estimar el valor del parámetro $\theta$. Sea $X=(X_1,...,X_n)$ una muestra aleatoria simple (MAS) de la distancia de n bichos con respecto a la feromona.
+
+\begin{enumerate}
+    \item Defina el modelo paramétrico correspondiente.
+    \item Considere el estimador $\hat{\theta}=2\Bar{X_n}$. ¿Será insesgado? Si no lo es, modifíquelo para que lo sea.
+    \item Ahora, considere el estimador $\hat{\theta}=\max\{ X_1,...,X_n\}$. ¿Será insesgado? Si no lo es, modifíquelo para que lo sea.
+    \item Calcule el ECM para cada uno de los estimadores y compárelos.
+\end{enumerate}
+
+\item Sea una muestra aleatoria simple (MAS) $X=(X_1,...,X_n)$ dada por $X_i\sim\mathcal{N}(\mu,\sigma^2),\forall i=1,...,n$. Con $\mu$ y $\sigma$ parámetros desconocidos.
+
+Considere
+\[ S^2:= \frac{1}{n-1}\sum\limits_{i=1}^{n}(X_i-\Bar{X}_n)^2 \]
+Donde $\Bar{X}_n$ es el promedio de X. Muestre que $S^2$ es insesgado como estimador de $\sigma^2$ y calcule su varianza.
+
+Considere
+\[ \hat{\sigma}^2:= \frac{1}{n}\sum\limits_{i=1}^{n}(X_i-\Bar{X}_n)^2 \]
+
+Muestre que $\hat{\sigma}^2$ es sesgado como estimador de $\sigma^2$, pero es asintoticamente insesgado.
+
+Calcule su error cuadrático medio y concluya que:
+
+\[ECM(\hat{\sigma}^2)=\mathbb{E}((\hat{\sigma}^2-\sigma^2)^2)<\mathbb{E}((S^2-\sigma^2)^2)=Var(S^2)=ECM(S^2)\]
+
+Considere
+\[\hat{\sigma}^2_\rho:=\rho S^2   \]
+con $0<\rho \in \mathbb{R}$ fijo
+
+Calcule su error cuadrático medio y encuentre $\rho^\star$ tal que:
+
+\[ ECM(\hat{\sigma}^2_{\rho^\star})=\inf_{\rho>0} ECM(\hat{\sigma}^2_\rho)\]
+
+Muestre que $\hat{\sigma}^2_{\rho^\star}$ es sesgado como estimador de $\sigma^2$, pero es asintoticamente insesgado.
+
+
+
+
+\end{enumerate}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+\grid
