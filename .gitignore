@@ -1,3 +1,6 @@
+## Jupyter temporary
+.ipynb_checkpoints
+
 ## Mac OS temporary
 .DS_Store
 
