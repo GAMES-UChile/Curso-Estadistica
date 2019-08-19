@@ -1,0 +1,123 @@
+\documentclass[letterpaper,11pt]{article}
+\oddsidemargin -1.0cm \textwidth 16.5cm
+%\usepackage[latin1]{inputenc}
+%\usepackage[spanish]{babel}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsfonts,setspace}
+\usepackage{amsmath}
+\usepackage{amssymb, amsmath, amsthm}
+\usepackage{comment}
+%\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{anysize}
+\usepackage{multicol}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{float}
+
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage[left=2cm,top=2cm,right=2cm, bottom=2cm]{geometry}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+%Teoremas, Lemas, etc.
+\theoremstyle{plain}
+\newtheorem{teo}{Teorema}
+\newtheorem{lem}{Lemma}
+\newtheorem{prop}{Proposici\'on}
+\newtheorem{cor}{Corolario}
+\theoremstyle{definition}
+\newtheorem{defi}{Definici\'on}
+\newtheorem{eje}{Ejemplo}
+\newtheorem{obs}{Observaci\'on}
+\newcommand{\norm}[1]{\lVert#1\rVert}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\tiende}{\rightarrow}
+\newcommand{\borel}{\mathcal{B}}
+\newcommand{\proba}{\mathbb{P}}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\partes}{\mathcal{P}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathbb{V}ar}
+\newcommand{\1}{\mathbbm{1}}
+% fin macros
+
+
+%\fancypagestyle{plain}{%
+%\fancyhf{}
+%\lhead{\footnotesize\itshape\bfseries\rightmark}
+%\rhead{\footnotesize\itshape\bfseries\leftmark}}
+%\pagestyle{plain}
+
+
+%Inicializando documento1
+
+\begin{document}
+
+%Encabezado
+\fancyhead[L]{\itshape{Facultad de Ciencias F\'isicas y Matem\'aticas}}
+\fancyhead[R]{\itshape{Universidad de Chile}}
+
+
+\begin{minipage}{11.5 cm}
+\begin{flushleft}
+\hspace*{-0.6cm}\textbf{MA3402-01 Estadística}\\
+\hspace*{-0.6cm}\large Profesor: Felipe Tobar\\
+\hspace*{-0.6cm}\large Auxiliares: Diego Marchant D., Francisco Vásquez L.\\
+
+%\hspace*{-0.6cm}\textit{``Un matem\'atico que no tenga algo de poeta jam\'as ser\'a un completo matem\'atico''} - Karl Weierstrass\\
+
+\end{flushleft}\end{minipage}
+
+
+\begin{picture}(2,3)
+\put(400,-10){\includegraphics[scale=0.17]{./dim.pdf}}
+\end{picture}
+
+%Titulo
+\begin{center}
+\LARGE\textbf{Auxiliar 2: Modelos Paramétricos, TCL y repaso}\\
+
+\vspace{0.4cm}
+\large 8 de Agosto de 2019
+\end{center}
+
+\textbf{Modelo de Poisson}\\
+
+\begin{enumerate}[label=\textbf{P{\arabic*}}]
+
+\item Dada una muestra aleatoria simple $X = (X_1, X_2,  \ldots, X_n)$ (es decir, iid) de un modelo Poisson de parámetros $\lambda >0$, nos interesa estimar la probabilidad del valor $0$, es decir, $g(\lambda) = \proba _\lambda (X_1 = 0)  =e^{-\lambda}$.\\
+
+Para esto, consideremos los siguientes tres estimadores:
+
+$$\hat{g}_1 (X) = e^{-\bar{X}}, \qquad \hat{g}_2 (X) = \frac{1}{n}\sum_{i=1}^{n}\mathds{1}_{\lbrace X_i =0\rbrace}, \qquad \hat{g}_3 (X) = \left(1- \frac{1}{n} \right)^{n\bar{X}}$$
+
+¿Cuánto es el sesgo en cada uno de ellos?
+
+\textbf{TCL}
+
+\item Ahora veamos el error en la estimación del parámetro $\lambda$. Para esto proponga un estimador insesgado de este parámetro y con ayuda del TCL vea cómo se comporta asintóticamente el estimador en función del error gaussiano. \textbf{Indicación:} Estudie el comportamiento de la familia de variables aleatorias $\ds Z_n = \frac{S_n - n\E(X_1)}{\sqrt{\Var(X_1)}}$ donde $\ds S_n = \sum_{i=1}^n X_i$
+
+\item Ahora veamos el comportamiento numérico asociado a este teorema. Para ello:
+
+\begin{itemize}
+    
+    \item Cree una función que genere M muestras de la distribución $Z_n$
+    
+    \item Para los valores $n = 10, 50, 100, 200, 500, 1000$ grafique un histograma de las M muestras (puede tomar, por ejemplo, M = 1000)
+    
+    
+    
+\end{itemize}
+
+\end{enumerate}
+
+\end{document}
