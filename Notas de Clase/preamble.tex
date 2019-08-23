@@ -1,0 +1,70 @@
+%preamble para fuente, creo que Palatino es mejor para libros (FT)
+\usepackage{mathpazo} % math & rm
+\linespread{1.05}        % Palatino needs more leading (space between lines)
+\usepackage[scaled]{helvet} % ss
+\usepackage{courier} % tt
+\normalfont
+\usepackage[T1]{fontenc}
+
+%Libro es en español (FT)
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+%tamaño del libro con marcas para reducir el tamaño carte (FT)
+\usepackage{geometry}
+%\geometry{layoutheight=230mm,layoutwidth=160mm,layoutvoffset=30mm,layouthoffset=20mm,showcrop}
+
+
+\usepackage{cancel}
+
+\usepackage{amsmath}
+
+ 
+
+%theorems
+\usepackage{amsthm}
+\newtheorem{definition}{Definición}[section]
+\newtheorem{example}{Ejemplo}[section]
+\newtheorem{theorem}{Teorema}[section]
+
+%macros
+\newcommand*\clase[1]{\par\noindent\raisebox{.8ex}{\makebox[\linewidth]{\hrulefill\hspace{1ex}\raisebox{-.8ex}{#1}\hspace{1ex}\hrulefill}}\vspace{1em}}
+
+\usepackage{color}
+\providecommand{\red}[1]{\textcolor{red}{{\bf #1}}}
+
+
+
+
+\def\familiaparametrica{\mathcal{P}  = \{P_\theta\ \tq\ \theta\in\Theta\}}
+\def\densidadparametrica{\{p_\theta\ \tq\ \theta\in\Theta\}}
+\newcommand{\E}[1]{\mathbb{E} \left(#1\right)}
+\newcommand{\Prob}[1]{\mathbb{P}_\theta \left(#1\right)}
+\newcommand{\Et}[1]{\mathbb{E}_\theta \left(#1\right)}
+\newcommand{\Probt}[1]{\mathbb{P} \left(#1\right)}
+\newcommand{\ber}[1]{\text{Ber}\left(#1\right)}
+\newcommand{\bin}[1]{\text{Bin}\left(#1\right)}
+\newcommand{\expo}[1]{\exp\left(#1\right)}
+
+%conjuntos
+\def\R{{\mathbb R}}
+
+%simbolos
+\def\cP{{\mathcal P}}
+\def\cA{{\mathcal A}}
+\def\cB{{\mathcal B}}
+\def\tq{{\text{t.q.}}}
+\def\cX{{\mathcal X}}
+\def\cN{{\mathcal N}}
+\def\cT{{\mathcal T}}
+\def\gh{{ \hat{g}}}
+\def\ghX{{ \hat{g}(X)}}
+\def\ghx{{ \hat{g}(x)}}
+
+
+
+\def\d{{\text{d}}}
+\def\dx{{\text{d}x}}
+\def\ind{{\mathbb 1}}
+
+

@@ -1,0 +1,110 @@
+\documentclass[letterpaper,11pt]{article}
+\oddsidemargin -1.0cm \textwidth 16.5cm
+%\usepackage[latin1]{inputenc}
+%\usepackage[spanish]{babel}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsfonts,setspace}
+\usepackage{amsmath}
+\usepackage{amssymb, amsmath, amsthm}
+\usepackage{comment}
+%\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{anysize}
+\usepackage{multicol}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{float}
+
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage[left=2cm,top=2cm,right=2cm, bottom=2cm]{geometry}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+%Teoremas, Lemas, etc.
+\theoremstyle{plain}
+\newtheorem{teo}{Teorema}
+\newtheorem{lem}{Lemma}
+\newtheorem{prop}{Proposici\'on}
+\newtheorem{cor}{Corolario}
+\theoremstyle{definition}
+\newtheorem{defi}{Definici\'on}
+\newtheorem{eje}{Ejemplo}
+\newtheorem{obs}{Observaci\'on}
+\newcommand{\norm}[1]{\lVert#1\rVert}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\tiende}{\rightarrow}
+\newcommand{\borel}{\mathcal{B}}
+\newcommand{\proba}{\mathbb{P}}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\partes}{\mathcal{P}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathbb{V}ar}
+\newcommand{\1}{\mathbbm{1}}
+% fin macros
+
+
+%\fancypagestyle{plain}{%
+%\fancyhf{}
+%\lhead{\footnotesize\itshape\bfseries\rightmark}
+%\rhead{\footnotesize\itshape\bfseries\leftmark}}
+%\pagestyle{plain}
+
+
+%Inicializando documento1
+
+\begin{document}
+
+%Encabezado
+\fancyhead[L]{\itshape{Facultad de Ciencias F\'isicas y Matem\'aticas}}
+\fancyhead[R]{\itshape{Universidad de Chile}}
+
+
+\begin{minipage}{11.5 cm}
+\begin{flushleft}
+\hspace*{-0.6cm}\textbf{MA3402-01 Estadística}\\
+\hspace*{-0.6cm}\large Profesor: Felipe Tobar\\
+\hspace*{-0.6cm}\large Auxiliares: Diego Marchant D., Francisco Vásquez L.\\
+
+%\hspace*{-0.6cm}\textit{``Un matem\'atico que no tenga algo de poeta jam\'as ser\'a un completo matem\'atico''} - Karl Weierstrass\\
+
+\end{flushleft}\end{minipage}
+
+
+\begin{picture}(2,3)
+\put(400,-10){\includegraphics[scale=0.17]{./fcfm.pdf}}
+\end{picture}
+
+%Titulo
+\begin{center}
+\LARGE\textbf{Auxiliar 4: Neyman-Fisher y la familia paramétrica}\\
+
+\vspace{0.4cm}
+\large 21 de Agosto de 2019
+\end{center}
+
+En todo el contexto del auxiliar, $X = (X_1, X_2, \ldots, X_n)$ representa una muestra aleatoria simple del modelo paramétrico en que se esté trabajando.
+
+\begin{enumerate}[label=\textbf{P{\arabic*}}]
+
+
+\item Encuentre un estadístico suficiente para la familia paramétrica binomial 
+$$\mathcal{P} = \left\{ \proba_{p} \ | \ \proba(X=x) = \binom{n}{x}p^x(1-p)^{n-x} \right\}$$
+
+\item Encuentre un estadístico suficiente para la familia paramétrica de Poisson 
+$$\mathcal{P} = \left\{ \proba_{\lambda} \ | \ \proba(X=k) = \frac{e^{-\lambda}\lambda^k}{k!}\right\}$$
+
+\item Muestre que el estadístico $\ds T(X) = \sum_{i=1}^n X_i$ es minimal suficiente para la familia paramétrica exponencial
+
+$$\mathcal{P} = \left\{ \proba_{\theta} \ | \ f_{X_i} (x) = \theta e^{-\theta x}\right\}$$
+
+\end{enumerate}
+
+\end{document}

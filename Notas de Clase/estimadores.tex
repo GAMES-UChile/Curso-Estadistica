@@ -1,0 +1,67 @@
+%!TEX root = apunte_estadistica.tex
+
+
+\chapter{Estimadores}
+
+Consideremos una función del parámetro de una familia paramétrica $\familiaparametrica$, $g(\theta)$.  Un estimador puntual de $g(\theta)$ es un estadístico, es decir, una función de la VA $X$, que toma valores en el mismo conjunto que $g(\Theta)$. En general denotaremos como $\gh(X)$ el estimador de $g(\theta)$ aplicado a $X$ 
+
+
+\begin{example}[Estimador de la media Gaussiana]
+	\label{ex:estimador_media}
+	Consideremos $X = (X_1,\ldots,X_n)\sim\cN(\mu,\sigma^2)$. Un estimador de $g(\theta) = g(\mu,\sigma) = \mu$ es el estadístico 
+	\begin{equation}
+		\gh(X) = \frac{1}{n}\sum_{i=1}^nX_i
+	\end{equation} 
+\end{example}
+
+Una clase muy importante de estimadores son los estimadores insesgados. 
+
+\begin{definition}[Estimador insesgado]
+	Sea $\ghx$ un estimador de $g(\theta)$. Este estimador es insesgado si 
+	\begin{equation}
+		\E{\ghx} = g(\theta)
+	\end{equation}
+	y el sesgo de $\gh$ se define como 
+	\begin{equation}
+		b_\gh(\theta) = \E{\ghx} - g(\theta)
+	\end{equation}
+\end{definition}
+
+
+
+Los estimadores insesgados juegan un rol importante en el estudio y aplicación de la estadística, sin embargo, uno no siempre debe poner exclusiva atención a ellos. Los siguiente ejemplos ilustran el rol del estimador insesgado en dos familias paramétricas distintas. 
+
+\begin{example}[Estimador insesgado de la media Gaussiana]
+	\label{ex:estimador_in_media}
+	El estimador de $g(\theta) =  \mu$ descrito en el Ejemplo \ref{ex:estimador_media} es insesgado, en efecto: 
+	\begin{equation}
+		\E{\ghx} = \E{\frac{1}{n}\sum_{i=1}^nX_i}	= \frac{1}{n}\sum_{i=1}^n\E{X_i}		= \frac{1}{n}\sum_{i=1}^n\mu = \mu	
+	\end{equation}
+\end{example}
+
+
+\begin{example}[Estimador de la taza de la distribución exponencial\footnote{Schervish}]
+	\label{ex:estimador_exponancial}
+	Consideremos $X\sim Exp(\theta)$, donde $Exp(x|\theta) = \theta\exp(-\theta x)$, y asumamos que existe un estimador insesgado $\ghX$ de $g(\theta) = \theta$, entonces, 
+	\begin{equation}
+		\E{\ghX} = \int_0^\infty \ghx\theta\exp(-\theta x)\d x = \theta, \forall \theta,
+	\end{equation}
+	lo cual es equivalente a decir que $\int_0^\infty \ghx\exp(-\theta x)\d x = 1, \forall \theta$ o bien que (al derivar ambos lados de esta expresión c.r.a. $\theta$)  $\int_0^\infty x\ghx\exp(-\theta x)\d x = 0, \forall \theta$.
+
+	Esta última expresión implica que $\E{X\ghX} = 0$, lo que a su vez y considerando que $X$ es un estadístico suficiente y completo, implica que $\ghX=0$ c.s. $\forall \theta$. Como esto contradice el hecho de que $\ghX$ es insesgado, no es posible construir estimadores insesgados para $\theta$ en la distribución exponencial.
+\end{example}
+
+Es natural evaluar la bondad de distintos estimadores (sesgados o insesgados), una forma de hacer esto es definir una función de \textit{pérdida} o \textit{costo} que compara el valor reportado por el estimado y el valor real del parámetro. Luego, como el estimador es una VA, podemos calcular la esperanza de la función de pérdida, lo cual conocemos como riesgo. En general, el costo más frecuentemente utilizado es el costo cuadrático, el cual, de acuerdo a lo recién explicado, tiene el siguiente riesgo: 
+
+\begin{alignat*}{3}
+ 	R(\theta, \hat{g})  &= \E{(g(\theta) - \ghX)^2}\\
+ 						& = \E{\left(g(\theta) - \bar{g}+ \bar{g} -\ghX\right)^2}; \quad \bar{g} = \E{ \ghX}\\
+ 						& = \E{(g(\theta) - \bar{g})^2+2(g(\theta) - \bar{g})\cancel{(\bar{g} -\ghX)} +  (\bar{g} -\ghX)^2}\\
+ 						& = \underbrace{(g(\theta) - \bar{g})^2}_{=b_{\gh}^2\ (\text{sesgo}^2)} +  \underbrace{\E{(\bar{g} -\ghX)^2}}_{=V_{\gh}\ \text{(varianza)}}
+ \end{alignat*} 
+
+ Consecuentemente, si un estimador es insesgado el riesgo es simplemente su varianza, lo cual motiva la siguiente definición de optimalidiad para estimadores insesgados. 
+
+ \begin{definition}[Estimador insesgado de varianza uniformemente mínima]
+  	
+  \end{definition} 
