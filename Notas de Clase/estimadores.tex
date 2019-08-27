@@ -48,11 +48,11 @@ Los estimadores insesgados juegan un rol importante en el estudio y aplicación 
 	\end{equation}
 	lo cual es equivalente a decir que $\int_0^\infty \ghx\exp(-\theta x)\d x = 1, \forall \theta$ o bien que (al derivar ambos lados de esta expresión c.r.a. $\theta$)  $\int_0^\infty x\ghx\exp(-\theta x)\d x = 0, \forall \theta$.
 
-	Esta última expresión implica que $\E{X\ghX} = 0$, lo que a su vez y considerando que $X$ es un estadístico suficiente y completo, implica que $\ghX=0$ c.s. $\forall \theta$. Como esto contradice el hecho de que $\ghX$ es insesgado, no es posible construir estimadores insesgados para $\theta$ en la distribución exponencial.
+	Esta última expresión es equivalente a que $\E{X\ghX} = 0$, lo que a su vez y considerando que $X$ es un estadístico suficiente y completo, implica que necesariamente la función $X\ghX=0$ c.s. $\forall \theta$, y también que $\ghX=0$ c.s. $\forall \theta$. Como esto contradice el hecho de que $\ghX$ es insesgado, no es posible construir estimadores insesgados para $\theta$ en la distribución exponencial.
 \end{example}
 
 
-Veamos ahora un ejemplo de un estimador sesgado de la varianza y como se puede construir un estimador insesgado. 
+Veamos ahora un ejemplo de un estimador sesgado de la varianza y cómo se puede construir un estimador insesgado. 
 
 \begin{example}
 Consideremos una familia paramétrica $\familiaparametrica$ y denotemos por $\mu$ y $\sigma^2$ su media y su varianza respectivamente. Usando las observaciones $x_1,x_2,\ldots,x_n$, calculemos la varianza del estimador de la media, dado por $\xb = \frac{1}{n}\sum_{i=1}^n x_i$ mediante
@@ -89,10 +89,10 @@ cumple con
 es decir, el estimador $S'_2$ en la ecuación \eqref{eq:est_varianza_insesgado} es insesgado.
 \end{example}
 
+\clase{clase 29/8}
 
 
-
-Es natural evaluar la bondad de distintos estimadores (sesgados o insesgados), una forma de hacer esto es definir una función de \textit{pérdida} o \textit{costo} que compara el valor reportado por el estimado y el valor real del parámetro. Luego, como el estimador es una VA, podemos calcular la esperanza de la función de pérdida, lo cual conocemos como riesgo. En general, el costo más frecuentemente utilizado es el costo cuadrático, el cual, de acuerdo a lo recién explicado, tiene el siguiente riesgo: 
+Es natural evaluar la bondad de distintos estimadores (sesgados o insesgados), una forma de hacer esto es definir una función de \textit{pérdida} o \textit{costo} que compara el valor reportado por el estimador y el valor real del parámetro. Luego, como el estimador es una VA, podemos calcular la esperanza de la función de pérdida, lo cual conocemos como riesgo. En general, el costo más frecuentemente utilizado es el costo cuadrático, el cual, de acuerdo a lo recién explicado, tiene el siguiente riesgo: 
 
 \begin{alignat*}{3}
  	R(\theta, \hat{g})  &= \E{(g(\theta) - \ghX)^2}\\
@@ -110,4 +110,61 @@ Es natural evaluar la bondad de distintos estimadores (sesgados o insesgados), u
   	\end{equation}
   \end{definition} 
 
-  \red{teorema de rao blackwell}
+\begin{example}
+	Consideremos $x=(x_1,\ldots,x_n)\sim\ber{\theta}$ y sea $g(\theta)=\theta$ y sean los siguientes estimadores
+	\begin{itemize}
+		\item $\gh_1(x) = x_1$
+		\item $\gh_2(x) = \frac{1}{2}(x_1+x_2)$
+		\item $\gh_3(x) = \frac{1}{n}\sum_{i=1}^n x_i$
+	\end{itemize}
+	Observemos que todos estos estimadores son insesgados, puese como $\forall i, \Et{x_i} = \theta$, entonces 
+	\begin{equation}
+		\Et{\gh_1(x)} = \Et{\gh_2(x)} = \Et{\gh_3(x)} = \theta
+	\end{equation}
+	Veamos ahora que la varianza de $\gh_3(x)$ está dada por
+	\begin{equation}
+		\Vt{\gh_3(x)} = \Vt{\frac{1}{n}\sum_{i=1}^n x_i} = \frac{1}{n^2}\sum_{i=1}^n \Vt{x_i} = \frac{\theta(1-\theta)}{n}
+	\end{equation}
+	pues $\Vt{x_i} = \Et{(\theta - x_i)} = \Et{x_i^2} - \theta^2 = (0^2 \cdot (1-\theta) + 1^2 \cdot \theta) - \theta^2 = \theta(1-\theta)$. Consecuentemente, la varianza de los estimadores considerados decae como la inversa del número de muestras.
+\end{example}
+
+\begin{theorem}[Teorema de Rao-Blackwell]
+	\label{teo:rao-blackwell}
+	Sea $\gh$ un estimador de $\theta$ tal que $\Et{\gh(X)}<\infty, \forall \theta$. Asumamos que existe $T$ estadístico suficiente para $\theta$ y sea $g^\star = \Et{\gh|T}$. Entonces, 
+	\begin{equation}
+		\Et{(g^\star-\theta)^2} \leq \Et{(\gh-\theta)^2}, \forall\theta,
+	\end{equation}
+	donde la desigualldad es estricta salvo en el caso donde $\gh$ es función de $T$.
+\end{theorem}
+
+En otras palabras, el Teo. de Rao-Blackwell establece que un estimador puede ser \textit{mejorado} si es reemplazado por su esperanza condicional dado un estadístico suficiente. El proceso de equipar un estimado poco eficiente de esta forma es conocido como \textit{Rao-Blackwellización} y veremos un ejemplo a continuación.
+
+
+\begin{example}
+Consideremos $X = (X_1,\ldots,X_n)\sim \poi{\theta}$ y estimemos el parámetro $\theta$. Para esto, usaremos el estimador básico $\gh = X_1$ y \textit{Rao-Blackwellicémoslo} usando el estimador suficiente $T=\sum_{i=1}^nX_i$, es decir, 
+\begin{equation}
+	g^* = \Et{X_1\middle|\sum_i X_i=t}.
+\end{equation}
+Para calcular esta esperanza condicional, observemos primero que  
+\begin{equation}
+	\sum_{j=1}^n\Et{X_j\middle|\sum_{i=1}^n X_i=t} = \Et{\sum_{j=1}^nX_j\middle|\sum_{i=1}^n X_i=t} = t
+\end{equation}
+y que como $X_1,\ldots,X_n$ son iid, entonces todos los términos dentro de la suma del lado izquierdo de la ecuación anterior son iguales. Consecuentemente, recupermos el estimador
+\begin{equation}
+ 	g^* = \frac{t}{n} = \frac{1}{n}\sum_{i=1}^n
+ \end{equation} 
+
+ \begin{proof}[Demosotración de Teorema \ref{teo:rao-blackwell}]
+ 	La varianza del estimador $g^\star$ está dada por 
+ 	\begin{alignat*}{2}
+ 		\Et{(g^\star-\theta)^2} &= \Et{(\Et{\gh|T}-\theta)^2} \quad\quad\quad &&\text{def.}\\
+ 								&= \Et{(\Et{\gh-\theta|T})^2}&& \text{linealidad}\\
+ 								&\leq \Et{\Et{(\gh-\theta)^2|T}}&& \text{Jensen}\\
+ 								&= \Et{(\gh-\theta)^2} &&\text{ley esperanzas totales}
+ 	\end{alignat*}
+Donde las esperanzas exteriores son con respecto a $T$ y las interiores con respecto a $X$. 
+ 	
+ \end{proof}
+
+	
+\end{example}
