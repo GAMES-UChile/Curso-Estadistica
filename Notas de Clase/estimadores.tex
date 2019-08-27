@@ -51,6 +51,47 @@ Los estimadores insesgados juegan un rol importante en el estudio y aplicación 
 	Esta última expresión implica que $\E{X\ghX} = 0$, lo que a su vez y considerando que $X$ es un estadístico suficiente y completo, implica que $\ghX=0$ c.s. $\forall \theta$. Como esto contradice el hecho de que $\ghX$ es insesgado, no es posible construir estimadores insesgados para $\theta$ en la distribución exponencial.
 \end{example}
 
+
+Veamos ahora un ejemplo de un estimador sesgado de la varianza y como se puede construir un estimador insesgado. 
+
+\begin{example}
+Consideremos una familia paramétrica $\familiaparametrica$ y denotemos por $\mu$ y $\sigma^2$ su media y su varianza respectivamente. Usando las observaciones $x_1,x_2,\ldots,x_n$, calculemos la varianza del estimador de la media, dado por $\xb = \frac{1}{n}\sum_{i=1}^n x_i$ mediante
+\begin{equation}
+	\label{eq:varianza_media_muestral}
+ 	\Vt{\xb} = \Vt{\frac{1}{n}	\sum_{i=1}^n x_i}  \underbrace{=}_{\text{i.i.d.}}  \frac{1}{n^2}	\sum_{i=1}^n\Vt{ x_i} =\frac{\sigma^2}{n}
+ \end{equation} 
+ es decir, el estimador de la media usando $n$ muestras, tiene una varianza $\sigma^2/n$.
+
+ Consideremos ahora el siguiente estimador para la varianza: 
+\begin{equation}
+	\label{eq:est_varianza_sesgado}
+	S_2 = \frac{1}{n}\sum_{i=1}^n (x_i-\xb)^2
+\end{equation}
+y notemos que la esperanza de dicho estimador es
+\begin{align}
+	\label{eq:sesgo_varianza}
+	\Et{S_2 } &= \Et{\frac{1}{n}\sum_{i=1}^n (x_i-\mu+\mu-\xb)^2}\nonumber\\
+				&= \Et{ \frac{1}{n}\sum_{i=1}^n(x_i-\mu)^2 + 2\frac{1}{n}\sum_{i=1}^n(x_i-\mu)(\mu-\xb) + \frac{1}{n}\sum_{i=1}^n(\mu-\xb)^2}\nonumber\\
+				&= \Et{ \frac{1}{n}\sum_{i=1}^n(x_i-\mu)^2 - 2(\mu-\xb)^2 + (\mu-\xb)^2}\nonumber\\
+				&= \Et{ \frac{1}{n}\sum_{i=1}^n(x_i-\mu)^2 - (\mu-\xb)^2}\nonumber\\
+				&= \Vt{x_i} - \Vt{\xb}\quad\text{ver ecuación \eqref{eq:varianza_media_muestral}}\nonumber\\
+				&= 	\sigma^2 + \sigma^2/n = \left(\frac{n+1}{n}\right)\sigma^2
+\end{align}
+Esto quiere decir que el sesgo del estimado en la ecuación \eqref{eq:est_varianza_sesgado} es asintóticamente insesgado, es decir, que su sesgo tiende a cero cuando el número de muestas $n$ tiende a infinito. Sin embargo, notemos que podemos corregir el estimado de la varianza multiplicando el estimador original, $S_2$ en la ecuación \eqref{eq:est_varianza_sesgado} por $n/(n+1)$, con lo que el estimador corregido denotado por 
+\begin{equation}
+	\label{eq:est_varianza_insesgado}
+	S'_2 = \frac{n}{n+1}S_2 =  \frac{1}{n+1}\sum_{i=1}^n (x_i-\xb)^2
+\end{equation}
+cumple con
+\begin{equation}
+	\Et{S'_2 } =  \left(\frac{n}{n+1}\right)\Et{S_2} \underbrace{=}_{\text{ec.}\eqref{eq:sesgo_varianza}} \left(\frac{n}{n+1}\right) \left(\frac{n+1}{n}\right)\sigma^2 = \sigma^2
+\end{equation}
+es decir, el estimador $S'_2$ en la ecuación \eqref{eq:est_varianza_insesgado} es insesgado.
+\end{example}
+
+
+
+
 Es natural evaluar la bondad de distintos estimadores (sesgados o insesgados), una forma de hacer esto es definir una función de \textit{pérdida} o \textit{costo} que compara el valor reportado por el estimado y el valor real del parámetro. Luego, como el estimador es una VA, podemos calcular la esperanza de la función de pérdida, lo cual conocemos como riesgo. En general, el costo más frecuentemente utilizado es el costo cuadrático, el cual, de acuerdo a lo recién explicado, tiene el siguiente riesgo: 
 
 \begin{alignat*}{3}
@@ -63,5 +104,10 @@ Es natural evaluar la bondad de distintos estimadores (sesgados o insesgados), u
  Consecuentemente, si un estimador es insesgado el riesgo es simplemente su varianza, lo cual motiva la siguiente definición de optimalidiad para estimadores insesgados. 
 
  \begin{definition}[Estimador insesgado de varianza uniformemente mínima]
-  	
+  	El estimador $\gh(x)$ de $g(\theta)$ es un estimador insesgado de varianza uniformemente mínima (EIVUM) si es insesgado y si $\forall \gh^*:\cX\rightarrow g(\Theta)$ estimador insesgado se tiene
+  	\begin{equation}
+  		\Vt{\gh}\leq\Vt{\gh^*}, \forall \theta\in\Theta.
+  	\end{equation}
   \end{definition} 
+
+  \red{teorema de rao blackwell}

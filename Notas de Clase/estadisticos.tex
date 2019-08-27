@@ -268,8 +268,46 @@ Definamos la siguiente función de densidad de probabilidad parametrizada por $\
 consecuentemente, por el CFNF en el Teorema \ref{teo:neyman-fisher}, tenemos que $T$ es 
 un estadístico suficiente para $\nu$.
 
+Muchas de las distribuciones que usalmente consideramos pertenecen a la familia exponencial, por ejemplo, la distribución normal, exponencial, gamma, chi-cuadrado, beta, Dirichlet, Bernoulli, categórica, Poisson, Wishart (inversa) y geométrica. Otras distribuciones solo pertenecen a la familia exponencial para una determinada elección de sus parámetros, como lo ilustra el siguiente ejemplo.
+
+\begin{example}[El modelo binomial pertenece a la familia exponencial]
+Recordemos la distribución binomial está dada por 
+
+\begin{align*}
+	\bin{x|\theta,n} 	&=\binom{n}{x}\theta^x(1-\theta)^{n-x},\quad x\in\{0,1,2\ldots,n\}\\
+					&=
+					\underbrace{\binom{n}{x}}_{h(x)}\expo{x\underbrace{\loga{\frac{\theta}{1-\theta}}}_{\text{parámetro natural}} + \underbrace{n\loga{1-\theta}}_{-\loga{A(\theta)}}}\\
+\end{align*}
+consecuentemente, para que $h(x)$ sea únicamente una función de la variable aleatoria, entonces el número de intentos $n$ tiene que se una cantidad conocida, \textbf{no un parámetro}. 	
+ \end{example} 
+
 
 \red{Falta: dar ejemplos de cómo las distribuciones conocidas (Bernoulli, Gaussian,Poisson, etc) se pueden generar desde la ecuación \eqref{eq:densidadexponencial}}
 
+La familia exponencial va a ser ampliamente usada durante el curso, lo cual se debe a sus propiedades favorables para el análisis estadístico. Por ejemplo, el producto de dos distribuciones de la familia exponencial también pertenece a la familia exponencial. En efecto, consideremos dos VA $X_1,X_2,$ con distribuciones en la familia exponencial respectivamente dadas por
+\begin{align}
+	p_1(x_1) &= h_1(x_1)\expo{\theta_1T_1(x_1)-\loga{A_1(\theta_1)}}\\
+	p_2(x_2) &= h_2(x_2)\expo{\theta_2T_2(x_2)-\loga{A_2(\theta_2)}}
+\end{align}
+si asumimos que estas VA son independientes, entonces densidad conjunta de $X=(X_1,X_2)\sim p$ está dada por
+\begin{align}
+	p(X) 	&= p_1(x_1) p_2(x_2) \nonumber \\ 
+			&= \underbrace{h_1(x_1)h_2(x_2)}_{h(x)}\expo{\underbrace{[\theta_1,\theta_2]}_{\theta}\underbrace{
+			\left[ \begin{array}{c}
+			T_1(x_1)  \\
+			T_2(x_2)  \end{array} \right]
+			}_{T(x)} - \loga{\underbrace{A_1(\theta_1)A_2(\theta_2)}_{A(\theta)}}} 
+\end{align}
+con lo que eligiendo $\theta=[\theta_1,\theta_2]$ y $T=[T_1,T_2]$, vemos que $X$ está dado por una distribución de la familia exponencial.  
 
-
+Otra propiedad de las familia exponencial es la relación entre los momentos de la distribucion y el lognormalizador $A$. Denotando
+\begin{equation}
+	Q(\theta) =\expo{A(\theta)} = \int_\cX \expo{\theta T (x)}h(x)\dx
+\end{equation}
+Observemos que la derivada de $A(\theta)$ está dada por 
+\begin{align}
+	\frac{dA(\theta)}{d\theta} &= Q^{-1}(\theta)\frac{d Q(\theta)}{d\theta} \\ 
+	&= \frac{\int_\cX T (x) \expo{\theta T (x)}h(x)\dx}{\int_\cX \expo{\theta T (x)}h(x)\dx} \nonumber\\
+	&= \frac{\int_\cX T (x) \expo{\theta T (x) -A(\theta)}h(x)\dx}{\int_\cX \expo{\theta T (x)-A(\theta) }h(x)\dx} \quad\quad \cdot  A(\theta)/A(\theta) \nonumber\\
+	&=\E{T(x)}  \nonumber
+\end{align}
