@@ -171,7 +171,7 @@ Sin una definición formal de \textit{información} aún, recordemos que los est
 
  \noindent \red{FALTA: Ejemplo estadístico minimal, particiones suficientes y comentarios sobre particiones} 
 
-\clase{Clase: 22 de agosto}
+\clase{Clase 6: 22 de agosto}
 Los estadísticos suficiente minimales están claramente definidos pero dicha definición no es útil para encontrar o construir  estadístico suficiente minimales. El siguiente Teorema establece una condición que permite evaluar si un estadístico es suficiente minimal 
 
 \begin{theorem}[Suficiencia minimal]
@@ -232,11 +232,12 @@ El concepto de completitud dice relación con la construcción de estimadores us
 Intuitivamente entonces, podemos entender la noción de completitud como lo siguiente: un estadístico es completo si la única forma de construir un estimador insesgado de cero a partir de él es aplicándole la función idénticamente nula.  Veamos un ejemplo de la distribución Bernoulli, donde el estadístico $T(x) = \sum x_i$ es efectivamente completo. 
 
 \begin{example}
+	\label{eq:est_completo_bernoulli}
 	Sea $x=(x_1,\ldots,x_n)$ observaciones de $X\sim\ber{\theta}$, recordemos que $T(x) = \sum x_i\sim\bin{n,\theta}$, por lo que la esperanza $g(T)$ está dada por
 	\begin{equation}
 		\Et{g(T)} = \sum_{t=0}^n g(t)\binom{n}{t}\theta^t(1-\theta)^{n-t}= (1-\theta)^n\sum_{t=0}^n g(t)\binom{n}{t}\left(\frac{\theta}{1-\theta}\right)^t
 	\end{equation}
-	es decir un polinomio de grado $t$ en $r=\theta/(1-\theta)\in\R_+$, entonces, $\Et{g(T)} = 0$ implica que necesariamente los pesos de este polinomio sean todos idénticamente nulos: ${g(T)} = 0$
+	es decir un polinomio de grado $t$ en $r=\theta/(1-\theta)\in\R_+$, entonces, $\Et{g(T)} = 0$ implica que necesariamente los pesos de este polinomio sean todos idénticamente nulos, es decir,${g(T)} = 0$. Consecuentemente, $T(x) = \sum x_i\sim\bin{n,\theta}$ es un estadístico completo.
 \end{example}
 
 
@@ -259,7 +260,7 @@ Definamos la siguiente función de densidad de probabilidad parametrizada por $\
  	p_\eta(x) = \expo{\sum_{i=1}^s\eta_iT_i(x)-A(\eta)}h(x)
  \end{equation} 
  donde el hecho que $p_\eta(x)$ integra uno puede claramente verificarse reemplazando la ecuación \eqref{eq:lognormalizador} en \eqref{eq:densidadexponencial}, con lo cual se puede ver que $A$ definido en \eqref{eq:lognormalizador} es precisamente el logaritmo de la constante de normalización de la densidad definida en \eqref{eq:densidadexponencial}.
-\clase{clase 27/8}
+\clase{Clase 7: 27/8}
  Notemos que el estadístico $T$ es en efecto une estadístico suficiente para $\nu$ en la familia exponencial. En efecto, notemos que 
  \begin{equation}
 	\label{eq:densidadexponencial2}

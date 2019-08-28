@@ -17,6 +17,7 @@ Consideremos una función del parámetro de una familia paramétrica $\familiapa
 Una clase muy importante de estimadores son los estimadores insesgados. 
 
 \begin{definition}[Estimador insesgado]
+	\label{def:estimador_insesgado}
 	Sea $\ghx$ un estimador de $g(\theta)$. Este estimador es insesgado si 
 	\begin{equation}
 		\E{\ghx} = g(\theta)
@@ -89,82 +90,141 @@ cumple con
 es decir, el estimador $S'_2$ en la ecuación \eqref{eq:est_varianza_insesgado} es insesgado.
 \end{example}
 
-\clase{clase 29/8}
+\clase{Clase 8: 29/8}
+Para tener una notación más limpia, desde ahora nos referiremos a estimadores $\phi=\gh$ de $\theta$ en general para evitar la expresión más engorrosa estimador $\gh(X)$ de $g(\theta)$.
 
 
-Es natural evaluar la bondad de distintos estimadores (sesgados o insesgados), una forma de hacer esto es definir una función de \textit{pérdida} o \textit{costo} que compara el valor reportado por el estimador y el valor real del parámetro. Luego, como el estimador es una VA, podemos calcular la esperanza de la función de pérdida, lo cual conocemos como riesgo. En general, el costo más frecuentemente utilizado es el costo cuadrático, el cual, de acuerdo a lo recién explicado, tiene el siguiente riesgo: 
 
-\begin{alignat*}{3}
- 	R(\theta, \hat{g})  &= \E{(g(\theta) - \ghX)^2}\\
- 						& = \E{\left(g(\theta) - \bar{g}+ \bar{g} -\ghX\right)^2}; \quad \bar{g} = \E{ \ghX}\\
- 						& = \E{(g(\theta) - \bar{g})^2+2(g(\theta) - \bar{g})\cancel{(\bar{g} -\ghX)} +  (\bar{g} -\ghX)^2}\\
- 						& = \underbrace{(g(\theta) - \bar{g})^2}_{=b_{\gh}^2\ (\text{sesgo}^2)} +  \underbrace{\E{(\bar{g} -\ghX)^2}}_{=V_{\gh}\ \text{(varianza)}}
- \end{alignat*} 
+Es natural evaluar la bondad de distintos estimadores (sesgados o insesgados), una forma de hacer esto es definir una función de \textit{pérdida} o \textit{costo} que compara el valor reportado por el estimador y el valor real del parámetro. En general, elegimos la función de pérdida cuadrática para un estimador $\phi$ y un parámetro $\theta$ definida por 
+\begin{equation}
+	L_2(\phi,\theta)^2 = (\phi - \theta)^2.
+\end{equation}
+Luego, como el estimador es una VA, también lo es función de pérdida, por lo que podemos calcular la esperanza de la función de pérdida, lo cual conocemos como \textit{riesgo}. El riesgo asociado a la pérdida cuadrática en la ecuación anterior está dado por: 
+\begin{alignat}{3}
+ 	R(\theta, \hat{g})  &= \E{(\theta - \phi)^2}\nonumber\\
+ 						& = \E{\left(\theta - \bar{g}+ \bar{g} -\phi\right)^2}; \quad \text{denotando }\bar{\phi} = \E{ \phi}\nonumber\\
+ 						& = \E{(\theta - \bar{\phi})^2+2(\theta - \bar{\phi})\cancel{(\bar{\phi} -\phi)} +  (\bar{\phi} -\phi)^2}\nonumber\\
+ 						& = \underbrace{(\theta - \bar{\phi})^2}_{=b_{\phi}^2\ (\text{sesgo}^2)} +  \underbrace{\E{(\bar{\phi} -\phi)^2}}_{=V_{\phi}\ \text{(varianza)}}.\label{eq:riesgo_cuad}
+ \end{alignat} 
 
- Consecuentemente, si un estimador es insesgado el riesgo es simplemente su varianza, lo cual motiva la siguiente definición de optimalidiad para estimadores insesgados. 
 
- \begin{definition}[Estimador insesgado de varianza uniformemente mínima]
-  	El estimador $\gh(x)$ de $g(\theta)$ es un estimador insesgado de varianza uniformemente mínima (EIVUM) si es insesgado y si $\forall \gh^*:\cX\rightarrow g(\Theta)$ estimador insesgado se tiene
-  	\begin{equation}
-  		\Vt{\gh}\leq\Vt{\gh^*}, \forall \theta\in\Theta.
-  	\end{equation}
-  \end{definition} 
-
-\begin{example}
-	Consideremos $x=(x_1,\ldots,x_n)\sim\ber{\theta}$ y sea $g(\theta)=\theta$ y sean los siguientes estimadores
-	\begin{itemize}
-		\item $\gh_1(x) = x_1$
-		\item $\gh_2(x) = \frac{1}{2}(x_1+x_2)$
-		\item $\gh_3(x) = \frac{1}{n}\sum_{i=1}^n x_i$
-	\end{itemize}
-	Observemos que todos estos estimadores son insesgados, puese como $\forall i, \Et{x_i} = \theta$, entonces 
-	\begin{equation}
-		\Et{\gh_1(x)} = \Et{\gh_2(x)} = \Et{\gh_3(x)} = \theta
-	\end{equation}
-	Veamos ahora que la varianza de $\gh_3(x)$ está dada por
-	\begin{equation}
-		\Vt{\gh_3(x)} = \Vt{\frac{1}{n}\sum_{i=1}^n x_i} = \frac{1}{n^2}\sum_{i=1}^n \Vt{x_i} = \frac{\theta(1-\theta)}{n}
-	\end{equation}
-	pues $\Vt{x_i} = \Et{(\theta - x_i)} = \Et{x_i^2} - \theta^2 = (0^2 \cdot (1-\theta) + 1^2 \cdot \theta) - \theta^2 = \theta(1-\theta)$. Consecuentemente, la varianza de los estimadores considerados decae como la inversa del número de muestras.
-\end{example}
+Con esta métrica para comparar estimadores, el siguiente teorema establece que la información reportada por un estadístico suficiente (Definición \ref{def:estadístico_suficiente}), puede solo mejorar un estimador. 
 
 \begin{theorem}[Teorema de Rao-Blackwell]
 	\label{teo:rao-blackwell}
-	Sea $\gh$ un estimador de $\theta$ tal que $\Et{\gh(X)}<\infty, \forall \theta$. Asumamos que existe $T$ estadístico suficiente para $\theta$ y sea $g^\star = \Et{\gh|T}$. Entonces, 
+	Sea $\phi = \phi(X)$ un estimador de $\theta$ tal que $\Et{\phi}<\infty, \forall \theta$. Asumamos que existe $T$ estadístico suficiente para $\theta$ y sea $\phi^\star = \Et{\phi|T}$. Entonces, 
 	\begin{equation}
-		\Et{(g^\star-\theta)^2} \leq \Et{(\gh-\theta)^2}, \forall\theta,
+		\Et{(\phi^\star-\theta)^2} \leq \Et{(\phi-\theta)^2}, \forall\theta,
 	\end{equation}
-	donde la desigualldad es estricta salvo en el caso donde $\gh$ es función de $T$.
+	donde la desigualdad es estricta salvo en el caso donde $\phi$ es función de $T$.
 \end{theorem}
 
-En otras palabras, el Teo. de Rao-Blackwell establece que un estimador puede ser \textit{mejorado} si es reemplazado por su esperanza condicional dado un estadístico suficiente. El proceso de equipar un estimado poco eficiente de esta forma es conocido como \textit{Rao-Blackwellización} y veremos un ejemplo a continuación.
+En otras palabras, el Teo. de Rao-Blackwell establece que un estimador puede ser \textit{mejorado} si es reemplazado por su esperanza condicional dado un estadístico suficiente. El proceso de mejorar un estimador poco eficiente de esta forma es conocido como \textit{Rao-Blackwellización} y veremos un ejemplo a continuación.
 
 
 \begin{example}
-Consideremos $X = (X_1,\ldots,X_n)\sim \poi{\theta}$ y estimemos el parámetro $\theta$. Para esto, usaremos el estimador básico $\gh = X_1$ y \textit{Rao-Blackwellicémoslo} usando el estimador suficiente $T=\sum_{i=1}^nX_i$, es decir, 
+Consideremos $X = (X_1,\ldots,X_n)\sim \poi{\theta}$ y estimemos el parámetro $\theta$. Para esto, consideremos el estimador básico $\phi = X_1$ y \textit{Rao-Blackwellicémoslo} usando el estimador suficiente $T=\sum_{i=1}^nX_i$, es decir, 
 \begin{equation}
-	g^* = \Et{X_1\middle|\sum_i X_i=t}.
+	\phi^* = \Et{X_1\middle|\sum_i X_i=t}.
 \end{equation}
 Para calcular esta esperanza condicional, observemos primero que  
 \begin{equation}
 	\sum_{j=1}^n\Et{X_j\middle|\sum_{i=1}^n X_i=t} = \Et{\sum_{j=1}^nX_j\middle|\sum_{i=1}^n X_i=t} = t
 \end{equation}
-y que como $X_1,\ldots,X_n$ son iid, entonces todos los términos dentro de la suma del lado izquierdo de la ecuación anterior son iguales. Consecuentemente, recupermos el estimador
+y que como $X_1,\ldots,X_n$ son iid, entonces todos los términos dentro de la suma del lado izquierdo de la ecuación anterior son iguales. Consecuentemente, recuperamos el estimador
 \begin{equation}
- 	g^* = \frac{t}{n} = \frac{1}{n}\sum_{i=1}^n
+ 	\phi^* = \frac{t}{n} = \frac{1}{n}\sum_{i=1}^nX_i
  \end{equation} 
+\end{example}
 
- \begin{proof}[Demosotración de Teorema \ref{teo:rao-blackwell}]
- 	La varianza del estimador $g^\star$ está dada por 
+Para demostrar el Teorema \ref{teo:rao-blackwell} consideremos dos variable aleatorias $X\in\cX$, $Y\in\cY$, y recordemos dos propiedades básicas. En primer lugar la ley de esperanzas totales, la cual establece que 
+\begin{alignat}{3}
+	\mathbb{E}_Y{\mathbb{E}_{X|Y}{(X|Y)}} &= \int_\cY\int_\cX x \d P(x|y) \d P(y) \quad\quad&&\text{def. esperanza}\nonumber\\
+				&=  \int_\cX x \int_\cY \d P(x|y) \d P(y) &&\text{linealidad}\nonumber\\
+				&=  \int_\cX x \int_\cY \d P(x,y) &&\text{def. esperanza condicional}\nonumber\\
+				&=  \int_\cX x \d P(x) = \mathbb{E}_X(X) &&\text{def. esperanza} \label{eq:total_expectation}
+\end{alignat}
+y la desigualdad de Jensen, la cual para el caso particular del costo cuadrático, puede verificarse que
+\begin{equation}
+	0 \leq \V{X} =  \E{X^2}-\E{X}^2 \Rightarrow \E{X^2} \geq \E{X}^2. \label{eq:jensen_var}
+\end{equation}
+\red{Falta: dibujo con la intuición detrás de Jensen en el caso general}
+
+Entonces, utilizando las expresiones en \eqref{eq:total_expectation} y \eqref{eq:jensen_var}, podemos demostrar el teorema anterior.
+
+ \begin{proof}[Demostración de Teorema \ref{teo:rao-blackwell}]
+ 	La varianza del estimador $\phi^\star$ está dada por 
  	\begin{alignat*}{2}
- 		\Et{(g^\star-\theta)^2} &= \Et{(\Et{\gh|T}-\theta)^2} \quad\quad\quad &&\text{def.}\\
- 								&= \Et{(\Et{\gh-\theta|T})^2}&& \text{linealidad}\\
- 								&\leq \Et{\Et{(\gh-\theta)^2|T}}&& \text{Jensen}\\
- 								&= \Et{(\gh-\theta)^2} &&\text{ley esperanzas totales}
+ 		\Et{(\phi^\star-\theta)^2} &= \Et{(\Et{\phi|T}-\theta)^2} \quad\quad\quad &&\text{def.}\\
+ 								&= \Et{(\Et{\phi-\theta|T})^2}&& \text{linealidad}\\
+ 								&\leq \Et{\Et{(\phi-\theta)^2|T}}&& \text{Jensen}\\
+ 								&= \Et{(\phi-\theta)^2} &&\text{ley esperanzas totales}
  	\end{alignat*}
-Donde las esperanzas exteriores son con respecto a $T$ y las interiores con respecto a $X$. 
- 	
+Donde las esperanzas exteriores son con respecto a $T$ y las interiores con respecto a $X$ (o equivalentemente a $\phi$).  Observemos además que la desigualdad anterior viene de la expresión en la ecuación \eqref{eq:jensen_var}, por lo que la igualdad es obtenida si $\V{\phi-\theta|T} = 0$, es decir, la VA $\phi-\theta$ tiene que ser constante para cada valor de $T$, es decir, $\phi$ es función de $T$. Intuitivamente podemos entender esto como que si el estadístico ya fue considerado en el estimador, entonces conocer el valor del estadístico no reporta información adicional. 
  \end{proof}
 
-	
+\begin{remark}
+	Notemos que si el estimador $\phi$ es insesgado, su \textit{Rao-Blackwellización} $\phi^*$ también lo es, en efecto
+	\begin{equation}
+		\Et{\phi^*} = \Et{\Et{\phi|T}} = \Et{\phi} = \theta,
+	\end{equation}
+	donde la segunda igualdad está dada por la ley de esperanzas totales y la tercera por el supuesto de que $\phi$ es insesgado.
+\end{remark}
+
+
+
+En base al riesgo cuadrático definido en la ecuación \eqref{eq:riesgo_cuad}, podemos ver que si un estimador es insesgado (Definición \ref{def:estimador_insesgado}), su riesgo cuadrático es únicamente su varianza. Esto motiva la siguiente definición de optimalidad para estimadores insesgados. 
+
+ \begin{definition}[Estimador insesgado de varianza uniformemente mínima]
+  	El estimador $\phi$ de $\theta$ es un estimador insesgado de varianza uniformemente mínima (EIVUM) si es insesgado y si $\forall \phi':\cX\rightarrow \Theta$ estimador insesgado se tiene
+  	\begin{equation}
+  		\Vt{\phi}\leq\Vt{\phi'}, \forall \theta\in\Theta.
+  	\end{equation}
+  \end{definition} 
+
+\begin{example}
+	Consideremos $x=(x_1,\ldots,x_n)\sim\ber{\theta}$ y los siguientes estimadores de $\theta$
+	\begin{itemize}
+		\item $\phi_1(x) = x_1$
+		\item $\phi_2(x) = \frac{1}{2}(x_1+x_2)$
+		\item $\phi_3(x) = \frac{1}{n}\sum_{i=1}^n x_i$
+	\end{itemize}
+	Observemos que todos estos estimadores son insesgados, pues como $\forall i, \Et{x_i} = \theta$, entonces 
+	\begin{equation}
+		\Et{\phi_1(x)} = \Et{\phi_2(x)} = \Et{\phi_3(x)} = \theta
+	\end{equation}
+	Veamos ahora que la varianza de $\phi_3(x)$ está dada por
+	\begin{equation}
+		\Vt{\phi_3(x)} = \Vt{\frac{1}{n}\sum_{i=1}^n x_i} = \frac{1}{n^2}\sum_{i=1}^n \Vt{x_i} = \frac{\theta(1-\theta)}{n}
+	\end{equation}
+	pues $\Vt{x_i} = \Et{(\theta - x_i)} = \Et{x_i^2} - \theta^2 = (0^2 \cdot (1-\theta) + 1^2 \cdot \theta) - \theta^2 = \theta(1-\theta)$. Consecuentemente, la varianza de los estimadores considerados decae como la inversa del número de muestras.
 \end{example}
+
+Con las definiciones anteriores, podemos mencionar el siguiente teorema, el cual conecta la noción de estadístico completo con la de EIVUM. 
+
+\begin{theorem}[Teorema de Lehmann-Scheffé]
+	Sea $X$ una VA con distribución paramétrica $\familiaparametrica$ y $T$ un estadístico suficiente y completo para $\theta$. Si el estimador $\phi = \phi(T)$ de $\theta$ es insesgado, entonces $\phi$ es el único EIVUM. 
+ \end{theorem} 
+
+ \begin{proof}
+ 	Veamos en primer lugar que es posible construir un estimador en función del estadístico $\phi(T)$ que tiene menor o igual varianza que un estimador arbitrario $\phi'(X)$. En efecto, el Teorema de Rao-Blackwell estable ce que el estimador 
+ 	\begin{equation}
+ 		\phi(T) = \Et{\phi'(X)|T},
+ 	\end{equation}
+ 	tiene efectivamente menos varianza que $\phi'(X)$.
+
+ 	Ahora veamos que solo existe un único estimador insesgado que es función de $T$, en efecto, si existiesen dos estimadores insesgados de $\theta$, $\phi_1(T),\phi_2(T)$, entonces, $\Et{\phi_1(T)-\phi_1(T)}=0$ y como $T$ es completo, entonces, $\phi_1(T) = \phi_2(T)$ c.s.-$P_\theta$.
+
+ 	Hemos probado que (i) para un estimador arbitrario, se puede construir un estimador que es función de $T$ el cual tiene menor o igual varianza que el estimador original y, (ii) el estimador insesgado $\phi(T)$ es único. Consecuentemente, $\phi(T)$ es el único EIVUM.
+ \end{proof}
+
+El Teorema de Lehmann-Scheffé da una receta para encontrar el EIVUM: simplemente es necesario encontrar un estadístico completo y construir un estimador insesgado en base a éste, esto garantiza que el estimador construido es el \textbf{único} EIVUM.
+\begin{example}[EIVUM para Bernoulli]
+	Recordemos que en el Ejemplo \ref{eq:est_completo_bernoulli} vimos que el estadístico $T=\sum_{i=1}^nX_i$ es completo para $X\sim\ber{\theta}$. Como el estimador de $\theta$ dado por $\phi(T) = T/n$ es insesgado, 
+\begin{equation}
+	\Et{\phi(T)} = \Et{T/n} = \sum_{i=1}^n \Et{X_i} /n = \theta,
+\end{equation}
+entonces $\phi(T) = T/n$ es el EIVUM para $\theta$ en $\ber{\theta}$.	
+\end{example}
+
+	
