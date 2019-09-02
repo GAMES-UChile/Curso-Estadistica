@@ -99,10 +99,10 @@ Es natural evaluar la bondad de distintos estimadores (sesgados o insesgados), u
 \begin{equation}
 	L_2(\phi,\theta)^2 = (\phi - \theta)^2.
 \end{equation}
-Luego, como el estimador es una VA, también lo es función de pérdida, por lo que podemos calcular la esperanza de la función de pérdida, lo cual conocemos como \textit{riesgo}. El riesgo asociado a la pérdida cuadrática en la ecuación anterior está dado por: 
+Luego, como el estimador es una VA, también lo es la función de pérdida, por lo que podemos calcular la esperanza de la función de pérdida, lo cual conocemos como \textit{riesgo}. El riesgo asociado a la pérdida cuadrática en la ecuación anterior está dado por: 
 \begin{alignat}{3}
  	R(\theta, \hat{g})  &= \E{(\theta - \phi)^2}\nonumber\\
- 						& = \E{\left(\theta - \bar{g}+ \bar{g} -\phi\right)^2}; \quad \text{denotando }\bar{\phi} = \E{ \phi}\nonumber\\
+ 						& = \E{\left(\theta - \bar{\phi}+ \bar{\phi} -\phi\right)^2}; \quad \text{denotando }\bar{\phi} = \E{ \phi}\nonumber\\
  						& = \E{(\theta - \bar{\phi})^2+2(\theta - \bar{\phi})\cancel{(\bar{\phi} -\phi)} +  (\bar{\phi} -\phi)^2}\nonumber\\
  						& = \underbrace{(\theta - \bar{\phi})^2}_{=b_{\phi}^2\ (\text{sesgo}^2)} +  \underbrace{\E{(\bar{\phi} -\phi)^2}}_{=V_{\phi}\ \text{(varianza)}}.\label{eq:riesgo_cuad}
  \end{alignat} 
