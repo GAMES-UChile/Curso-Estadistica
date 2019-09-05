@@ -1,0 +1,141 @@
+\documentclass[11pt]{article}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{url}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{multicol}
+\usepackage{mwe} % for blindtext and example-image-a in example
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{dsfont}
+
+
+\usepackage{amsmath,amssymb}
+\usepackage[utf8]{inputenc}
+
+
+\renewcommand{\labelenumi}{\normalsize\bfseries P\arabic{enumi}.}
+\renewcommand{\labelenumii}{\normalsize\bfseries (\alph{enumii})}
+\renewcommand{\labelenumiii}{\normalsize\bfseries \roman{enumiii})}
+
+\oddsidemargin -1.0cm
+\textwidth 18.4cm
+\topmargin -2.5cm
+\textheight 24cm
+
+\DeclareMathOperator{\sen}{sen}
+\DeclareMathOperator{\senh}{senh}
+\DeclareMathOperator{\arcsen}{arcsen}
+\DeclareMathOperator{\tg}{tg}
+\DeclareMathOperator{\arctg}{arctg}
+\DeclareMathOperator{\ctg}{ctg}
+\DeclareMathOperator{\dom}{Dom}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\rec}{Rec}
+\DeclareMathOperator{\inte}{Int}
+\DeclareMathOperator{\adh}{Adh}
+\DeclareMathOperator{\fr}{Fr}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\argmin}{\text{argmín}}
+
+\let\lim=\undefined\DeclareMathOperator*{\lim}{\text{lím}}
+\let\max=\undefined\DeclareMathOperator*{\max}{\text{máx}}
+\let\min=\undefined\DeclareMathOperator*{\min}{\text{mín}}
+\let\inf=\undefined\DeclareMathOperator*{\inf}{\text{ínf}}
+
+\providecommand{\abs}[1]{\lvert #1\rvert}
+
+
+\newcommand{\ssi}{\Longleftrightarrow}
+\newcommand{\imp}{\Longrightarrow}
+\newcommand{\pmi}{\Longleftarrow}
+\newcommand{\ipartial}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\ider}[2]{\dfrac{d #1}{d #2}}
+\newcommand{\iipartial}[2]{\dfrac{\partial^2 #1}{\partial #2^2}}
+\newcommand{\iider}[2]{\dfrac{d^2 #1}{d #2^2}}
+\newcommand{\ijpartial}[3]{\dfrac{\partial^2 #1}{\partial #2 \partial #3}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\sol}{\textbf{\emph{Solución: }}}
+\newcommand{\dem}{\textbf{\emph{Demostración: }}}
+
+\newcommand{\tarea}[5]{\Large \textbf{Tarea #1: #2}\\ \normalsize \textbf{Profesor: } #3\\ \textbf{Auxiliares: }#4\\ \textbf{Fecha de entrega: }#5}
+\newcommand{\aux}[4]{\Large \textbf{Auxiliar #1: #2}\\ \normalsize \textbf{Profesor: } #3\\ \textbf{Auxiliares: }#4}
+\newcommand{\pauta}[4]{\Large \textbf{Pauta #1 N#2}\\ \normalsize \textbf{Profesor: }#3\\ \textbf{Auxiliares: }#4}
+\newcommand{\enc}[3]{\Large \textbf{#1}\\ \normalsize \textbf{Profesor: } #2\\ \textbf{\Auxiliares :} #3}
+
+\pagestyle{fancy}
+\usepackage[left=2cm,top=2cm,right=2cm]{geometry}
+
+\begin{document}
+
+
+\fancyhead[L]{{Facultad de Ciencias Físicas y Matemáticas}}
+\fancyhead[R]{{Universidad de Chile}}
+\begin{wrapfigure}{R}{0.3\textwidth} %this figure will be at the right
+    \vspace{-5mm}
+    \includegraphics[width=0.35\textwidth]{dim.pdf}
+\end{wrapfigure}
+\noindent Departamento de Ingeniería Matemática\\ 
+MA3402-1 Estadística\\ 
+3 de septiembre de 2019
+
+\hfill\break
+\begin{center}
+\tarea{1}{Estimador de máxima verosimilitud}{Felipe Tobar}{Diego Marchant, Francisco Vásquez}{11 de septiembre 2019}
+\end{center}
+\textbf{Contexto:} Esta tarea contiene partes teóricas y prácticas, donde el objetivo es evaluar su conocimiento sobre estimadores de máxima verosimilitud y cómo construirlos en situaciones reales. Por esta razón, es fundamental que sus respuestas estén presentadas de forma clara y evidencien su entendimiento de los conceptos evaluados y su análisis científico. \\
+\textbf{Indicaciones:} Esta tarea debe ser realizada en grupos de 2 alumnos y si bien puede ser producida en cualquier formato (\LaTeX\  recomendado) debe ser entregada en formato \texttt{.pdf} con una extensión máxima de 3 páginas incluyendo figuras, título, discusión y desarrollo. 
+
+\begin{enumerate}\setlength{\itemsep}{0.4cm}
+
+\item Considere las siguientes distribuciones uniformes: 
+\begin{enumerate}
+    \item $p_1(x|\theta) = 1/\theta,\ 0\leq x \leq \theta$
+    \item $p_2(x|\theta) = 1/\theta,\ 0< x < \theta$
+    \item $p_3(x|\theta) = 1,\ \theta\leq x \leq \theta+1$
+\end{enumerate}
+y asuma que para cada una de ellas tiene un conjunto de observaciones (o muestras IID) $x=(x_1,...,x_n)$. Calcule la verosimilitud para el parámetro $\theta$ en cada caso y analice la existencia y unicidad de estimador de máxima verosimilitud.
+
+\item Usted ha sido contratado como  \textit{chief data science officer} en una importante aerolínea internacional. Su primer proyecto, de alta prioridad para la aerolínea, es predecir el número de pasajeros que vuelan en la aerolínea cada mes. Para esto, la unidad de estadística de la compañía indica que el número de pasajeros en el tiempo crece de forma cuadrática y exhibe una estacionalidad anual. Además, estudios preliminares de dicha división entregan evidencia para asumir que la dispersión sobre las tendencias recién descritas puede ser modelada como una VA gaussiana. Con esto, su equipo propone modelar el número de pasajeros $X$ en el tiempo $t$ de acuerdo a 
+
+\begin{equation}
+	X|t \sim \mathcal{N}\left(\theta_0 + \theta_1t + \theta_2t^2 + \theta_3e^{\theta_4t}\cos\left(\theta_5t+\theta_6\right),\theta_7^2\right),
+\end{equation}
+donde $\{\theta_0,\theta_1,\theta_2\}$ modelan la tendencia cuadrática, $\{\theta_3,\theta_4,\theta_5,\theta_6\}$ modelan la amplitud y frecuencia de la parte oscilatoria, y $\theta_7$ es la desviación estándar del modelo. Nos referiremos a $\theta$ como en el vector que contiene todos los parámetros antes descrito. El objetivo de este ejercicio es usar datos reales para identificar todos estos parámetros y hacer predicciones. Para este fin, siga las siguientes instrucciones. 
+
+\begin{enumerate}
+	\item Considere un conjunto de observaciones de instantes de tiempo y de cantidad de pasajeros de la forma $\{(t_i,x_i)\}_{i=1}^n$. Calcule la log-verosimilitud de $\theta$. 
+	\item Asuma que $\{\theta_4,\theta_5,\theta_6\}$ son conocidos y encuentre estimador de máxima verosimilitud para el resto de los parámetros de forma analítica. \textbf{Hint:} escriba la media de la normal como $\hat{\theta}^\top\phi(t)$, donde $\hat{\theta}^\top = [\theta_0,\theta_1,\theta_2,\theta_3]$ y $\phi(t)$ no depende de ningún parámetro desconocido, y luego resuelva para $\hat{\theta}$ y para $\theta_7$. \textbf{¡Observe que la primera componente de $\phi$ es 1!}
+	\item Obtenga los datos de \url{https://www.kaggle.com/abhishekmamidi/air-passengers} y grafíquelos. 
+	\item Utilice estos datos para calcular los parámetros de acuerdo a su estimador de máxima verosimilitud y grafique la función de media junto a los datos. Elija valores apropiados para los parámetros que se asumieron conocidos. \textbf{Hint:} para elegir estos valores, interprete los parámetros (e.g., taza de crecimiento y frecuencia) y proceda mediante ``prueba y error'' usando su gráfico.
+	\item Encuentre el estimador de máxima verosimilitud para todos los parámetros del modelo. Para esto, programe su log-verosimilitud calculada en el punto \textbf{(a)} y optimícela usando la función \textit{minimize} del paquete \textit{SciPy}. Grafique nuevamente, pero esta vez indique la región confianza del 95\%. \textbf{Hint:} El intervalo de confianza del 95\% de la distribución Gaussiana $\mathcal{N}(\mu,\sigma^2)$ es $[\mu-2\sigma,\mu+2\sigma]$.
+	\item ¿Cómo puede verificar y convencer al resto de la compañía que su estimador  predice efectivamente la cantidad de pasajeros? ¿Puede su modelo \textit{generalizar a datos no vistos anteriormente}?
+\end{enumerate}
+
+
+
+\end{enumerate}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+\grid

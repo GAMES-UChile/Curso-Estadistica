@@ -227,4 +227,212 @@ El Teorema de Lehmann-Scheffé da una receta para encontrar el EIVUM: simplement
 entonces $\phi(T) = T/n$ es el EIVUM para $\theta$ en $\ber{\theta}$.	
 \end{example}
 
+\clase{Clase 9: 3/9}
+
+\section{Estimador de Máxima Verosimilitud} % (fold)
+\label{sec:estimador_de_máxima_verosimilitud}
+Hasta ahora, hemos estudiado distintas propiedades de estimadores (y estadísticos en general) y distintas relaciones entre ellos. Esto nos ha permitido evaluar si un estimador dado cumple con ciertas características como ser insesgado o tener varianza mínima, adicionalmente, hemos visto como \textit{mejorar} un estimador crudo mediante el Teorema de Rao-Blackwell. Sin embargo, nuestro estudio siempre ha comenzado con un estimador disponible en vez de construir un estimador, lo cual en la práctica puede ser no trivial. En esta sección, veremos cómo construir estimadores usando directamente la densidad de probabilidad de la VA $X\in\cX$, para cual recordemos la siguiente definición
+
+\begin{definition}[Función de verosimilitud]
+	\label{def:verosimilitud}
+	Sea $X\in\cX$ una VA con distribución paramétrica $\familiaparametrica$, donde $P_\theta$ tiene densidad $p_\theta$. Dada la observación $x \in\cX$, la verosimilitud del parámetro de $\theta$ está definida por
+	\begin{align*}
+		L: \Theta &\rightarrow \R_+\\
+			\theta &\mapsto L(\theta|x) = p_\theta(x).
+	\end{align*}
+	Adicionalmente, nos referiremos a $l(\theta|x)=\log L(\theta|x)$ como la log-verosimilitud.
+\end{definition}
+La definición anterior simplemente establece que la verosimilitud es la distribución (conjunta) de los datos pero donde tomamos los datos como fijos y el parámetro como variable, lo cual tiene sentido en aplicaciones de modelos estadísticos donde los datos son fijos y conocidos pero el modelo (parámetro)
+no lo es. Una consecuencia importante de este concepto es que la verosimilitud no es una densidad de probabilidad (en $\theta$) pues no integra 1 (con respecto a $\theta$). Notemos que nos referimos a la \textbf{verosimilitud del parámetro $\theta$} como la densidad de $x$ dado $\theta$ (y no al revés).
+
+La verosimilitud da las condiciones para determinar un estimador que recibe mucha atención en la literatura estadística: 
+
+\begin{definition}[Estimador de máxima verosimilitud (MV)]
+	Sea una observación $x$ y una función de verosimilitud $L(\theta)$, el estimador de máxima verosimilitud es 
+	\begin{equation}
+		\thetaMV = \arg\max_\theta L(\theta|x)
+	\end{equation}	
+\end{definition}
+
+Claramente, el estimador de MV puede ser definido con respecto a la verosimilitud o a cualquier función no decreciente de ésta, como también pude no existir o no ser único. En particular, nos enfocaremos en encontrar $\thetaMV$ mediante la maximización de la log-verosimilitud, la cual es usualmente más fácil de optimizar en términos computacionales o analíticos. De hecho, muchas veces incluso ignoraremos constantes de la (log) verosimilitud, pues éstas no cambian el máximo de $L(\theta)$.
+
+\begin{example}[Máxima verosimilitud: Bernoulli]
+	\label{ex:bernoulli_MV}
+	Sea $X_1,\ldots X_n\sim\ber{\theta}$, la verosimilitud de $\theta$ está dada por 
+	\begin{equation}
+		L(\theta) = \prod_{i=1}^n\theta^x_i(1-\theta)^{1-x_i}
+	\end{equation}
+	y su log-verosimilitud por $l(\theta) = (\sum_{i=1}^nx_i)\log \theta + (n-\sum_{i=1}^nx_i)\log(1-\theta)$. El estimador de  MV puede ser encontrado resolviendo $\frac{\partial l(\theta)}{\partial \theta} = 0$:
+	\begin{align*}
+	\frac{\partial l(\theta)}{\partial \theta} =0 
+	&\Rightarrow  (\sum_{i=1}^nx_i) \theta^{-1} = (n-\sum_{i=1}^nx_i)(1-\theta)^{-1}\\
+	&\Rightarrow  \sum_{i=1}^nx_i (1-\theta) = (n-\sum_{i=1}^nx_i) \theta\\
+	&\Rightarrow  \theta = \sum_{i=1}^nx_i/n.
+	\end{align*}
+Notemos que este estimador de MV ¡es a su vez el EIVUM!	
+\end{example}
+
+
+\begin{exercise}
+	Graficar $l(\theta)$ en el Ejemplo \ref{ex:bernoulli_MV}.
+\end{exercise}
+
+\begin{exercise}
+	Encuentre el estimador de MV de $\theta = (\mu,\Sigma)$ para la VA $X\sim\cN(\mu,\Sigma)$.
+\end{exercise}
+
+\begin{example}
+	Sea la VA $X\sim\uni{\theta}$, es decir, $p(x) = \theta^{-1} \ind_{0\leq x \leq \theta}$. Para calcular la verosimilitud, recordemos en primer lugar que la verosimilitud factoriza de acuerdo a  
+	\begin{equation}
+		L(\theta) = \prod_{i=1}^n p_\theta(x_i)
+	\end{equation}
+	y observemos que necesariamente $p_\theta(x_i) = 0$ si $x_i>\theta$. Consecuentemente, $L(\theta)>0$ solo si $\theta$ es mayor que toda las observaciones, en particular, si $\theta\geq\max\{x_i\}_1^n$.
+
+	Además, si efectivamente tenemos $\theta\geq\max\{x_i\}_1^n$, entonces notemos que $p_\theta(x_i) = 1/\theta$, por lo que la verosimilitud está dada por
+		\begin{equation}
+		L(\theta) = \theta^{-n}, \quad \theta\geq\max\{x_i\}_1^n
+	\end{equation}
+	y consecuentemente, el estimador de máxima verosimilitud es $\thetaMV = \max\{x_i\}_1^n$
+\end{example}
+
+\red{FALTA: propiedades del estimador de MV: familia exponencial, consistent, equivariant, asymptotically Normal, asymptotically optimal.}
+
+\section{Estimador de MV en la práctica: tres ejemplos} % (fold)
+\label{sub:MV_tres_ejemplos}
+
+\subsection{Regresión lineal y gaussiana} 
+\label{sub:reg_lin}
+
+
+Una aplicación muy popular del estimador de MV es en los modelos de regresión lineal y gaussianos. Consideremos el caso donde se desea modelar la cantidad de pasajeros que mensualmente viajan en una aerolínea, para esto, sabemos de nuestros colaboradores en la división de análisis de datos de la aerolínea que ésta cantidad tiene una tendencia de crecimiento cuadrática en el tiempo y además una componente oscilatoria de frecuencia anual. Estos fenómenos pueden ser explicados por el aumento de la población, los costos decrecientes de la aerolínea y la estacionalidad anual de las actividades económicas. 
+
+Asumiendo que la naturaleza de la cantidad de pasajeros es estocástica, podemos usar los supuestos anteriores para modelar la densidad condicional  de dicha cantidad (con respecto al tiempo $t$) mediante una densidad normal parametrizada de acuerdo a 
+\begin{equation}
+	X \sim \cN\left(\theta_0 + \theta_1 t^2 + \theta_2\cos(2\pi t/12), \theta_3^2\right),
+\end{equation}
+donde $\theta_0,\theta_1,\theta_2$ parametrizan la media y $\theta_3$ la varianza. 
+
+Consecuentemente, si nuestras observaciones están dadas por $\{(t_i,x_i)\}_{i=1}^n$ podemos escribir la log-verosimilitud de $\theta$ como 
+\begin{equation}
+	\label{eq:logV_ejemplo_reg}
+	l(\theta) = \theta_3^{-n} - \frac{1}{2\theta_3^2}\sum_{i=1}^n (x_i - \theta_0 - \theta_1 t_i^2 - \theta_2\cos(2\pi t_i/12))^2
+\end{equation}
+con lo que vemos que $\thetaMV$ puede ser calculado explícitamente y es función de $\{(t_i,x_i)\}_{i=1}^n$ debido a que la ecuación \ref{eq:logV_ejemplo_reg} es lineal en $[\theta_0,\theta_1\theta_2]$.
+
+
+% subsection estimador_de_mv_en_la_práctica_tres_ejemplos (end)
+
+\subsection{Regresión no lineal: clasificación} 
+\label{sub:clasif}
+
+La razón por la cual $\thetaMV$ pudo ser calculado de forma explícita es porque el modelo Gaussiano con media parametrizada de forma lineal resulta en una log-verosimilitud cuadrática, donde el mínimo es único y explícito. Sin embargo, en muchas situaciones el modelo lineal y gaussiano no es el apropiado. 
+
+Un ejemplo es esto es problema de evaluación crediticia (\textit{credit scoring}) donde en base a un conjunto de \textit{características} que definen a un cliente, un ejecutivo bancario debe evaluar si otorgarle o no el crédito que el cliente solicita. Para tomar esta decisión, el ejecutivo puede revisar la base de datos del banco e identificar los clientes que en el pasado pagaron o no pagaron sus créditos para determinar el perfil del \textit{pagador} y el del \textit{no-pagador}. Finalmente, un nuevo cliente puede ser \textit{clasificado} como pagador/no-pagador en base su similaridad con cada uno de estos grupos. 
+
+Formalmente, denotemos las características del cliente como $t\in\R^N$ y asumamos que el cliente paga su crédito con probabilidad $\sigma(t)$ y no lo paga con probabilidad $1- \sigma(t)$, la función $\sigma(t)$ a definir. Esto es equivalente a construir la VA $X$
+\begin{equation}
+ 	X|t \sim \ber{\sigma(t)}
+ \end{equation} 
+ donde $X=1$ quiere decir que el cliente paga su crédito y $X=0$ que no. Una elección usual para la función $\sigma(\cdot)$ es la función logística aplicada a una transformación lineal de $t$, es decir, 
+ \begin{equation}
+ 	\Pr{(X=1|t)} = \frac{1}{1+e^{-(\theta_0 + \theta_1 t)	}}.
+ \end{equation}
+Notemos que este es un clasificador lineal, donde $\theta = [\theta_0, \theta_1]$ define un hiperplano en $\R^N$ en donde los clientes $t\in\{t | 0\leq \theta_0 + \theta_1 t\}$ pagan con probabilidad mayor o igual a 1/2 y el resto con probabilidad menor o igual a 1/2. Esto es conocido como \textbf{regresión logística}. 
+
+Entonces, usando los registros bancarios $\{(x_i,t_i)\}_{i=1}^n$ ¿cuál es el $\theta = [\theta_0, \theta_1]$ de máxima verosimilitud? Para esto notemos que la log-verosimilitud puede ser escrita como 
+\begin{align*}
+	l(\theta) &= \log \prod_{i=1}^n p(x_i|t) \\
+			  &= \sum_{i=1}^n x_i \log \sigma(t) + \left(n-\sum_{i=1}^n x_i\right)\log(1-\sigma(t))\\
+			  &= \sum_{i=1}^n x_i \log \frac{1}{1+e^{-(\theta_0 + \theta_1 t)	}} + \left(n-\sum_{i=1}^n x_i\right)\log(1-\frac{1}{1+e^{-(\theta_0 + \theta_1 t)	}})
+\end{align*}
+Esta expresión no tiene mínimo global y a pesar que podemos calcular su gradiente, no podemos resolver $\partial l(\theta)/\partial \theta =0$ de forma analítica, por lo que debemos usar métodos de descenso de gradiente.  
+
+\subsection{Variables latentes: \textit{Expectation-Maximisation}} 
+\label{sub:EM}
+
+En ciertos escenarios es natural asumir que nuestros datos provienen de una mezcla de modelos, por ejemplo, consideremos la distribución de estaturas en una población, podemos naturalmente modelar esto como una mezcla de distribuciones marginales para las estaturas de hombres y mujeres por separado, es decir, 
+\begin{equation}
+	X\sim p\cN(X|\mu_H,\Sigma_H) + (1-p)\cN(X|\mu_M,\Sigma_M)
+\end{equation}
+donde la verosimilitud de los parámetros $\theta = [p, \mu_H, \sigma_H,, \mu_M, \sigma_M]$ dado un conjunto de observaciones $\{x_i\}_{i=1}^n$ es
+\begin{align*}
+	L(\theta) 	&= \prod_{i=1}^n \left( p\cN(X|\mu_H,\Sigma_H) + (1-p)\cN(X|\mu_M,\Sigma_M) \right)\\
+				&= \prod_{i=1}^n \left( p\frac{1}{\sqrt{2\pi\Sigma_H^{-1}}}\expo{\frac{-(x_i-\mu_H)^2}{2\Sigma^2_H}} + (1-p)\frac{1}{\sqrt{2\pi\Sigma_M^{-1}}}\expo{\frac{-(x_i-\mu_M)^2}{2\Sigma^2_M}}\right).
+\end{align*}
+Optimizar esta expresión con respecto a las 5 componentes de $\theta$ es difícil, en particular por la suma en la expresión, lo cual no permite simplificar la expresión mediante la aplicación de $\log(\cdot)$. 
+
+Una interpretación de la diferencia de este modelo con respecto a los anteriores es la introducción implícita de una  \textit{variable latente} que describe de qué gaussiana fue generada cada observación. Si conociésemos esta variable latente, el problema sería dramáticamente más sencillo. En efecto, asumamos que tenemos a nuestra disposición las observaciones $\{z_i\}_{i=1}^n$ de la VA $\{Z_i\}_{i=1}^n$ las cuales denota de qué modelo es generada cada observación, por ejemplo, $Z_i=0$ (cf. $Z_i=1$) denota que el individuo con estatura $X_i$ es hombre (cf.~mujer).
+ 
+En este caso, asumamos por un segundo que estas variables latentes están disponibles y consideremos los \textbf{datos completos} $\{(x_i,z_i)\}_{i=1}^n$ para escribir la función de verosimilitud completa mediante
+\begin{align*}
+	l(\theta|z_i,x_i) &= \prod_{i=1}^n \cN(X|\mu_H,\Sigma_H)^{z_i} \cN(X|\mu_M,\Sigma_M)^{(1-z_i)}\\
+	&\hspace{-3em}= \sum_{i=1}^n \left( z_i\log\frac{1}{\sqrt{2\pi\Sigma_H^{-1}}}\expo{\frac{-(x_i-\mu_H)^2}{2\Sigma^2_H}} + (1-z_i)\log\frac{1}{\sqrt{2\pi\Sigma_M^{-1}}}\expo{\frac{-(x_i-\mu_M)^2}{2\Sigma^2_M}}\right).
+\end{align*}
+Esta función objetivo es mucho más fácil de optimizar, pero no es observable pues la VA $Z$ es desconocida. Una forma de resolver esto es tomando la esperanza condicional de la expresión anterior (con respecto a $Z$) condicional a los datos y los parámetros \textit{actuales}, para luego maximizar esta expresión c.r.a. $\theta$ y comenzar nuevamente. Específicamente, como la expresión anterior es lineal en $z_i$ basta con tomar su esperanza: 
+\begin{align*}
+	\Et{Z_i|\theta_t,x_i} &= 1\cdot\Prob{Z_i=1|\theta_t,x_i} + 0\cdot\Prob{Z_i=0|\theta_t,x_i}\\
+	&= 	\frac{\Prob{x_i|\theta_t,z_i=1} p(z_i=1)}{p(x_i|\theta)}\\
+	&= 	\frac{\Prob{x_i|\theta_t,z_i=1} p(z_i=1)}{p(x_i|z=1,\theta)p(z=1)+p(x_i|z=0	,\theta)p(z=0)}
+\end{align*}
+
+
+
+
+% section estimador_de_máxima_verosimilitud (end)
+
+
+
+\clase{Clase 10: 5/9}
+
+\section{Propiedades del EMV} % (fold)
+\label{sec:propiedades_EMV}
+
+La primera propiedad que veremos del EMV es su consistencia. Que un estimador sea \textit{consistente} quiere decir que éste tiende (de alguna forma) al parámetro real a medida vamos considerando más datos. Para verificar esto, primero definamos la divergencia de Kullback-Leibler entre las densidades $f$ y $g$ como 
+\begin{equation}
+	\KL{f}{g} = \int_\cX f(x)\loga{\frac{f(x)}{g(x)}}\dx
+\end{equation}
+Observemos que la divergencia KL es siempre positiva $\forall f,g$ (desigualdad de Gibbs):
+\begin{align*}
+ 	-\KL{f}{g}  &= \int_\cX f(x)\loga{\frac{g(x)}{f(x)}}\dx\\
+ 				&\leq \loga{\int_\cX f(x)\frac{g(x)}{f(x)}}\dx, \quad\quad \text{(Jensen's)}\\
+ 				&= \loga{\int_\cX g(x)}\dx\\
+ 				&=\log 1=0	
+ \end{align*} 
+ y como $\log$ es estrictamente convexo, la igualdad solo se cumple si el argumento $\frac{g(x)}{f(x)}$ es constante, lo cual se tiene solo para ${g(x)} = {f(x)}$.
+
+ Otra propiedad clave de la divergencia KL es que puede ser infinita y es asimétrica. La intuición detrás de la KL es que es una medida de \textit{error} de estimar una distribución con respecto a la otra. 
+
+ Con la KL, definiremos que un modelo/parámetro es \textbf{identificable} si los valores para los parámetros $\theta\neq\theta'$ implican $\KL{p_\theta}{p\theta'}>0$ lo que significa que distintos valores del parámetro dan origen a distintos modelos---asumiremos desde ahora que los modelos considerados son identificables.
+
+Observemos que el estimado de MV puede ser obtenido de la maximización de
+
+\begin{equation}
+ 	M_n (\theta') = n^{-1} (l_n(\theta') - l_n(\theta))  = \frac{1}{n} \sum_{i=1}^n \loga{\frac{p_{\theta'}(x_i)}{p_{\theta}(x_i)}}
+ \end{equation} 
+ donde $n$ es la cantidad de observaciones $x_1,\ldots,x_n$, $\theta$ es el parámetro real y $l_n(\cdot)$ es la log-verosimilitud. Esto es posible porque $l_n(\theta)$ es constante para $\theta'$. Veamos que gracias a la ley de los grandes números, tenemos que 
+ \begin{equation}
+ 	M_n(\theta') \rightarrow \Et{\loga{\frac{p_{\theta'}(x)}{p_{\theta}(x)}}} = -\Et{\loga{\frac{p_{\theta}(x)}{p_{\theta'}(x)}}} = -\KL{p_\theta}{p_{\theta'}}
+ \end{equation}
+
+ Consecuentemente, como el objetivo del estimador de MV tiende a la KL negativa, entonces maximizar la verosimilitud es equivalente a minimizar la KL-divergencia entre el modelo real y el modelo generado por el parámetro. Si el modelo generado tiende al modelo real, nuestro supuesto de \textit{identificabilidad} implica que el estimador de MV tiene al parámetro real. 
+
+ Otra propiedad muy utilizada en la práctica es el \textbf{Principio de equivarianza}, el cual establece que si $\thetaMV$ es el estimador de MV de $\theta$, entonces, $g(\thetaMV)$ es el estimador de MV del parámetro transformado $g(\theta)$.
+
+\begin{example}(Cálculo del EMV en Gaussiana: varianza versus precisión versus log-precisión versus cholesky - reparametrisation trick)
 	
+\end{example}
+
+Otra propiedad es la \textbf{normalidad asintótica del EMV}, esto significa que la distribución del estimador ML (como cantidad aleatoria) es normal a medida se incluyen más observaciones. 
+
+\vspace{2cm}
+
+
+
+score vector (tiene derivada nula - ejemplo slide 96)
+
+FI matrix: varianza del score (de grupo e individual)
+
+CRamer rao
+LB
+
+
