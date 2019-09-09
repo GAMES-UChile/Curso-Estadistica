@@ -313,10 +313,11 @@ Asumiendo que la naturaleza de la cantidad de pasajeros es estocástica, podemos
 donde $\theta_0,\theta_1,\theta_2$ parametrizan la media y $\theta_3$ la varianza. 
 
 Consecuentemente, si nuestras observaciones están dadas por $\{(t_i,x_i)\}_{i=1}^n$ podemos escribir la log-verosimilitud de $\theta$ como 
-\begin{equation}
+\begin{align}
 	\label{eq:logV_ejemplo_reg}
-	l(\theta) = \theta_3^{-n} - \frac{1}{2\theta_3^2}\sum_{i=1}^n (x_i - \theta_0 - \theta_1 t_i^2 - \theta_2\cos(2\pi t_i/12))^2
-\end{equation}
+	l(\theta) 	&=\loga{\prod_{i=1}^n \frac{1}{\sqrt{2\pi\theta_3^2}}\expo{-\frac{(x_i-\theta_0 - \theta_1 t^2 - \theta_2\cos(2\pi t/12))^2}{2\theta_3^2}}}\nonumber \\
+	&=\frac{n}{2}\loga{2\pi\theta_3^2}  - \frac{1}{2\theta_3^2}\sum_{i=1}^n (x_i - \theta_0 - \theta_1 t_i^2 - \theta_2\cos(2\pi t_i/12))^2
+\end{align}
 con lo que vemos que $\thetaMV$ puede ser calculado explícitamente y es función de $\{(t_i,x_i)\}_{i=1}^n$ debido a que la ecuación \ref{eq:logV_ejemplo_reg} es lineal en $[\theta_0,\theta_1\theta_2]$.
 
 
