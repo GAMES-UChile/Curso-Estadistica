@@ -318,7 +318,7 @@ Consecuentemente, si nuestras observaciones están dadas por $\{(t_i,x_i)\}_{i=1
 	l(\theta) 	&=\loga{\prod_{i=1}^n \frac{1}{\sqrt{2\pi\theta_3^2}}\expo{-\frac{(x_i-\theta_0 - \theta_1 t^2 - \theta_2\cos(2\pi t/12))^2}{2\theta_3^2}}}\nonumber \\
 	&=\frac{n}{2}\loga{2\pi\theta_3^2}  - \frac{1}{2\theta_3^2}\sum_{i=1}^n (x_i - \theta_0 - \theta_1 t_i^2 - \theta_2\cos(2\pi t_i/12))^2
 \end{align}
-con lo que vemos que $\thetaMV$ puede ser calculado explícitamente y es función de $\{(t_i,x_i)\}_{i=1}^n$ debido a que la ecuación \ref{eq:logV_ejemplo_reg} es lineal en $[\theta_0,\theta_1\theta_2]$.
+con lo que vemos que $\thetaMV$ puede ser calculado explícitamente y es función de $\{(t_i,x_i)\}_{i=1}^n$ debido a que la ecuación \eqref{eq:logV_ejemplo_reg} es cuadrática en $[\theta_0,\theta_1,	\theta_2]$.
 
 
 % subsection estimador_de_mv_en_la_práctica_tres_ejemplos (end)
@@ -417,6 +417,7 @@ Observemos que el estimado de MV puede ser obtenido de la maximización de
 
  Consecuentemente, como el objetivo del estimador de MV tiende a la KL negativa, entonces maximizar la verosimilitud es equivalente a minimizar la KL-divergencia entre el modelo real y el modelo generado por el parámetro. Si el modelo generado tiende al modelo real, nuestro supuesto de \textit{identificabilidad} implica que el estimador de MV tiene al parámetro real. 
 
+\clase{clase 11: 10/9}
  Otra propiedad muy utilizada en la práctica es el \textbf{Principio de equivarianza}, el cual establece que si $\thetaMV$ es el estimador de MV de $\theta$, entonces, $g(\thetaMV)$ es el estimador de MV del parámetro transformado $g(\theta)$.
 
 \begin{example}(Cálculo del EMV en Gaussiana: varianza versus precisión versus log-precisión versus cholesky - reparametrisation trick)
@@ -441,7 +442,7 @@ Ahora, derivemos una vez más con lo cual obtenemos:
 \end{align*}
 donde podemos observar que cada una de estos términos tiene la misma magnitud (uno es negativo y el otro es positivo). Esta magnitud es conocida como \textit{información de Fisher}, denotada como 
 \begin{equation}
-		I(\theta) = \Et{\left(\frac{\partial \log   p_\theta(X)}{\partial\theta}\right)^2} = 	-\Et{\frac{\partial^2 \log   p_\theta(X)}{\partial\theta^2}}
+		I(\theta) = \Et{\left(\frac{\partial \log   p_\theta(X)}{\partial\theta}\right)^2} = 	-\Et{\frac{\partial^2 \log   p_\theta(X)}{\partial\theta^2}}.
 \end{equation}	
 Recordemos además que como la esperanza de la función de puntaje es nulo, entonces, su varianza puede ser expresada como 
 \begin{equation}
@@ -449,8 +450,27 @@ Recordemos además que como la esperanza de la función de puntaje es nulo, ento
 \end{equation}
 consecuentemente, la información de Fisher también es la varianza de la función de pérdida. Ya contamos con tres expresiones para poder calcular esta cantidad. 
 
-\begin{exercise}[Cálculo de la información de Fisher para Bernoulli, Poisson, Exponencial]
-	
+\begin{exercise}[Cálculo de la información de Fisher para Bernoulli]
+	Consideremos $X\sim\ber{\theta}$, entonces, 
+	\begin{align}
+		I(\theta) &= -\Et{\frac{\partial^2}{\partial\theta^2}\loga{\theta^X(1-\theta)^{1-X}}}\nonumber\\
+		&= -\Et{\frac{\partial^2}{\partial\theta^2} X\log\theta + \frac{\partial^2}{\partial\theta^2} 	(1-X)\loga{1-\theta}	}\nonumber\\
+		&= \Et{X\theta^{-2} + (1-X)(1-\theta)^{-2}	}\nonumber\\
+		&= \theta^{-1} + (1-\theta)^{-1}	\nonumber\\
+		&= 	\frac{1}{\theta(1-\theta)}	
+	\end{align}
+\end{exercise}
+
+\begin{exercise}[Cálculo de la información de Fisher para Poisson]
+	Consideremos $X\sim\poi{\theta}$, entonces, 
+	\begin{align}
+		I(\theta) &= \Et{\left(\frac{\partial}{\partial\theta}\loga{\frac{\theta^Xe^{-\theta}}{X!}}\right)^2}\nonumber	\\
+		&= \Et{\left( \frac{\partial}{\partial\theta}X\log\theta - \frac{\partial}{\partial\theta}\theta - \frac{\partial}{\partial\theta}\log(X!)\right)^2}\nonumber\\
+		&= \Et{\left( X\theta^{-1} - 1\right)^2}\nonumber	\\
+		&= \Et{ X^2\theta^{-2} -2X\theta^{-1}+ 1}\nonumber	\\
+		&= (\theta+\theta^2)\theta^{-2} -2\theta\theta^{-1}+ 1\nonumber\\
+		&= \theta^{-1}\nonumber	
+	\end{align}
 \end{exercise}
 
 El cálculo anterior ha sido para la verosimilitud en base a una variable aleatoria, si consideramos la verosimilitud evaluada calculada para un conjunto de observaciones (IID), tenemos que
@@ -475,7 +495,7 @@ Con esto podemos finalmente definir la CRLB como
 
 Ahora podemos finalmente volver al concepto de normalidad asintótica. Si tenemos una colección de VA $X_1,\ldots,X_n\sim p_\theta$ con $\theta$ el parámetro real, entonces, la secuencia de estimadores de MV, $\thetaMV^{(n)}$ cumple con 
 \begin{equation}
-	\sqrt{n}(\thetaMV^{(n)}-\theta)\rightarrow \cN(0,I(\theta)^{-1})
+	\sqrt{n}(\thetaMV^{(n)}-\theta)\rightarrow \cN(0,\iota(\theta)^{-1})
 \end{equation}
 lo cual intuitivamente corresponde a que, para $n$ suficientemente grande, el estimador de MV está distribuido de forma normal en torno al parámetro real con varianza $(nI(\theta))^{-1}$. Lo cual implica también \textit{eficiencia asintótica}.
 
