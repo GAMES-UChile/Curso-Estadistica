@@ -14,6 +14,7 @@ Consideremos una función del parámetro de una familia paramétrica $\familiapa
 	\end{equation} 
 \end{example}
 
+\section{Estimadores insesgados} 
 Una clase muy importante de estimadores son los estimadores insesgados. 
 
 \begin{definition}[Estimador insesgado]
@@ -78,7 +79,7 @@ y notemos que la esperanza de dicho estimador es
 				&= \Vt{x_i} - \Vt{\xb}\quad\text{ver ecuación \eqref{eq:varianza_media_muestral}}\nonumber\\
 				&= 	\sigma^2 + \sigma^2/n = \left(\frac{n+1}{n}\right)\sigma^2
 \end{align}
-Esto quiere decir que el sesgo del estimado en la ecuación \eqref{eq:est_varianza_sesgado} es asintóticamente insesgado, es decir, que su sesgo tiende a cero cuando el número de muestas $n$ tiende a infinito. Sin embargo, notemos que podemos corregir el estimado de la varianza multiplicando el estimador original, $S_2$ en la ecuación \eqref{eq:est_varianza_sesgado} por $n/(n+1)$, con lo que el estimador corregido denotado por 
+Esto quiere decir que el sesgo del estimador en la ecuación \eqref{eq:est_varianza_sesgado} es asintóticamente insesgado, es decir, que su sesgo tiende a cero cuando el número de muestas $n$ tiende a infinito. Sin embargo, notemos que podemos corregir el estimador de la varianza multiplicando el estimador original, $S_2$ en la ecuación \eqref{eq:est_varianza_sesgado} por $n/(n+1)$, con lo que el estimador corregido denotado por 
 \begin{equation}
 	\label{eq:est_varianza_insesgado}
 	S'_2 = \frac{n}{n+1}S_2 =  \frac{1}{n+1}\sum_{i=1}^n (x_i-\xb)^2
@@ -91,6 +92,7 @@ es decir, el estimador $S'_2$ en la ecuación \eqref{eq:est_varianza_insesgado} 
 \end{example}
 
 \clase{Clase 8: 29/8}
+\section{Teorema de Rao-Blackwell}
 Para tener una notación más limpia, desde ahora nos referiremos a estimadores $\phi=\gh$ de $\theta$ en general para evitar la expresión más engorrosa estimador $\gh(X)$ de $g(\theta)$.
 
 
@@ -171,7 +173,7 @@ Donde las esperanzas exteriores son con respecto a $T$ y las interiores con resp
 	donde la segunda igualdad está dada por la ley de esperanzas totales y la tercera por el supuesto de que $\phi$ es insesgado.
 \end{remark}
 
-
+\section{Varianza uniformemente mínima}
 
 En base al riesgo cuadrático definido en la ecuación \eqref{eq:riesgo_cuad}, podemos ver que si un estimador es insesgado (Definición \ref{def:estimador_insesgado}), su riesgo cuadrático es únicamente su varianza. Esto motiva la siguiente definición de optimalidad para estimadores insesgados. 
 
@@ -229,7 +231,7 @@ entonces $\phi(T) = T/n$ es el EIVUM para $\theta$ en $\ber{\theta}$.
 
 \clase{Clase 9: 3/9}
 
-\section{Estimador de Máxima Verosimilitud} % (fold)
+\section{Máxima Verosimilitud} % (fold)
 \label{sec:estimador_de_máxima_verosimilitud}
 Hasta ahora, hemos estudiado distintas propiedades de estimadores (y estadísticos en general) y distintas relaciones entre ellos. Esto nos ha permitido evaluar si un estimador dado cumple con ciertas características como ser insesgado o tener varianza mínima, adicionalmente, hemos visto como \textit{mejorar} un estimador crudo mediante el Teorema de Rao-Blackwell. Sin embargo, nuestro estudio siempre ha comenzado con un estimador disponible en vez de construir un estimador, lo cual en la práctica puede ser no trivial. En esta sección, veremos cómo construir estimadores usando directamente la densidad de probabilidad de la VA $X\in\cX$, para cual recordemos la siguiente definición
 
@@ -379,14 +381,14 @@ Esta función objetivo es mucho más fácil de optimizar, pero no es observable 
 
 
 
-% section estimador_de_máxima_verosimilitud (end)
 
 
 
 \clase{Clase 10: 5/9}
 
-\section{Propiedades del EMV} % (fold)
+\section{Propiedades del EMV} 
 \label{sec:propiedades_EMV}
+\subsection{Consistencia} 
 
 La primera propiedad que veremos del EMV es su consistencia. Que un estimador sea \textit{consistente} quiere decir que éste tiende (de alguna forma) al parámetro real a medida vamos considerando más datos. Para verificar esto, primero definamos la divergencia de Kullback-Leibler entre las densidades $f$ y $g$ como 
 \begin{equation}
@@ -405,7 +407,7 @@ Observemos que la divergencia KL es siempre positiva $\forall f,g$ (desigualdad 
 
  Con la KL, definiremos que un modelo/parámetro es \textbf{identificable} si los valores para los parámetros $\theta\neq\theta'$ implican $\KL{p_\theta}{p\theta'}>0$ lo que significa que distintos valores del parámetro dan origen a distintos modelos---asumiremos desde ahora que los modelos considerados son identificables.
 
-Observemos que el estimado de MV puede ser obtenido de la maximización de
+Observemos que el estimador de MV puede ser obtenido de la maximización de
 
 \begin{equation}
  	M_n (\theta') = n^{-1} (l_n(\theta') - l_n(\theta))  = \frac{1}{n} \sum_{i=1}^n \loga{\frac{p_{\theta'}(x_i)}{p_{\theta}(x_i)}}
@@ -423,6 +425,8 @@ Observemos que el estimado de MV puede ser obtenido de la maximización de
 \begin{example}(Cálculo del EMV en Gaussiana: varianza versus precisión versus log-precisión versus cholesky - reparametrisation trick)
 	
 \end{example}
+
+\subsection{Normalidad asintótica}
 
 Otra propiedad es la \textbf{normalidad asintótica del EMV}, esto significa que la distribución del estimador ML (como cantidad aleatoria) es normal a medida se incluyen más observaciones. Para estudiar esta propiedad, primero definamos la función de puntaje o \textit{score function} como \textbf{función aleatoria }definida por la derivada de la log-verosimilitud, es decir, 
 \begin{equation}
@@ -484,14 +488,31 @@ y de igual forma para la información de Fisher, tenemos,
 	I_n(\theta) = \Vt{\sum_{i=1}^n S_\theta(X_i)} = n I(\theta)
 \end{equation}
 
-Con esto podemos finalmente definir la CRLB como 
+Veamos ahora una desigualdad interesante para la información de Fisher y su relación con estimadores. Consideremos un estimador insesgado, es decir, 
+\begin{equation}
+	\Et{\hat{\theta}(X)-\theta}=\int_\cX (\hat{\theta}(X)-\theta)p_\theta(X)\dx=0.
+\end{equation}
+Derivando esta expresión con respecto a $\theta$, obtenemos
 
+\begin{align*}
+	0 &= \frac{\partial}{\partial\theta}\int_\cX (\hat{\theta}(X)-\theta)p_\theta(X)\dx\\
+	  &= -\int_\cX p_\theta(X)\dx  + \int_\cX (\hat{\theta}(X)-\theta)\frac{\partial p_\theta(X)}{\partial\theta}\dx\\
+	  &= -1  + \int_\cX (\hat{\theta}(X)-\theta)\frac{\partial\log p_\theta(X) }{\partial\theta}p_\theta(X)\dx.
+\end{align*}
+Lo que implica que 
+\begin{align*}
+	1 &= \left(\int_\cX (\hat{\theta}(X)-\theta)\frac{\partial\log p_\theta(X) }{\partial\theta}p_\theta(X)\dx\right)^2\\
+	&=\left(\int_\cX (\hat{\theta}(X)-\theta)\sqrt{p_\theta(X)}\sqrt{p_\theta(X)}\frac{\partial\log p_\theta(X) }{\partial\theta}\dx\right)^2\\
+	&\leq\int_\cX (\hat{\theta}(X)-\theta)^2 p_\theta(X)\dx \int\left(\frac{\partial\log p_\theta(X) }{\partial\theta}\right)^2 p_\theta(X)\dx.
+\end{align*}
+Notemos que la primera integral es la varianza del estimador insesgado $\hat\theta$ y la segunda es la esperanza del cuadrado de la función de puntaje (o la información de Fisher). Con esto, podemos enunciar el siguiente resultado 
 \begin{definition}[Cota de Cramer-Rao]
 	Sea $X_1,\ldots,X_n \sim p_\theta$ y $nI(\theta)$ su información de Fisher. Entonces para todo estimador insesgado $\theta'$ tenemos 
 	\begin{equation}
 		\Vt{\theta'}\geq (nI(\theta))^{-1},\quad \forall \theta\in\Theta
 	\end{equation}
 \end{definition}
+La cota de Cramer-Rao es un elemento fundamental en el estudio estadístico, pues establece que cualquier estimador tiene necesariamente una varianza que está por sobre el recíproco de la información de Fisher. 
 
 Ahora podemos finalmente volver al concepto de normalidad asintótica. Si tenemos una colección de VA $X_1,\ldots,X_n\sim p_\theta$ con $\theta$ el parámetro real, entonces, la secuencia de estimadores de MV, $\thetaMV^{(n)}$ cumple con 
 \begin{equation}
@@ -501,5 +522,87 @@ lo cual intuitivamente corresponde a que, para $n$ suficientemente grande, el es
 
 Este resultado es fundamental en estadística aplicada: no importa cómo ha sido obtenido el estimador de MV, si $n$ es suficientemente grande, entonces la distribución del estimador es normal y su varianza tiende a cero. 
 
+\section{Intervalos de Confianza} 
 
+En muchas aplicaciones, no es suficiente reportar una estimación puntual, es decir, un valor único para le parámetro a estimar, sino que debe identificarse una rango donde, con cierta probabilidad, el parámetro real está contenido. Esto motiva la siguiente definición: 
+
+\begin{definition}[Intervalo de confianza]
+\label{def:conf_inter} Un $(1-\alpha)$-intervalo de confianza para el parámetro $\theta$, $\alpha\in[0,1]$, es el intervalo aleatorio $(A(X),B(X))$ tal que 
+\begin{equation}
+	\label{eq:conf_inter}
+	\Probt{A(X)\leq\theta\leq B(X)} = 1-\alpha, \forall \theta\in\Theta.
+\end{equation}
+\end{definition}
+
+\begin{remark}
+	Es importante notara que la definición arriba no es un enunciado de probabilidad en $\theta$, o en otras palabras, no describe una probabilidad sobre el parámetro $\theta$; pues recordemos que éste es fijo. Por el contrario, lo que es aleatorio en la ecuación \eqref{eq:conf_inter} es el intervalo, no el parámetros. Entonces, si bien es una sutileza, la definición anterior se debe entender como la probabilidad de que ``el intervalo (aleatorio) contenga al parámetro (fijo)'', y no como la probabilidad de que `el parámetro esté en el intervalo'. 
+\end{remark}
+Una consecuencia clave de este concepto es que si $I_{1-\alpha}$ es un $(1-\alpha)$-intervalo de confianza, entonces si fuese posible repetir una gran cantidad de veces el ejercicio de recolectar datos $X$ y calcular este intervalo para cada una de estas observaciones, entonces el parámetro $\theta$ estaría contenido en le intervalo un $(1-\alpha)\%$. Esto es muy diferente de asegurar que para un solo experimento, la probabilidad de que el parámetro $\theta$ esté contenido en $I_{1-\alpha}$ es $1-\alpha$, lo cual no es cierto. Los siguientes ejemplos tienen por objetivo ayudar a aclarar este concepto.
+
+\begin{example}[Intervalo de confianza para la media de la distribución normal]
+	Consideremos la muestra $X_1,\ldots,X_\nu\sim\cN(\theta,1)$. Como $\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i\sim\cN(\theta,1/n)$ tenemos que  
+	\begin{equation}
+			\sqrt{n}(\bar{X}-\theta)\sim\cN(0,1).
+		\end{equation}	
+	Esta cantidad se llama \emph{pivote} y es una función (de la VA y del parámetro) cuya distribución no depende del parámetro. Consecuentemente, podemos identificar directamente un intervalo de confianza para el pivote desde una tabla de valores para la distribución normal de media cero y varianza unitaria. Si $\phi(x)$ denota la distribución Normal, entonces podemos elegir  $x_1$ y $x_2$ tal que $\phi(x_2)-\phi(x_1) = 1-\alpha$ con lo que tenemos
+	\begin{equation}
+	 	\Probt{x_1 \leq \sqrt{n}(\theta-\bar{X}) \leq x_2} = 1-\alpha \Leftrightarrow \Probt{\bar{X} + x_1/\sqrt{n} \leq \theta \leq \bar{X} + x_2/\sqrt{n}} = 1-\alpha,
+	 \end{equation} 
+	 es. decir, $(\bar{X} + x_1/\sqrt{n},\bar{X} + x_2/\sqrt{n})$ es el $(1-\alpha)$-intervalo de confianza de $\theta$. Eligiendo $\alpha=0.05$ tenemos $x_2 = -x_1 =1.96$ con lo que el intervalo de confianza del 95\% para $\theta$ está dado por 
+	 \begin{equation}
+	 	(\bar{X} -1.96/\sqrt{n},\bar{X} + 1.96/\sqrt{n}).
+	 \end{equation}
+
+	 El procedimiento estándar para encontrar intervalos de confianza es como el ilustrado en el ejemplo anterior, en donde construimos una cantidad que tiene una distribución que no depende del parámetro desconocido (llamada pivote). Construir un intervalo de confianza para esta cantidad es directo desde las tablas de distribuciones, luego, podemos encontrar el intervalo de confianza para la cantidad deseada, e.g., el parámetro desconocido, mediante transformaciones de la expresión del pivote. 
+
+	 \begin{remark}
+	 	El intervalo de confianza no es único. Por ejemplo, en el caso gaussiano podemos elegir en intervalo centrado en cero o desde $-\infty$. Esta elección dependerá de las aplicación en cuestión: una regla general es elegirlo de forma centrada para densidades que son simétricas, centrado en la moda para distribuciones unimodales, mientas que para densidades con soporte positivo podemos elegirlo desde cero. 
+	 \end{remark}
+
+	 Hasta ahora hemos solo definido intervalos de confianza para cantidades escalares, en donde el concepto de intervalo tiene sentido. Para parámetros vectoriales, nos referiremos a  \textit{conjuntos de confianza}. Siguiendo la Definición \ref{def:conf_inter}, un $(1-\alpha)$-conjunto de confianza $S(X)$ es tal que 
+	 \begin{equation}
+	\label{eq:conf_set}
+	\Probt{\theta\in S(X)} = 1-\alpha, \forall \theta\in\Theta.
+\end{equation}
+\end{example}
+
+
+\begin{exercise}
+Considere $X_1,\ldots,X_{50}\sim\cN(0,\sigma^2)$, calcule el intervalo de confianza del 99\%.
+\end{exercise}
+
+\begin{example}[Intervalo de confianza para Bernoulli] Consideremos $X_1,\ldots,X_{n}\sim\ber{\theta}$ y calculemos un intervalo de confianza para $\theta$. Recordemos que el EMV es $\thetahat = \frac{1}{n}\sum_{i=1}^nX_i$ y debido a la normalidad asintótica del EMV, tenemos que para $n$ grande, podemos asumir 
+\begin{equation}
+	\thetahat\sim\cN\left(\theta,\frac{\theta(1-\theta)}{n}\right)
+\end{equation}
+donde la varianza $\frac{\theta(1-\theta)}{n}=I_n(\theta)^{-1}$ es la inversa de la información de Fisher. 
+
+Podemos entonces considerar el pivote
+\begin{equation}
+	\frac{\sqrt{n}(\thetahat-\theta)}{\sqrt{\theta(1-\theta)}}\sim\cN(0,1)
+\end{equation}
+y calcular el $(1-\alpha)$-intervalo de confianza asumiendo los valores $x_1$ y $x_2$ mediante 
+\begin{align*}
+	\Probt{x_1 \leq \tfrac{\sqrt{n}(\theta-\thetahat)}{\sqrt{\theta(1-\theta)}} \leq x_2} = 1-\alpha \Leftrightarrow \Probt{\thetahat + \tfrac{x_1\sqrt{\theta(1-\theta)}}{\sqrt{n}} \leq \theta \leq \thetahat + \tfrac{x_2\sqrt{\theta(1-\theta)}}{\sqrt{n}}} = 1-\alpha.
+\end{align*}
+Sin embargo, los bordes de este intervalo no son conocidos, pues dependen de $\theta$. Una forma de aproximar el intervalo es reemplazar el parámetro por su EMV. 
+\end{example}
+
+
+\begin{exercise}[Encuesta de elecciones presidenciales] Considere una encuesta que ha consultado a 1000 votantes y su candidato ha recibido 200 votos. Use el resultado del ejemplo anterior para determinar el intervalo de confianza del 95\% de la cantidad de votos que su candidato obtendría en la elección presidencial. 
+\end{exercise}
+
+Finalmente, revisaremos el siguiente ejemplo, el cual pretende ejemplificar el concepto de que en solo un experimento, la determinación del $(1-\alpha)$-intervalo de confianza no quiere decir que la probabilidad de que el parámetro esté contenido en él es $(1-\alpha)$\%. 
+
+\begin{example}[Intervalo de confianza para una distribución uniforme] Considere $X_1,X_2\sim\uni{\theta-\tfrac{1}{2},\theta+\tfrac{1}{2}}$ y observe que 
+\begin{align*}
+	\Probt{\min(X_1,X_2) \leq \theta \leq \max(X_1,X_2)} 
+		&= \Probt{ X_1 \leq \theta \leq X_2}  + \Probt{ X_2 \leq \theta \leq X_1} \\
+		&= \frac{1}{2}\times \frac{1}{2} + \frac{1}{2}\times\frac{1}{2}\\
+		&= \frac{1}{2}
+\end{align*}
+corresponde al intervalo del 50\%. 
+
+Sin embargo, si observáramos $X_1 = x_1$ y $X_2 = x_2$ tal que $|x_1-x_2|\geq\tfrac{1}{2}$ entonces necesariamente está contenido en el intervalo $(\min(X_1,X_2) , \max(X_1,X_2))$ con probabilidad 1. Esto ilustra la idea de que, en un experimento dado, la probabilidad de que $\theta$ esté en intervalo de confianza del $(1-\alpha)$\% no es necesariamente $(1-\alpha)$\%.
+\end{example}
 

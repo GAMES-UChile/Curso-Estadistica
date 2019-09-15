@@ -5,7 +5,7 @@
 
 
 \clase{Clase 4: 13 de agosto}
-\section{Estadísticos}
+
 
 Un estadístico es una función de (los valores de) una variable aleatoria, definida desde el espacio muestral. 
 
@@ -26,6 +26,8 @@ Algunos estimadores pueden ser:
 \begin{equation}
 	T(x) = \frac{1}{n}\sum_{i=1}^nx_i,\qquad T'(x) = x, \qquad T''(x) = \min(x).
 \end{equation}
+
+\section{Suficiencia}
 En términos generales, el objetivo de un estadístico es \textit{encapsular} o \textit{resumir} la información contenida en una muestra de datos $x = (x_1,x_2,\ldots,x_n)$ que es de utilidad para determinar (o estimar) el parámetro de la distribución de $X$. Por esta razón, la función identidad o el promedio parecen cumplir, al menos intuitivamente, con esta misión. No así $T''$ en el ajemplo anterior. 
 
 Para formalizar esta idea, consideremos la siguiente definición
@@ -88,6 +90,7 @@ La definición anterior puede interpretarse de la siguiente forma: si una famili
 donde $p_\theta(x)$ es conocida como la densidad de $P_\theta$ con respecto a $\theta$ (o también como la derivada de Radon–Nikodym  $\frac{d P_\theta}{d \mu}$).
 
 Con la noción de Familia Dominada y de densidad de probabilidad, podemos enunciar el siguiente teorema que conecta la forma de la densidad de un modelo paramétrico con la suficiencia de su estadístico. 
+
 
 \clase{Clase 5: 20 de agosto}
 \begin{theorem}[Factorización, Neyman-Fisher]
@@ -152,6 +155,7 @@ Primero probamos la implicancia hacia la derecha ($\Rightarrow$), es decir, asum
 	Finalmente, como el lado derecho de la ecuación \eqref{eq:NF_final} no depende de $\theta$, se concluye la demostración.
 \end{proof}
 
+\section{Suficiencia minimal y completitud}
 La idea de suficiencia del estadístico dice relación, coloquialmente, con la \textit{información} contenida en el estadístico que permite \textit{descubrir} el parámetro $\theta$. En ese sentido, se tiene la intuición que un estadístico es suficiente si tiene la información \textit{suficiente}. En el extremo de esta intuición, el estadístico puede ser simplemente todos los datos, i.e, $T(X)=X$, en cuyo caso la suficiencia es directa como se vio en el Ejemplo \ref{ex:suficiencia_trivial}, sin embargo, estaremos interesado en estadísticos que son suficientes pero que contienen la mínima cantidad de información. 
 
 Sin una definición formal de \textit{información} aún, recordemos que los estadísticos representan un resumen o una compresión  de los datos mediante una función, i.e., la función $T(\cdot)$. Usando el mismo concepto, en el cual la aplicación de una función \textit{quita información desde la preimagen a la imagen}, podemos definir el siguiente concepto. 
