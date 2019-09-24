@@ -1,0 +1,173 @@
+%!TEX root = apunte_estadistica.tex
+
+
+\chapter{Test de Hipótesis}
+
+
+\clase{Clase 13: 24/9}
+\section{Teoría de decisiones}
+\label{sec:teoría_de_decisiones}
+
+En términos generales, la teoría de decisiones estudia las acciones que puede tomar un agente en un escenario dado. En este contexto afloran de forma natural los conceptos de incertibumbre (de aspectos clave del escenario), funciones de pérdida y procedimientos de decisión. En estadística, podemos identificar al menos los siguientes problemas de decisión.
+
+
+\begin{itemize}
+	\item \textbf{Estimación}: Decidir el valor apropiado para un parámetro desconocido usando datos $X$ y un distribución condicional $P_\theta$
+	\item \textbf{Test}: Decidir la hipótesis correcta usando datos $X\sim P_\theta$
+	\begin{align}
+		H_0: P_\theta\in\cP_0\\
+		H_1: P_\theta\not\in\cP_0
+	\end{align}
+	\item \textbf{Ranking}: Elaborar una lista ordenada de ítems, por ejemplo, productos evaluados por una muestra de la población, resultados de eventos deportivos o juegos online. 
+	\item \textbf{Predicción}: Estimar/decidir el valor de una variable dependiente en base a observaciones de observaciones pasadas. 
+\end{itemize}
+
+Como se puede apreciar, la teoría de decisiones presenta un contexto general para abordar una gran cantidad de situaciones. A continuación se describen los elementos básicos de un problema de decisión, en donde, con fines ilustrativos, ponemos como ejemplo su contraparte en el problema de estimación.
+
+\begin{itemize}
+	\item $\Theta = \{\theta\}$ es el espacio de estado, donde la cantidad $\theta$ es el \textit{estado del mundo}. En el problema de estimación, donde convenientemente se ha usado la misma notación, $\theta$ es el parámetro del modelo
+	\item $\cA=\{a\}$ es el espacio de acciones, donde $a$ es la acción a tomar por el estadístico. En estimación, podemos abusar de la notación y decir que la acción $a$ es elegir el valor $a$ para el parámetro $\theta$. 
+	\item $L(\theta,a)$ es la función de pérdida asociada a tomar la decisión $a$ cuando el estado es $\theta$; nótese que $L:\Theta\times\cA\rightarrow\R$. En el caso de estimación, usualmente consideramos la pérdida cuadrática:
+	\begin{equation}
+		L(\theta,a) = (\theta-a)^2.
+	\end{equation}
+\end{itemize}
+
+\begin{example}(Inversión bajo incertidumbre)
+	Consideremos los estados $\Theta = \{\theta_1,\theta_2\}$, donde $\theta_1$ quiere decir mercado sano y $\theta_2$ quiere decir mercado no sano. Se debe elegir una estrategia de inversión del siguiente conjunto $\cA=\{a_1,a_2,a_3,a_4,a_5,a_6\}$ con la siguiente función de costo $L(\theta,a)$
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{c|ccccc}
+			$L(\theta,a)$   & $a_1$ & $a_2$ & $a_3$ & $a_4$ & $a_5$ \\
+			\hline
+			$\theta_1$ & -4   & -4   & -1   & 2    & 4    \\
+			$\theta_2$  & 4    & 0    & -1   & -6   & -4
+		\end{tabular}
+	\end{table} 
+	Notemos que \begin{itemize}
+		\item $a_1$ es bueno  cuando $\theta=\theta_1$
+		\item $a_2$ es bueno cuando $\theta=\theta_2$
+		\item $a_3$ es medianamente bueno (pérdida negativa) siempre
+	\end{itemize}
+	entonces, ¿cómo elegimos la acción?
+\end{example}
+
+Además de los elementos básicos del problema de decisión (estado, acciones y pérdida), en el enfoque estadístico de la teoría de decisiones existen los siguientes elementos:
+\begin{itemize}
+	\item $X\sim P_\theta$ es la variable aleatoria, la cual define la distribución condicional, el espacio muestral, la densidad, etc. 
+	\item $\delta(X)$ es el procedimiento de la decisión, es decir, el mapa que asocia una observación $X=x$ con la acción $a$:
+	\begin{equation}
+		\delta(\cdot):\cX\rightarrow\cA.
+	\end{equation}
+	\item $\cD=\{\delta:\cX\rightarrow\cA\}$ es el espacio de decisiones
+	\item $R(\theta,\delta)$ es el riesgo asociado a $\delta$ y $\theta$, el cual está definido como el valor esperado de la pérdida incurrida al tomar la acción $\delta(X)$ cuando el parámetro es $\theta$. Es decir, 
+	\begin{equation}
+	 	R(\theta,\delta) = \Et{L(\theta,\delta(X))}.
+	 \end{equation} 
+\end{itemize}
+
+
+\begin{example}
+	Volviendo al contexto del problema de estimación, consideremos el caso en que usando una VA $X\sim\cN(\theta,1), \theta\in\R$ debemos encontrar el valor de $\theta$. En el contexto de teoría estadística de decisiones, el espacio de posibles acciones es precisamente en espacio de parámetros, es decir, 
+	\begin{equation}
+		\cA = \Theta = \R.
+	\end{equation}
+	Elegimos además la pérdida cuadrática, $L(\theta,\thetahat(X)) = (\theta-\thetahat(X))^2$, asociada a elegir $\thetahat(X)$ como el valor del parámetro $\theta$. Consideremos que el espacio de acciones está dado por versiones escaladas de la observación $X$, es decir, 
+	\begin{equation}
+		\cA = \{cX, c\in[0,1]\}.
+	\end{equation}
+	Con esta forma del estimador, podemos calcular el riesgo asociado mediante  
+	\begin{equation}
+		R(\theta,\thetahat)= \Et{(\thetahat(X)-\theta)^2} = \Vt{\thetahat(X)} + \Et{\thetahat(X)-\theta}^2 = c^2 + (c-1)^2\theta^2
+	\end{equation}
+	¿Qué valor de $c$ sugiere elegir?
+\end{example}
+
+
+\section{Hipótesis} 
+\label{sec:hipótesis}
+
+El objetivo del análisis estadístico es obtener conclusiones razonables mediante el uso de observaciones, como también aseveraciones precisas sobre la incertidumbre asociada a dichas conclusiones. De forma ilustrativa, consideremos el siguiente escenario hipotético.
+
+En base a estudios preliminares, se sabe que los pesos de los recién nacidos (RN) en Santiago, Chile, distribuyen aproximadamente normal con promedio 3000gr y desviación estándar de 500gr. Creemos que los RNs en Osorno pesan, en promedio, más que los RNs en Santiago. Nos gustaría formalmente aceptar o rechazar esta hipótesis. 
+
+Intuitivamente, una forma de evaluar esta hipótesis es tomar una muestra de RNs en Osorno, calcular su peso promedio y verificar si éste es \textit{significativamente mayor} que 3000gr. Asumamos que hemos tenido acceso al peso de 50 RNs nacidos en Osorno, los cuales exhiben un preso promedio de 3200gr. ¿Podemos entonces concluir directamente y decir que efectivamente los RNs de Osorno pesan más que los de Santiago?  Si bien esta es una posibilidad, una postura más escéptica podría argumentar que el obtener una población de 50 RNs con peso promedio de 3200gr es perfectamente plausible de una población de RNs distribuidos de acuerdo a $\cN(3000,500^2)$. Entonces, ¿cómo justificamos la plausibilidad de este resultado?
+
+Para esto distingamos entre las dos hipótesis: 
+
+\begin{itemize}
+	\item $H_1$: Los RNs en Osorno pesan en promedio más de 3000gr (esta es la hipótesis alternativa)
+	\item $H_0$: Los RNs en Osorno no pesan en promedio más de 3000gr (esta es la hipótesis nula)
+\end{itemize}
+
+Para decidir cuál es verdadera, trataremos de \emph{falsificar} $H_0$. La forma de hacer esto es calcular la probabilidad de obtener el resultado observado bajo el supuesto que $H_0$ es cierta. En este caso, sabemos que una muestra 
+\begin{equation}
+	X = X_1,\ldots,X_{50}\sim\cN(3000,500^2),
+\end{equation}
+tiene una media que está distribuida de acuerdo a la siguiente densidad 
+\begin{equation}
+	\bar{X} = \frac{1}{50} \sum_{i=1}^{50} X_i \sim \cN(3000,500^2/50).
+\end{equation}
+Entonces, cuál es la probabilidad de que la muestra obtenida haya sido generada por la distribución anterior? Para calcular esto, construyamos el \textbf{pivote} 
+\begin{equation}
+	z = \frac{\bar{X}-3000}{500/\sqrt{50}}\sim\cN(0,1)
+\end{equation}
+con la cual podemos realizar el cálculo:
+\begin{equation}
+	\Prob{\bar{X}\geq 3200} = \Prob{z = \frac{\bar{X}-3000}{500/\sqrt{50}}\geq 2\sqrt{2}} = 0.0023388674905235884,
+\end{equation}
+donde el valor de esta probabilidad puede ser calculado usando la función\footnote{Acrónimo de \textit{cumulative denstiy function}.} \texttt{cdf} de SciPy mediante la siguiente instrucción. 
+\begin{lstlisting}[language=Python]
+	from scipy.stats import norm
+	import numpy as np
+	print(1-norm.cdf(2*np.sqrt(2)))
+\end{lstlisting}
+Concluimos entonces que la probabilidad de que una muestra de 50 RNs exhiban un promedio de peso mayor o igual a 3200gr, bajo el supuesto que $H_0$ es cierta, es del orden del 0.23\%. 
+
+Nos referiremos a esta probabilidad como \textbf{p-valor}, el cual nos dice cuán verosímil es que obtener la observación dada bajo el supuesto que la hipótesis nula es cierta. Mientras más pequeño es el p-valor, entonces más fuerte es la evidencia en contra de $H_0$. Entonces nos encontramos ante dos posibles explicaciones: 
+\begin{itemize}
+ 	\item $H_0$ es falsa
+ 	\item hemos obtenido un resultado que solo ocurre una de cada 500 veces. 
+ \end{itemize} 
+
+\begin{remark}[comentario sobre doble negación y falsificación]
+	
+\end{remark}
+
+\begin{remark}[Umbrales para p-valores y tipos de errores] Nos referiremos a significancia del test al umbral para el p-valor en el cual se rechaza el test. En general, este umbra es del 1\% o del 5\%, sin embargo esto depende de la aplicación en cuestión. Por ejemplo, si estamos considerando la administración de una droga que puede tener consecuencias fatales, entonces necesariamente nuestro nivel de significancia sea muy bajo, lo que quiere decir que la hipótesis nula requiere mucha evidencia en su contra para ser rechazada. Denotando a $\alpha$ como la insignificancia del test, notemos que hay dos tipos de errores: El error de Tipo I en el cual $H_0$ es rechazada a pesar de que es verdadera (lo cual ocurre por definición con probabilidad $\alpha$) y el error de Tipo II, donde $H_0$ no es rechazada a pesar de que es falsa (lo cual diremos que tiene probabilidad $\beta$). Los tipos de errores se definen mediante la siguiente tabla:
+
+\centering
+\begin{tabular}{c|cc}
+		  & $H_0$ es cierto & $H_0$ no es cierto  \\
+		\hline
+		se rechaza $H_0$  & error Tipo I  & no hay error    \\
+		no se rechaza $H_0$  & no hay error   & error Tipo II
+	\end{tabular}
+\end{remark}
+
+En nuestro caso, el p-valor es del orden de 0.0023, lo cual, si consideramos una significancia del $\alpha=0.01=1\%$, resulta en el rechazo de $H_0$. Decimos entonces que \textbf{ hay suficiente evidencia para rechazar $H_0$ al 1\%}, o bien que \textbf{ rechazamos la hipótesis nula $H_0$ al 1\%}. Por el contrario, si no rechazamos $H_0$, simplemente decimos \textbf{ la evidencia para rechazar $H_0$ no es significativa al 1\%}
+
+En resumen,  un test de hipótesis consta de los siguientes pasos: 
+
+\begin{enumerate}
+	\item Proponer una hipótesis alternativa $H_1$
+	\item construir una hipótesis nula (básicamente lo contrario de $H_0$)
+	\item Recolectar datos
+	\item Calcular el pivote (un estadístico de prueba) usando los datos
+	\item Calcular el p-valor para el pivote
+	\item Comprar el p-valor con la significancia estadística. 
+	\item Rechazar si corresponde
+\end{enumerate}
+
+\textbf{Sobre p-valor y región crítica.}
+Otra forma de cuantificar la evidencia en contra de $H_0$ es mediante la identificación de una región crítica, es decir, el intervalo en donde, de tomar valores el estadístico test, el p-valor estaría por debajo del nivel de significancia. En el ejemplo anterior, este puede ser calculado usando la función de SciPy \texttt{ppf}\footnote{Acrónimo para \emph{percent point function}.}. Considerando una significancia del 1\% podemos ejecutar
+\begin{lstlisting}[language=Python]
+	from scipy.stats import norm
+	print(norm.ppf(0.99))
+\end{lstlisting}
+lo cual nos da una región crítica $[2.326,\infty)$, la cual contiene a nuestro p-valor $2\sqrt{2} = 2.82$; concluimos de igual forma y rechazamos $H_0$ al 1\%. \todo{[falta: agregar gráfico]}
+
+\begin{remark}[Test simétricos y asimétricos]
+	
+\end{remark}
+
