@@ -17,6 +17,8 @@
 
 \usepackage{cancel}
 \usepackage{todonotes}
+\usepackage{tcolorbox}
+
 
 
 %listing paackage para código
@@ -62,6 +64,7 @@
 \newtheorem{example}{Ejemplo}[section]
 \newtheorem{exercise}{Ejercicio}[section]
 \newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Lema}[section]
 \newtheorem{remark}{Observación}[section]
 
 %macros
@@ -77,10 +80,12 @@
 \def\densidadparametrica{\{p_\theta\ \tq\ \theta\in\Theta\}}
 \newcommand{\E}[1]{\mathbb{E} \left(#1\right)}
 \newcommand{\V}[1]{\mathbb{V} \left(#1\right)}
-\newcommand{\Prob}[1]{\mathbb{P}_\theta \left(#1\right)}
+\newcommand{\Prob}[1]{\mathbb{P} \left(#1\right)}
 \newcommand{\Et}[1]{\mathbb{E}_\theta \left(#1\right)}
 \newcommand{\Vt}[1]{\mathbb{V}_\theta \left(#1\right)}
-\newcommand{\Probt}[1]{\mathbb{P} \left(#1\right)}
+\newcommand{\Probt}[1]{\mathbb{P}_\theta \left(#1\right)}
+\newcommand{\Probtu}[1]{\mathbb{P}_{\theta_1} \left(#1\right)}
+\newcommand{\Probtz}[1]{\mathbb{P}_{\theta_0} \left(#1\right)}
 \newcommand{\ber}[1]{\text{Ber}\left(#1\right)}
 \newcommand{\bin}[1]{\text{Bin}\left(#1\right)}
 \newcommand{\uni}[1]{\text{Uniforme}\left(#1\right)}

@@ -84,8 +84,8 @@ Además de los elementos básicos del problema de decisión (estado, acciones y 
 \end{example}
 
 
-\section{Hipótesis} 
-\label{sec:hipótesis}
+\section{Intuición en un test de hipótesis} 
+\label{sec:int_hipótesis}
 
 El objetivo del análisis estadístico es obtener conclusiones razonables mediante el uso de observaciones, como también aseveraciones precisas sobre la incertidumbre asociada a dichas conclusiones. De forma ilustrativa, consideremos el siguiente escenario hipotético.
 
@@ -97,7 +97,7 @@ Para esto distingamos entre las dos hipótesis:
 
 \begin{itemize}
 	\item $H_1$: Los RNs en Osorno pesan en promedio más de 3000gr (esta es la hipótesis alternativa)
-	\item $H_0$: Los RNs en Osorno no pesan en promedio más de 3000gr (esta es la hipótesis nula)
+	\item $H_0$: Los RNs en Osorno pesan en promedio 3000gr (esta es la hipótesis nula)
 \end{itemize}
 
 Para decidir cuál es verdadera, trataremos de \emph{falsificar} $H_0$. La forma de hacer esto es calcular la probabilidad de obtener el resultado observado bajo el supuesto que $H_0$ es cierta. En este caso, sabemos que una muestra 
@@ -108,7 +108,7 @@ tiene una media que está distribuida de acuerdo a la siguiente densidad
 \begin{equation}
 	\bar{X} = \frac{1}{50} \sum_{i=1}^{50} X_i \sim \cN(3000,500^2/50).
 \end{equation}
-Entonces, cuál es la probabilidad de que la muestra obtenida haya sido generada por la distribución anterior? Para calcular esto, construyamos el \textbf{pivote} 
+Entonces, cuál es la probabilidad de que la muestra obtenida, $\bar{X}=3200$, haya sido generada por la distribución anterior? Para calcular esto, construyamos el \textbf{pivote} 
 \begin{equation}
 	z = \frac{\bar{X}-3000}{500/\sqrt{50}}\sim\cN(0,1)
 \end{equation}
@@ -130,23 +130,23 @@ Nos referiremos a esta probabilidad como \textbf{p-valor}, el cual nos dice cuá
  	\item hemos obtenido un resultado que solo ocurre una de cada 500 veces. 
  \end{itemize} 
 
-\begin{remark}[comentario sobre doble negación y falsificación]
-	
-\end{remark}
+\todo[inline]{Agregar comentario sobre doble negación y falsificación}
 
-\begin{remark}[Umbrales para p-valores y tipos de errores] Nos referiremos a significancia del test al umbral para el p-valor en el cual se rechaza el test. En general, este umbra es del 1\% o del 5\%, sin embargo esto depende de la aplicación en cuestión. Por ejemplo, si estamos considerando la administración de una droga que puede tener consecuencias fatales, entonces necesariamente nuestro nivel de significancia sea muy bajo, lo que quiere decir que la hipótesis nula requiere mucha evidencia en su contra para ser rechazada. Denotando a $\alpha$ como la insignificancia del test, notemos que hay dos tipos de errores: El error de Tipo I en el cual $H_0$ es rechazada a pesar de que es verdadera (lo cual ocurre por definición con probabilidad $\alpha$) y el error de Tipo II, donde $H_0$ no es rechazada a pesar de que es falsa (lo cual diremos que tiene probabilidad $\beta$). Los tipos de errores se definen mediante la siguiente tabla:
+En cuando al umbral en el cual rechazamos $H_0$, nos referiremos a significancia del test $\alpha$ al umbral para el p-valor en el cual se rechaza el test. En general, este umbral es del 1\% o del 5\%, sin embargo esto depende de la aplicación en cuestión. Por ejemplo, si estamos considerando la administración de una droga que puede tener consecuencias fatales, entonces necesariamente nuestro nivel de significancia sea muy bajo, lo que quiere decir que la hipótesis nula requiere mucha evidencia en su contra para ser rechazada. Notemos que hay dos tipos de errores: El error de Tipo I en el cual $H_0$ es rechazada a pesar de que es verdadera y el error de Tipo II, donde $H_0$ no es rechazada a pesar de que es falsa (lo cual diremos que tiene probabilidad $\beta$). Los tipos de errores se definen mediante la siguiente tabla:
 
-\centering
-\begin{tabular}{c|cc}
-		  & $H_0$ es cierto & $H_0$ no es cierto  \\
-		\hline
-		se rechaza $H_0$  & error Tipo I  & no hay error    \\
-		no se rechaza $H_0$  & no hay error   & error Tipo II
+\vspace{1em}
+\begin{center}
+	\begin{tabular}{c|cc}
+			  & $H_0$ es cierto & $H_0$ no es cierto  \\
+			\hline
+			se rechaza $H_0$  & error Tipo I  & no hay error    \\
+			no se rechaza $H_0$  & no hay error   & error Tipo II
 	\end{tabular}
-\end{remark}
+\end{center}
 
-En nuestro caso, el p-valor es del orden de 0.0023, lo cual, si consideramos una significancia del $\alpha=0.01=1\%$, resulta en el rechazo de $H_0$. Decimos entonces que \textbf{ hay suficiente evidencia para rechazar $H_0$ al 1\%}, o bien que \textbf{ rechazamos la hipótesis nula $H_0$ al 1\%}. Por el contrario, si no rechazamos $H_0$, simplemente decimos \textbf{ la evidencia para rechazar $H_0$ no es significativa al 1\%}
+Volviendo a nuestro ejemplo de los recién nacidos, el p-valor del test es del orden de 0.0023, lo cual, si consideramos una significancia del $\alpha=0.01=1\%$, resulta en el rechazo de $H_0$. Decimos entonces que \textbf{ hay suficiente evidencia para rechazar $H_0$ al 1\%}, o bien que \textbf{ rechazamos la hipótesis nula $H_0$ al 1\%}. Por el contrario, en el caso que el p-valor fuese mayor que el nivel de significancia del test, entonces no rechazamos $H_0$ y simplemente decimos que \textbf{ la evidencia para rechazar $H_0$ no es significativa al 1\%}
 
+\begin{tcolorbox}[title=Test de Hipótesis]
 En resumen,  un test de hipótesis consta de los siguientes pasos: 
 
 \begin{enumerate}
@@ -155,19 +155,181 @@ En resumen,  un test de hipótesis consta de los siguientes pasos:
 	\item Recolectar datos
 	\item Calcular el pivote (un estadístico de prueba) usando los datos
 	\item Calcular el p-valor para el pivote
-	\item Comprar el p-valor con la significancia estadística. 
+	\item Comparar el p-valor con la significancia estadística. 
 	\item Rechazar si corresponde
 \end{enumerate}
+\end{tcolorbox}
 
 \textbf{Sobre p-valor y región crítica.}
-Otra forma de cuantificar la evidencia en contra de $H_0$ es mediante la identificación de una región crítica, es decir, el intervalo en donde, de tomar valores el estadístico test, el p-valor estaría por debajo del nivel de significancia. En el ejemplo anterior, este puede ser calculado usando la función de SciPy \texttt{ppf}\footnote{Acrónimo para \emph{percent point function}.}. Considerando una significancia del 1\% podemos ejecutar
+Otra forma de cuantificar la evidencia en contra de $H_0$ es mediante la identificación de una región crítica, es decir, un subconjunto de $\cX$ en donde, de tomar valores la observación (o el estadístico) , su p-valor estaría por debajo del nivel de significancia y consecuentemente $H_0$ se rechazaría. En el ejemplo anterior, este puede ser calculado usando la función de SciPy \texttt{ppf}\footnote{Acrónimo para \emph{percent point function}.}. Considerando una significancia del 1\% podemos ejecutar
 \begin{lstlisting}[language=Python]
 	from scipy.stats import norm
 	print(norm.ppf(0.99))
 \end{lstlisting}
-lo cual nos da una región crítica $[2.326,\infty)$, la cual contiene a nuestro p-valor $2\sqrt{2} = 2.82$; concluimos de igual forma y rechazamos $H_0$ al 1\%. \todo{[falta: agregar gráfico]}
+lo cual nos da una región crítica $[2.326,\infty)$, la cual contiene a nuestro p-valor $2\sqrt{2} = 2.82$; concluimos de igual forma y rechazamos $H_0$ al 1\%. \todo[inline]{Falta agregar gráfico ilustrando el uso de p-valor, pivote, significancia y región crítica.}
 
-\begin{remark}[Test simétricos y asimétricos]
+\todo[inline]{Falta discusión sobre test simétricos y asimétricos: gráfico ilustrando el uso de p-valor, pivote, significancia y región crítica.}
+
+
+
+\section{Rechazo, potencia y nivel} 
+\label{sec:def_hipótesis}
+
+Formalmente, frente a dos hipótesis generales denotadas por 
+\begin{align}
+	H_0&: \theta\in\Theta_0\\
+	H_1&: \theta\in\Theta_1,
+\end{align}
+definiremos el problema del test de hipótesis como la búsqueda de una funció
+\begin{equation}
+	\phi:\cX\rightarrow \{0,1\},
+\end{equation}
+donde:
+\begin{itemize}
+	\item Si $\phi(x)=0$ entonces aceptamos $H_0$ (no rechazamos $H_0$).
+	\item Si $\phi(x)=1$ entonces rechazamos $H_0$, lo cual implícitamente acepta $H_1$. 
+\end{itemize}
+En teoría de decisiones, diríamos que $\phi$ es una regla de decisión. 
+
+A continuación, revisamos definiciones que serán de utilidad para analizar y construir tests. 
+
+\begin{definition}[Región crítica de un test]
+	La región crítica o región de rechazo de un test de hipótesis $\phi$ se define como 
+	\begin{equation}
+		R_\phi = \{x\in\cX | \phi(x)=1\} = \phi^{-1}(1).
+	\end{equation}
 	
-\end{remark}
+\end{definition}
+
+
+
+\begin{definition}[Función de probabilidad de rechazo]
+Para un test $\phi$ y cualquier parámetro $\theta\in\Theta$ podemos definir la probabilidad de rechazo mediante
+\begin{equation}
+ 	\alpha_\phi(\theta) = \Probt{\phi(x)=1} = \Probt{x\in R_\phi}, \forall\theta\in\Theta,
+ \end{equation}
+donde nos gustaría entonces que $\alpha\approx 0$ si $\theta\in\Theta_0$ es cierto y que $\alpha\approx 1$ si $\theta\in\Theta_1$. Luego, usaremos esta función para evaluar la calidad del test.
+\end{definition}
+
+\begin{definition}[Potencia de un test]
+En el caso que $H_1$ sea cierta, es decir, $\theta\in\Theta_1$, podemos definir la potencia del test como la probabilidad rechazar $H_0$ cuando $H_1$ es efectivamente cierta ($\theta\in\Theta_1$). Es decir,
+\begin{equation}
+ 	\pi_\phi(\theta) = \Prob{\text{rechazar } H_0 | H_1 \text{ es cierta}}  = \Probtu{\phi(x)=1}
+ \end{equation}
+ \end{definition}
+Nos gustaría entonces minimizar $\alpha(\theta)$ cuando $H_0$ y maximizar $\alpha(\theta)$ cuando $H_1$, lo cual es equivalente a minimizar la probabilidad de cometer errores de Tipo I y II respectivamente. 
+
+
+\begin{example}[Un test absurdo]
+	Existen tests absurdos, por ejemplo $\phi(x) = 0,\forall x\in\cX$. Este test tiene $\alpha(\theta)=0$ cuando $H_0$ (lo cual es bueno), por también tiene potencia nula, es decir, incluso si $H_1$, no rechaza a $H_0$. 
+ \end{example} 
+ En general, consideramos más importante prevenir un error de tipo I que uno de tipo II. 
+
+ \begin{definition}[Nivel de un test]
+ Decimos que un test es de nivel $\alpha\in[0,1]$ si 
+\begin{equation}
+ 		\alpha_\phi(\theta)\leq\alpha, \forall \theta\in\Theta_0,
+ 	\end{equation}
+ 	equivalentemente, $\sup_{\theta\in\Theta_0}\alpha_\phi(\theta)\leq\alpha$. Además, denotamos por $T_\alpha$ la clase de todos los tests de nivel $\alpha$. 
+ \end{definition}
+ Dentro de esta clase, la cual nos restringe únicamente a los test que tienen probabilidad de rechazo acotada superiormente por $\alpha$  para $\theta\in\Theta_0$ (probabilidad de cometer error tipo I), podemos buscar el test de mayor potencia (probabilidad de rechazar $H_0$ cuando $H_1$ es cierta). Caracterizamos este test mediante: 
+
+ \begin{definition}[Test uniformemente más potente, UMP]
+ 	Diremos que $\phi^\star$ es un test UMP (de nivel $\alpha$)  si 
+ 	\begin{equation}
+ 		\pi_{\phi^\star}(\theta)\geq \pi_{\phi}(\theta), \forall\theta\in\Theta_1.
+ 	\end{equation}
+ 	
+ \end{definition}
+
+ \todo[inline]{Falta definición/discusión sobre tests simples y compuestos.}
+
+
+\subsection{Test de Neyman-Pearson} 
+\label{sub:test_de_neyman_pearson}
+Consideremos el siguiente problema de test de dos hipótesis simples. 
+\begin{equation}
+	H_0:\theta\in\Theta_0=\{\theta_0\}\quad \text{v.s.}\quad H_1:\theta\in\Theta_1=\{\theta_1\},
+\end{equation}
+donde por una notación más simple escribiremos simplemente 
+\begin{equation}
+	H_0:\theta =\theta_0\quad \text{v.s.}\quad H_1:\theta = \theta_1,		
+\end{equation}
+y asumiremos que $\familiaparametrica=\{P_{\theta_0},P_{\theta_1}\}$ con densidades respectivamente dadas Por $p_0(x) = p_{\theta_0}(x)$ y $p_1(x) = p_{\theta_1}(x)$.
+
+Denotamos además la región crítica (donde se rechaza $H_0$) mediante
+\begin{equation}
+	R^* = \{x\in\cX | p_1(x) \geq k p_0(x)\},
+\end{equation}
+donde $k\in\R_+$ es una constante a determinar. 
+
+Podemos entonces definir el test $\phi^*$ como el test que tiene el conjunto $R^*$ como región de rechazo, es decir, 
+\begin{equation}
+	\phi^*(x) = 1 \Leftrightarrow x\in R^*.
+\end{equation}
+
+Finalmente, determinaremos la constante $k$ de tal manera de que 
+\begin{equation}
+	\alpha_{\phi^\star}(\theta_0) = \mathbb{P}_{\theta_0}(x\in R^*) = \alpha,\ \alpha\in[0,1], 
+\end{equation}
+donde, por definición, $\phi^\star\in T_\alpha$. Consecuentemente, de acuerdo al siguiente lema, $\phi^\star$ es el test UMP en $T_\alpha$.
+
+\begin{lemma}[Neyman-Pearson]
+	Consideremos un test de hipótesis de la forma 
+	\begin{equation}
+		H_0:\theta =\theta_0\quad \text{v.s.}\quad H_1:\theta = \theta_1
+	\end{equation}
+	con probabilidad de rechazo dada por
+	\begin{equation}
+			\alpha_\phi(\theta) = \mathbb{P}(p_1\geq k p_0).
+		\end{equation}
+	Entonces, el test definido arriba que rechaza $H_0$ si $p_1\geq k p_0$ con $\alpha_\phi(\theta) = \alpha,\theta\in\Theta_0,$ es el UMP.
+\end{lemma}
+
+\begin{proof}
+	Consideremos un test $\phi\in T_\alpha$ con región crítica dada por $R$. Recordemos que  la probabilidad de los datos estén en la región R es 
+	\begin{equation}
+		\Probt{R} = \int_R p_\theta(x)\dx.
+	\end{equation}
+	Luego, podemos escribir 
+	\begin{align}
+		\Probt{R} &= \Probt{R\cap R^*} + \Probt{R\cap \bar{R}^*}\\
+		\Probt{R^*} &= \Probt{R^*\cap R} + \Probt{R^*\cap \bar{R}},
+	\end{align}
+	restando y evaluando para $\theta=\theta_1$, tenemos
+	\begin{align}
+		\Probtu{R^*} - \Probtu{R} 	&=  \Probtu{R^*\cap \bar{R}} - \Probtu{R\cap \bar{R}^*}\nonumber \\
+									&=  \int_{R^*\cap \bar{R}} p_{\theta_1}(x)\dx - \int_{R\cap \bar{R}^*} p_{\theta_1}(x)\dx \nonumber\\
+									&\geq  k\int_{R^*\cap \bar{R}} p_{\theta_0}(x)\dx - k\int_{R\cap \bar{R}^*} p_{\theta_0}(x)\dx \quad[\text{pues } p_1\geq k p_0 \text{ en } R^*]\nonumber\\
+									&= k\left( \Probtz{R^*\cap \bar{R}} - \Probtz{R\cap \bar{R}^*}\right)\nonumber \\
+									&= k\left( \underbrace{\Probtz{R^*}}_{=\alpha} - \underbrace{\Probtz{R}}_{\leq\alpha}\right) \quad[\text{primera igualdad de este desarrollo}]\nonumber\\
+									&\geq 0
+	\end{align}
+	Hemos probado que $\Probtu{R^*} \geq \Probtu{R}$, es decir, si $\theta = \theta_1$ entonces $R^*$ tiene mayor probabilidad que cualquier otra región, es es decir, el test que tiene a $R^*$ por región es el test UMP.
+
+	
+\end{proof}
+
+
+\begin{example}
+	Sea $X_1,\ldots, X_n$ iid $\ber{\theta}, \theta\in\{\theta_0,\theta_1\}$: 
+	\begin{equation}
+		H_0:\theta =\theta_0\quad \text{v.s.}\quad H_1:\theta = \theta_1
+	\end{equation} 
+	Asumiremos que $\theta_1>\theta_0$ y expresemos las densidades como 
+	\begin{equation}
+		p_i(x) = \theta_i^{\sum x_j}(1-\theta_i)^{n-\sum x_j},\ i=0,1
+	\end{equation}
+	Para rechazar $H_0$, es decir, $x\in R$, el test requiere: 
+	\begin{equation}
+		\frac{p_1(x)}{p_0(x)} = \frac{\theta_1^{\sum x_j}(1-\theta_1)^{n-\sum x_j}}{\theta_0^{\sum x_j}(1-\theta_\emptyset)^{n-\sum x_j}} = \left(\frac{1-\theta_1}{1-\theta_0}\right)^n\left(\frac{\theta_1(1-\theta_0)}{\theta_0(1-\theta_1)}\right)^{\sum x_j}\geq k
+	\end{equation}
+	donde, usando el hecho de que $\theta_1\geq\theta_0$, $\sum x_j$ debe ser lo suficientemente grande para rechazar $H_0$.
+
+	Ahora, par calcular el valor de $k$ dado un $\alpha$, tenemos que 
+	\begin{equation}
+		\Probtz{x\in R^*} = \Probtz{\text{ecuación anterior}} = \alpha \quad\text{(resolver)}
+	\end{equation}
+\end{example}
+
 
