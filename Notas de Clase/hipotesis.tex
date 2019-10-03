@@ -245,7 +245,7 @@ Nos gustaría entonces minimizar $\alpha(\theta)$ cuando $H_0$ y maximizar $\alp
  \todo[inline]{Falta definición/discusión sobre tests simples y compuestos.}
 
 
-\subsection{Test de Neyman-Pearson} 
+\section{Test de Neyman-Pearson} 
 \label{sub:test_de_neyman_pearson}
 Consideremos el siguiente problema de test de dos hipótesis simples. 
 \begin{equation}
@@ -259,6 +259,7 @@ y asumiremos que $\familiaparametrica=\{P_{\theta_0},P_{\theta_1}\}$ con densida
 
 Denotamos además la región crítica (donde se rechaza $H_0$) mediante
 \begin{equation}
+	\label{eq:R_NR}
 	R^* = \{x\in\cX | p_1(x) \geq k p_0(x)\},
 \end{equation}
 donde $k\in\R_+$ es una constante a determinar. 
@@ -283,7 +284,7 @@ donde, por definición, $\phi^\star\in T_\alpha$. Consecuentemente, de acuerdo a
 	\begin{equation}
 			\alpha_\phi(\theta) = \mathbb{P}(p_1\geq k p_0).
 		\end{equation}
-	Entonces, el test definido arriba que rechaza $H_0$ si $p_1\geq k p_0$ con $\alpha_\phi(\theta) = \alpha,\theta\in\Theta_0,$ es el UMP.
+	Entonces, el test definido arriba que rechaza $H_0$ si $p_1\geq k p_0$ con $\alpha_\phi(\theta) = \alpha,\theta\in\Theta_0$ es el UMP.
 \end{lemma}
 
 \begin{proof}
@@ -314,22 +315,202 @@ donde, por definición, $\phi^\star\in T_\alpha$. Consecuentemente, de acuerdo a
 \begin{example}
 	Sea $X_1,\ldots, X_n$ iid $\ber{\theta}, \theta\in\{\theta_0,\theta_1\}$: 
 	\begin{equation}
-		H_0:\theta =\theta_0\quad \text{v.s.}\quad H_1:\theta = \theta_1
+		H_0:\theta =\theta_0\quad \text{v.s.}\quad H_1:\theta = \theta_1.
 	\end{equation} 
-	Asumiremos que $\theta_1>\theta_0$ y expresemos las densidades como 
+	Asumamos que $\theta_1>\theta_0$ y expresemos las densidades de cada hipótesis como 
 	\begin{equation}
-		p_i(x) = \theta_i^{\sum x_j}(1-\theta_i)^{n-\sum x_j},\ i=0,1
+		p_i(x) = \theta_i^{\sum x_j}(1-\theta_i)^{n-\sum x_j},\ i=0,1.
 	\end{equation}
-	Para rechazar $H_0$, es decir, $x\in R$, el test requiere: 
+	Para rechazar $H_0$ según el test de Neyman-Pearson, es decir, $x\in R^*$ de acuerdo a la ecuación \eqref{eq:R_NR}, el test requiere: 
 	\begin{equation}
-		\frac{p_1(x)}{p_0(x)} = \frac{\theta_1^{\sum x_j}(1-\theta_1)^{n-\sum x_j}}{\theta_0^{\sum x_j}(1-\theta_\emptyset)^{n-\sum x_j}} = \left(\frac{1-\theta_1}{1-\theta_0}\right)^n\left(\frac{\theta_1(1-\theta_0)}{\theta_0(1-\theta_1)}\right)^{\sum x_j}\geq k
+		\label{eq:ejemplo:NR}
+		\frac{p_1(x)}{p_0(x)} = \frac{\theta_1^{\sum x_j}(1-\theta_1)^{n-\sum x_j}}{\theta_0^{\sum x_j}(1-\theta_0)^{n-\sum x_j}} = \left(\frac{1-\theta_1}{1-\theta_0}\right)^n\left(\frac{\theta_1(1-\theta_0)}{\theta_0(1-\theta_1)}\right)^{\sum x_j}\geq k,
 	\end{equation}
-	donde, usando el hecho de que $\theta_1\geq\theta_0$, $\sum x_j$ debe ser lo suficientemente grande para rechazar $H_0$.
+	donde, usando el hecho de que $\theta_1\geq\theta_0$, podemos justificar que la expresión anterior es monótona en  $\sum x_j$, consecuentemente, $\sum x_j$ debe ser lo suficientemente grande para rechazar $H_0$.
 
-	Ahora, par calcular el valor de $k$ dado un $\alpha$, tenemos que 
-	\begin{equation}
-		\Probtz{x\in R^*} = \Probtz{\text{ecuación anterior}} = \alpha \quad\text{(resolver)}
-	\end{equation}
+	Ahora, para calcular el valor de $k$ dado un $\alpha$, tenemos que resolver $\Probtz{x\in R^*} = \alpha$. Primero notemos que la ecuación \eqref{eq:ejemplo:NR} es equivalente a 
+
+	\begin{align}
+	 	\left(\frac{1-\theta_1}{1-\theta_0}\right)^n\left(\frac{\theta_1(1-\theta_0)}{\theta_0(1-\theta_1)}\right)^{\sum x_j}\geq k 
+	 	& \Leftrightarrow 
+	 	\left(\frac{\theta_1(1-\theta_0)}{\theta_0(1-\theta_1)}\right)^{\sum x_j}\geq k \left(\frac{1-\theta_0}{1-\theta_1}\right)^n\\
+	 	& \Leftrightarrow 
+	 	\sum x_j \loga{\frac{\theta_1(1-\theta_0)}{\theta_0(1-\theta_1)}}\geq n \loga{k \left(\frac{1-\theta_0}{1-\theta_1}\right)} \nonumber\\
+	 	& \Leftrightarrow 
+	 	\sum x_j \geq \frac{n \loga{k \left(\frac{1-\theta_0}{1-\theta_1}\right)}}{\loga{\frac{\theta_1(1-\theta_0)}{\theta_0(1-\theta_1)}}} = k' \nonumber
+	 \end{align} 
+	 como $\sum x_j$ es binomial, podemos resolver directamente para $k'$ (y consecuentemente para $k$).
 \end{example}
 
 
+\section{Test de Wald} 
+\label{sub:test_de_wald}
+
+Este test nos permite evaluar si un parámetro $\theta$ toma no un valor $\theta_0$ dado. Consideremos un parámetro escalar y $\thetahat$ un estimador asintóticamente normal, es decir, 
+\begin{equation}
+	\frac{\thetahat - \theta_0}{\ee} \sim \cN(0,1),
+\end{equation}
+cuando el número de observaciones tiende a infinito y $\ee=\sqrt{\V{\thetahat}}$ es conocido como el \emph{error estándar} y puede ser calculado muestralmente o con respecto a $\theta_0$. Entonces, el test de Wald de tamaño $\alpha$ para las hipótesis 
+	\begin{equation}
+		H_0:\theta =\theta_0\quad \text{v.s.}\quad H_1:\theta \neq \theta_0
+	\end{equation}
+indica rechazar $H_0$ cuando el pivote $W=\frac{\thetahat - \theta_0}{\ee}$ cumple con 
+\begin{equation}
+	|W|\geq z_{\alpha/2},
+\end{equation}
+donde $z_{\alpha/2}=\Phi(1-\alpha/2)$, es decir, $\Prob{Z\geq z_{\alpha/2}}=\alpha/2,\ Z\sim\cN(0,1)$. 
+
+\begin{remark}
+	Notemos que, asintóticamente, el tamaño del test de Wald de tamaño  $\alpha$, es $\alpha$. En efecto, 
+\begin{equation}
+	\Probtz{|W|\geq z_{\alpha/2}} = \Probtz{\left|\frac{\thetahat - \theta_0}{\ee}\right|\geq z_{\alpha/2}} \rightarrow  = \Probtz{|Z|\geq z_{\alpha/2}} = \alpha
+\end{equation}
+donde, hemos usado que $Z\sim\cN(0,1)$.
+\end{remark}
+
+
+\begin{example}
+ Consideremos dos conjuntos de observaciones $X_1,\ldots,X_n$ y $Y_1,\ldots,Y_n$, con medias respectivas $\mu_1$ y $\mu_2$. Se requiere evaluar las hipótesis
+ 	\begin{equation}
+		H_0:\mu_x =\mu_y \quad \text{v.s.}\quad H_1:\mu_x \neq \mu_y,
+	\end{equation}
+	lo cual está dentro del alcance del test de Wald denotando $\delta = \mu_x - \mu_y$ e identificando las hipótesis
+	 	\begin{equation}
+		H_0:\delta =0 \quad \text{v.s.}\quad H_1:\delta \neq 0.
+	\end{equation}
+Utilicemos el estimador no-paramétrico `plug in' de $\delta$ dado por  $\hat{\delta} = \bar{X}-\bar{Y} = \frac{1}{n}\sum_{i=1}^n x_i + \frac{1}{m}\sum_{i=1}^m y_i$, Además, la varianza de este estimador está dada por $v = \frac{1}{n}s_x^2 + \frac{1}{m}s_y^2$, con lo que la condición sobre el  estadístico de Wald indica que si 
+\begin{equation}
+	W = \frac{\hat{\delta}-0}{\ee} = \frac{\bar{X}-\bar{Y}}{\sqrt{\frac{1}{n}s_x^2 + \frac{1}{m}s_y^2}} \geq z_{\alpha/2},
+\end{equation}
+rechazamos $H_0$. 
+\end{example}
+
+\begin{remark}
+Notemos que el test de Wald de tamaño $\alpha$ rechaza $H_0:\theta=\theta_0$ (v.s. $H_1:\theta\neq\theta_0$) si y solo si 
+\begin{equation}
+	\theta_0 \notin (\thetahat - \ee z_{\alpha/2},\thetahat + \ee z_{\alpha/2}),
+\end{equation}
+es decir, realizar el test de Wald es equivalente a calcular el $\alpha$ intervalo de confianza para el parámetro $\theta_0$.
+\end{remark}
+
+
+\section{Test de razón de verosimilitud} 
+\label{sub:test_de_RV}
+
+Consideremos un caso más general que los anteriores, donde al menos una de las hipótesis es compuesta, es decir, especifican que el parámetro pertenece a un conjunto en vez de tomar un valor puntual. Es decir, 
+\begin{equation}
+		H_0:\theta \in\Theta_0\quad \text{v.s.}\quad H_1:\theta \notin\Theta_0.
+	\end{equation}
+El test de razón de verosimilitud (TRV) indica que se debe rechazar $H_0$ si 
+\begin{equation}
+	\label{eq:lambda_TRV}
+	\lambda(x_1,\ldots,x_n) = \frac{\sup_{\theta\in\Theta_0}L(\theta)}{\sup_{\theta\in\Theta}L(\theta)}
+							= \frac{L(\thetahat_0)}{L(\thetahat)}\leq C,
+\end{equation}
+donde $\thetahat$ es el EMV y $\thetahat_0$ es el EMV restringido a $\{\theta\in\Theta_0\}$. Notemos que la región de rechazo está dada por 
+\begin{equation}
+	R^* = \{x\in\cX|\lambda(x)\leq C\}.
+\end{equation}
+\begin{remark}
+	Para el caso de hipótesis simples, es decir, $\Theta = \{\theta_0,\theta_1\}$ y $\Theta_0 = \{\theta_0\}$, entonces el TRV coincide con el test de Neyman-Pearson. 
+\end{remark}
+Al igual que en el TNP, fijamos $C$ en función del un nivel deseado $\alpha$. 
+
+\begin{remark}
+	Notemos que podemos escribir la expresión en la ecuación \eqref{eq:lambda_TRV} como 
+	\begin{equation}
+		\lambda(x_1,\ldots,x_n) =  \ind_{\thetahat\in\Theta_0} + \ind_{\thetahat\in\Theta_1} \frac{\sup_{\theta\in\Theta_0}L(\theta)}{\sup_{\theta\in\Theta_1}L(\theta)}
+	\end{equation}
+	donde el segundo término (de activarse) es estrictamente menor que 1, con lo que el TRV puede enunciarse en función del estadístico 
+	\begin{equation}
+		\tilde{\lambda}(x_1,\ldots,x_n) = \frac{\sup_{\theta\in\Theta_0}L(\theta)}{\sup_{\theta\in\Theta_1}L(\theta)} \leq \tilde{k}.
+	\end{equation}
+\end{remark}
+
+
+\begin{example}[TRV Bernoulli]
+	Sea $X_1,\ldots,X_n\sim\ber{\theta}$ iid, se quiere resolver
+	\begin{equation}
+		H_0:\theta \leq\theta_0\quad \text{v.s.}\quad H_1:\theta >\theta_0,
+	\end{equation}
+donde $\theta_0$ es conocido y sabemos que $p_\theta(x) = \theta^{n\bar{x}}(1-\theta)^{n(1-\bar{x})}$. En la notación de la definición anterior del TRV, podemos identificar
+\begin{equation}
+	\Theta_0 = [0,\theta_0] \quad \& \quad \Theta_1 = (\theta_0, 1]
+\end{equation}
+calculamos el EMV (restricto e irrestricto) mediante 
+\begin{align}
+	\thetahat &= \hat{x}\quad \text{irrestricto}\\
+	\thetahat_0 &= \hat{x} \quad \text{si } \hat{x}\in\Theta_0,\ \theta_0 \text{ si no.}
+\end{align}
+podemos escribir esta última expresión como $\thetahat_0 = \hat{x} \ind_{\hat{x}\in\Theta_0} + \theta_0\ind_{\hat{x}\notin\Theta_0}$, entonces
+
+\begin{align}
+	\lambda(x) &= \frac{L(\thetahat_0)}{L(\thetahat)}\\ 
+				&= \frac{L(\hat{x})}{L(\hat{x})} \ind_{\hat{x}\in\Theta_0} + \frac{L(\theta_0)}{L(\hat{x})} \ind_{\hat{x}\notin\Theta_0} \\
+				&= \ind_{\hat{x}\in\Theta_0} + \ind_{\hat{x}\notin\Theta_0} \left(\frac{\theta_0}{\hat{x}}\right)^{n\bar{x}}\left(\frac{1-\theta_0}{1-\hat{x}}\right)^{n(1-\bar{x})}
+\end{align}
+\todo[inline]{graficar $\lambda(x)$ (en función de $\bar{x}$)}
+Donde ahora rechazaremos si $\lambda(x)\leq C$, pero, ¿cómo elegimos $C$?
+
+Recordemos que queremos que el test sea de nivel $\alpha$, es decir, 
+\begin{equation}
+ 	\sup_{\theta\in\Theta_0} \Probt{\lambda(x)\leq C} = \alpha
+ \end{equation} 
+ donde recordemos que $\lambda(x)$ es una función decreciente de $\bar{x}$, por lo que la condición $\lambda(x)\leq C$ puede expresarse como $\bar{x}\geq C'$, para algún $C'$. Esta expresión dependerá de $C'$, que es función de $C$, de $\theta_0$ y de $\alpha$; despejamos para $C$.
+
+ \end{example} 
+
+
+ \section{Test $\chi^2$} 
+\label{sub:test_chi2}
+
+Este test es usado para verificar si datos multinomiales siguen una distribución dada. Es decir, denotando $p_0 = (p_{01},\ldots,p_{0k})\in[0,1]^k$ y $n\in\N$, estamos interesados en verificar si la distribución $p$ de una variable multinomial 
+	\begin{equation}
+		H_0:p=p_0\quad \text{v.s.}\quad H_1:p\neq p_0.
+	\end{equation}
+Para esto consideramos el siguiente estadístico
+\begin{equation}
+	\label{eq:chi2_stat}
+	T = \sum_{i=1}^k \frac{(X_i - n p_{0j})}{n p_{0j}} = \sum_{i=1}^k \frac{(X_i - \E{X_j})}{\E{X_j}}
+\end{equation}
+donde las esperanzas $\E{X_j} = np_{0j}$ son tomadas con respecto a $\theta_0$. Este estadístico da una medida de discrepancia entre frecuencias observadas y esperadas.
+
+Bajo $H_0$, la distribución asintótica (es decir, cuando el número de observaciones tiene a infinito) es chi cuadrado con $k-1$ grados de libertad $\chi^2_{k-1}$. Consecuentemente, el test rechaza la hipótesis nula si $T\geq \chi^2_{k-1,\alpha}$, donde $\Prob{T\geq \chi^2_{k-1,\alpha}} = \alpha$.
+
+\begin{example}[Perritos vagos]
+	Consideremos un criadero de perros recogidos de la calle, donde podemos identificar cada individuo según tamaño (grande/chico) y color (blanco/negro). Consecuentemente, existen las categorías \\
+	\centerline{\emph{\{grande-negro, grande-blanco, chico-negro, chico-blanco\}}.}
+	En base a un estudio preliminares realizado por la fundación para los perros abandonados, se sabe que estas clases de perritos deben distribuir, respectivamente, de acuerdo a \\
+	\centerline{\emph{\{9/16, 3/16, 3/16, 1/16\}}.}
+	El último censo en este criadero, el cual solo pudo recolectar información de 556 perritos, arrojó los siguiente valores observados: $X=(315, 101, 108,32)$. Esto permite calcular el estadístico del test $\chi^2$ mediante la ecuación \eqref{eq:chi2_stat} obteniendo
+	\begin{equation}
+		T_{\chi^2} = 0.47.
+	\end{equation}
+	Para $\alpha=0.05$, tenemos $\chi^2_{3,\alpha} = 7.815>0.47$, por lo que no existe evidencia suficiente para rechazar $H_0$. Es decir, el censo no contradice el estudio preliminar de frecuencias esperadas. 
+\end{example}
+
+Si bien a primera vista, el test $\chi^2$ parece un tanto simple, pues es \emph{solo} definido para VA multinomiales, es un test del tipo \emph{bondad de ajuste} que puede ser extendido a casos no paramétricos.
+
+\todo[inline]{definir qué es un problema estadístico no paramétrico} 
+
+Supongamos que tenemos $X_1,\ldots,X_n\sim F$ iid, donde $F$ es una distribución desconocida sobre $\R$ (tanto en forma como en parámetros). Planteamos además el siguiente problema de test de hipótesis
+	\begin{equation}
+		H_0:F=F_0\quad \text{v.s.}\quad H_1:F\neq F_0,
+	\end{equation}
+	donde $F_0$ sí es una distribución conocida. 
+Podemos aplicar el test $\chi^2$ mediante la discretización de este problema: definimos los intervalos
+\begin{equation}
+ 	I_i = (a_{i-1},a_i],\quad -a_0,a_k = \infty, \quad \{a_i\}_{i=1}^{k-1}\subset\R,
+ \end{equation} 
+ y definimos las VAs
+ \begin{equation}
+ 	N_i = \sum_{j=1}^n \ind_{x_j\in I_i}
+ \end{equation}
+ las cuales tienen ley multinomial con parámetro $\theta_i = F(a_i)- F(a_{i-1}),\quad i=1,\ldots,k$. Finalmente, bajo $H_0$ resulta $\theta_i = F_0(a_i)- F_0(a_{i-1}), i=1,\ldots,k$ con lo que podemos aplicar el test $\chi^2$.
+
+
+ \section{Test de Kolmogorov-Smirnov} 
+\label{sub:test_KS}
+
+ \section{Test de Wilcoxon} 
+\label{sub:test_Wilc}
