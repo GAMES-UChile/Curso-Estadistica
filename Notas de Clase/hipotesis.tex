@@ -145,6 +145,7 @@ En cuando al umbral en el cual rechazamos $H_0$, nos referiremos a significancia
 \end{center}
 
 Volviendo a nuestro ejemplo de los recién nacidos, el p-valor del test es del orden de 0.0023, lo cual, si consideramos una significancia del $\alpha=0.01=1\%$, resulta en el rechazo de $H_0$. Decimos entonces que \textbf{ hay suficiente evidencia para rechazar $H_0$ al 1\%}, o bien que \textbf{ rechazamos la hipótesis nula $H_0$ al 1\%}. Por el contrario, en el caso que el p-valor fuese mayor que el nivel de significancia del test, entonces no rechazamos $H_0$ y simplemente decimos que \textbf{ la evidencia para rechazar $H_0$ no es significativa al 1\%}
+\clase{clase 14: 26/9}
 
 \begin{tcolorbox}[title=Test de Hipótesis]
 En resumen,  un test de hipótesis consta de los siguientes pasos: 
@@ -244,6 +245,7 @@ Nos gustaría entonces minimizar $\alpha(\theta)$ cuando $H_0$ y maximizar $\alp
 
  \todo[inline]{Falta definición/discusión sobre tests simples y compuestos.}
 
+\clase{clase 15: 1/10}
 
 \section{Test de Neyman-Pearson} 
 \label{sub:test_de_neyman_pearson}
@@ -311,6 +313,7 @@ donde, por definición, $\phi^\star\in T_\alpha$. Consecuentemente, de acuerdo a
 	
 \end{proof}
 
+\clase{clase 16: 3/10}
 
 \begin{example}
 	Sea $X_1,\ldots, X_n$ iid $\ber{\theta}, \theta\in\{\theta_0,\theta_1\}$: 
@@ -459,41 +462,41 @@ Recordemos que queremos que el test sea de nivel $\alpha$, es decir,
  donde recordemos que $\lambda(x)$ es una función decreciente de $\bar{x}$, por lo que la condición $\lambda(x)\leq C$ puede expresarse como $\bar{x}\geq C'$, para algún $C'$. Esta expresión dependerá de $C'$, que es función de $C$, de $\theta_0$ y de $\alpha$; despejamos para $C$.
 
  \end{example} 
-
+\clase{clase 17: 8/10}
 
  \section{Test $\chi^2$} 
 \label{sub:test_chi2}
 
-Este test es usado para verificar si datos multinomiales siguen una distribución dada. Es decir, denotando $p_0 = (p_{01},\ldots,p_{0k})\in[0,1]^k$ y $n\in\N$, estamos interesados en verificar si la distribución $p$ de una variable multinomial 
+Este test es usado para verificar si datos multinomiales siguen una distribución dada. Es decir, denotando $p_0 = (p_{01},\ldots,p_{0k})\in[0,1]^k$ y $n\in\N$, estamos interesados en verificar si la distribución $p$ de una variable multinomial sigue
 	\begin{equation}
 		H_0:p=p_0\quad \text{v.s.}\quad H_1:p\neq p_0.
 	\end{equation}
-Para esto consideramos el siguiente estadístico
+Para esto consideramos $X_1,\ldots,X_n\sim\bin{X;p,n}$ y construyamos el siguiente estadístico
 \begin{equation}
 	\label{eq:chi2_stat}
-	T = \sum_{i=1}^k \frac{(X_i - n p_{0j})}{n p_{0j}} = \sum_{i=1}^k \frac{(X_i - \E{X_j})}{\E{X_j}}
+	T = \sum_{i=1}^k \frac{(X_i - n p_{0j})^2}{n p_{0j}} = \sum_{i=1}^k \frac{(X_i - \E{X_j})^2}{\E{X_j}},
 \end{equation}
-donde las esperanzas $\E{X_j} = np_{0j}$ son tomadas con respecto a $\theta_0$. Este estadístico da una medida de discrepancia entre frecuencias observadas y esperadas.
+donde las esperanzas $\E{X_j} = np_{0j}$ son tomadas con respecto a $p_0$. Este estadístico representa una medida de discrepancia entre frecuencias observadas ($X_i$) y esperadas ($np_{0j}$).
 
-Bajo $H_0$, la distribución asintótica (es decir, cuando el número de observaciones tiene a infinito) es chi cuadrado con $k-1$ grados de libertad $\chi^2_{k-1}$. Consecuentemente, el test rechaza la hipótesis nula si $T\geq \chi^2_{k-1,\alpha}$, donde $\Prob{T\geq \chi^2_{k-1,\alpha}} = \alpha$.
+Bajo $H_0$, la distribución asintótica (es decir, cuando el número de observaciones tiene a infinito) es chi cuadrado con $k-1$ grados de libertad, lo cual denotamos por $\chi^2_{k-1}$. Consecuentemente, el test rechaza la hipótesis nula si $T\geq \chi^2_{k-1,\alpha}$, donde $\Prob{T\geq \chi^2_{k-1,\alpha}} = \alpha$.
 
 \begin{example}[Perritos vagos]
 	Consideremos un criadero de perros recogidos de la calle, donde podemos identificar cada individuo según tamaño (grande/chico) y color (blanco/negro). Consecuentemente, existen las categorías \\
 	\centerline{\emph{\{grande-negro, grande-blanco, chico-negro, chico-blanco\}}.}
-	En base a un estudio preliminares realizado por la fundación para los perros abandonados, se sabe que estas clases de perritos deben distribuir, respectivamente, de acuerdo a \\
+	En base a un estudio preliminar realizado por el GrUpo cAnino Universitario (GUAU), se sabe que estas clases deben distribuir, respectivamente, de acuerdo a \\
 	\centerline{\emph{\{9/16, 3/16, 3/16, 1/16\}}.}
-	El último censo en este criadero, el cual solo pudo recolectar información de 556 perritos, arrojó los siguiente valores observados: $X=(315, 101, 108,32)$. Esto permite calcular el estadístico del test $\chi^2$ mediante la ecuación \eqref{eq:chi2_stat} obteniendo
+	El último censo del criadero, el cual solo pudo recolectar información de 556 ejemplares, arrojó los siguiente valores observados: $X=(315, 101, 108,32)$. Esto permite calcular el estadístico del test $\chi^2$ mediante la ecuación \eqref{eq:chi2_stat} obteniendo
 	\begin{equation}
 		T_{\chi^2} = 0.47.
 	\end{equation}
-	Para $\alpha=0.05$, tenemos $\chi^2_{3,\alpha} = 7.815>0.47$, por lo que no existe evidencia suficiente para rechazar $H_0$. Es decir, el censo no contradice el estudio preliminar de frecuencias esperadas. 
+	Para $\alpha=0.05$, tenemos $\chi^2_{3,\alpha} = 7.815>0.47$, por lo que no existe evidencia suficiente para rechazar $H_0$. Es decir, el censo no contradice el estudio realizado por el GUAU. 
 \end{example}
 
 Si bien a primera vista, el test $\chi^2$ parece un tanto simple, pues es \emph{solo} definido para VA multinomiales, es un test del tipo \emph{bondad de ajuste} que puede ser extendido a casos no paramétricos.
 
 \todo[inline]{definir qué es un problema estadístico no paramétrico} 
 
-Supongamos que tenemos $X_1,\ldots,X_n\sim F$ iid, donde $F$ es una distribución desconocida sobre $\R$ (tanto en forma como en parámetros). Planteamos además el siguiente problema de test de hipótesis
+Asumamos $X_1,\ldots,X_n\sim F$ iid, donde $F$ es una distribución desconocida sobre $\R$ (tanto en forma como en parámetros). Planteamos además el siguiente problema de test de hipótesis
 	\begin{equation}
 		H_0:F=F_0\quad \text{v.s.}\quad H_1:F\neq F_0,
 	\end{equation}
@@ -504,13 +507,85 @@ Podemos aplicar el test $\chi^2$ mediante la discretización de este problema: d
  \end{equation} 
  y definimos las VAs
  \begin{equation}
- 	N_i = \sum_{j=1}^n \ind_{x_j\in I_i}
+ 	N_i = \sum_{j=1}^n \ind_{x_j\in I_i},
  \end{equation}
- las cuales tienen ley multinomial con parámetro $\theta_i = F(a_i)- F(a_{i-1}),\quad i=1,\ldots,k$. Finalmente, bajo $H_0$ resulta $\theta_i = F_0(a_i)- F_0(a_{i-1}), i=1,\ldots,k$ con lo que podemos aplicar el test $\chi^2$.
+ las cuales tienen ley multinomial con parámetro $\theta_i = F(a_i)- F(a_{i-1}),\quad i=1,\ldots,k$. Finalmente, bajo $H_0$ resulta $\theta_i = F_0(a_i)- F_0(a_{i-1}), i=1,\ldots,k$, lo cual nos permite aplicar el test $\chi^2$.
 
 
  \section{Test de Kolmogorov-Smirnov} 
 \label{sub:test_KS}
 
+Ahora consideramos otro enfoque, basado en una estrategia muy distinta, al problema de test de hipótesis anterior para distribuciones no paramétricas:
+	\begin{equation}
+		H_0:F=F_0\quad \text{v.s.}\quad H_1:F\neq F_0.
+	\end{equation}
+En vez de discretizar, podemos construir la distribución empírica dada por 
+\begin{equation}
+	F_n(x) = \frac{1}{n}\sum_{i=1}^n\ind_{x_j\leq x}, 
+\end{equation}
+la cual realmente es una distribución (discontinua). 
+
+Sabemos que, debido a la ley de los grandes números, 
+\begin{equation}
+	F_n(x)\to \E{\ind_{X\leq x}} = \Prob{X\leq x} =  F(x),
+\end{equation}
+además, por el teorema de Glivenko-Cantelli, tenemos 
+\begin{equation}
+	\sup_x|F_n(x)-F(x)| \to 0 \quad\text{c.s.}
+\end{equation}
+Lo anterior nos permite definir el estadístico  $D_n = \sup_x|F_n(x)-F_0(x)|$ y la región crítica
+\begin{equation}
+	R = \{x|D_n\geq k_\alpha\},
+\end{equation}
+donde $k_\alpha$ se elige imponiendo $\Probtz{D_n\geq  k_\alpha}=\alpha$.
+
+\begin{remark}
+El test de  Kolmogorov-Smirnoff sirve tanto para verificar si una VA sigue una distribución dada o si bien dos distribuciones siguen la misma distribución (desconocida).
+\end{remark}
+
  \section{Test de Wilcoxon} 
 \label{sub:test_Wilc}
+
+Este es otro testo no paramétrico para verificar si dos VAs siguen la misma distribución. Consideremos las observaciones 
+\begin{equation}
+	X_1,\ldots,X_n\sim F,\quad Y_1,\ldots,Y_n\sim G,
+\end{equation}
+donde $F$ y $G$ son dos distribuciones, de las cuales solo sabemos que son continuas. 
+
+Consideremos el siguiente problema de test de hipótesis: 
+	\begin{equation}
+		H_0:F=G\quad \text{v.s.}\quad H_1:F\neq G.
+	\end{equation}
+El test de Wilcoxon se enfoca en este escenario pero solo es sensible a diferentes \emph{localizaciones}, es decir, si $G$ es una versión desplazada de $F$.
+
+Antes de ver el test de Wilcoxon, notemos que si nos interesase detectar estas desviaciones, entonces podríamos considerar un test que rechace $H_0$ si $|\bar{X} - \bar{Y}|\geq K$. Esto  es exactamente lo que hace el TRV en el problema 
+	\begin{equation}
+		H_0:\mu =  \eta \quad \text{v.s.}\quad H_1:\mu\neq \eta,
+	\end{equation}
+cuando $X\sim\cN(\mu,\sigma^2)$,  $Y\sim\cN(\eta,\sigma^2)$.
+
+Sin embargo, en el caso general (cuando no sabemos nada de $F$) obtener la ley de $|\bar{X} - \bar{Y}|$ bajo $H_0$ no es trivial, lo cual es necesario para $\Probtz{|\bar{X} - \bar{Y}|\geq K} = \alpha$. En esta situación, el test de Wilcoxon propone considerar la siguiente observación conjunta 
+\begin{equation}
+	(z_1,\ldots,z_{m+n}) = (x_1,\ldots,x_n,y_1,\ldots,y_m),
+\end{equation}
+para luego considerar la secuencia ordenada de valores $z_i$ dados por 
+\begin{equation}
+	\min_i\{z_i\} = z_{(1)}\leq z_{(2)}\leq\cdots\leq z_{(n+m)} = \max_i\{z_i\}.
+\end{equation}
+
+Ahora podemos definir el concepto de \emph{rango} como la posición en el orden anterior, es decir, donde el rango de $z_{(1)}$ es 1, el rango de $z_{(2)}$ es dos  y así sucesivamente. 
+
+\todo[inline]{dibujo de bolas negras y blancas.}
+
+Denotando el rango de $x_i$ como $R_i$, podemos construir el estadístico
+\begin{equation}
+ 	W = \sum_{i=1}^{n}R_i,
+ \end{equation} 
+esta cantidad debe intuitivamente interpretarse como el promedio de los rangos (es decir de la posiciones) que toman las observaciones de la variable $X$, por rechazamos $H_0$ si $W$ es muy pequeño o muy grande, es decir, si las muestras de $X$ no quedan \emph{mezcladas} con las de $Y$. 
+
+ Esto es posible por que la distribución de $W$ bajo $H_0$ puede ser calculada y de hecho no depende de $F$, esto es porque (bajo $H_0$) los elementos de $z_i$ son iid, con lo que todas las posible permutaciones del los valores $z_i$ tienen la misma probabilidad dada por $\binom{n+m}{n}$.
+
+ \begin{remark}[¿Cómo obtenemos la región crítica $R$ para este test?]
+ 	Podemos proceder de forma iterativa: Asumimos $H_0$, consideramos $R=\emptyset$ y agregamos las configuraciones de bolitas que tienen el menor y mayor valor de $W$, luego seguimos con las siguientes configuraciones hasta acumular una probabilidad $\Probtz{W\in\R} = \alpha$.
+ \end{remark}
+

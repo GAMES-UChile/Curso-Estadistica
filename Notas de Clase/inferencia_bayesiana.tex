@@ -1,0 +1,29 @@
+%!TEX root = apunte_estadistica.tex
+
+
+\chapter{Inferencia bayesiana}
+
+
+El enfoque que hemos revisado hasta ahora  es el clásico o \emph{frecuentista}, este punto de vista asume lo siguiente: 
+\begin{itemize}
+	\item El concepto de probabilidad está relacionado con frecuencias límites, es decir, la probabilidad de un evento es la razón de veces que este ocurre versus las veces que no ocurre (usualmente referido como \emph{casos favorables dividido por casos totales}). En este sentido, la probabilidad es una propiedad del mundo real. 
+	\item Los parámetros son constantes (fijos) y desconocidos, es decir, no existe \emph{aleatoriedad} relacionada a los parámetros, por ende no podemos construir enunciados probabilísticos con respecto a ellos
+	\item El procedimiento estadístico debe comportarse bien en el largo plazo, un ejemplo de esto es que un ($1-\alpha$)-intervalo de confianza debe capturar (asintóticamente) el parámetro una fracción $1-\alpha$ de las veces luego de infinitos experimentos. 
+\end{itemize}
+
+En este capítulo consideraremos un enfoque alternativo al análisis estadístico, el cual llamaremos \textbf{enfoque bayesiano}, y que se caracteriza por lo siguiente: 
+
+\begin{itemize}
+ 	\item La probabilidad es subjetiva y denota un grado de \emph{creencia}, es decir, la aleatoriedad de un evento no solo es intrínseca de éste sino también de nuestra observación
+ 	\item Lo anterior permite considerar aleatoriedad en los parámetros, pues el hecho de que éstos sean fijos no quiere decir que los conozcamos. 
+ 	\item Podemos considerar los parámetros como VAs y, consecuentemente, calcular su distribución de probabilidad. Inferencias puntuales o la incidencia de este parámetro en otras VAs está completamente determinada por su distribución.
+ \end{itemize}
+
+ Existen ventajas y desventajas para ambos enfoques, lo cual hace que ambos sean considerados en distintas aplicaciones. Si bien el enfoque bayesiano es muy antiguo, la estadística clásica ha privilegiado un punto de vista frecuentista, mientras que disciplinas como minería de datos y aprendizaje de máquinas se inclinan por el enfoque bayesiano. De todas formas actualmente ambos métodos se consideran en base a sus propios méritos, entonces, dejando materias filosóficas de lado nos dedicaremos a estudiar como se hace inferencia bayesiana. 
+
+
+ \section{Distribuciones a priori y a posteriori} 
+ \label{sec:distribuciones_a_priori_y_a_posteriori}
+ 
+Consideraremos que tanto el parámetro $\theta$ y la cantidad de interés $X$ son VAs. En este sentido, definiremos la distribución del parámetro como $p(\theta)$ y la distribución de $X$ condicional al parámetro como $p(X|\theta)$. Observemos que ya no usamos la notación $p_\theta(X)$, pues damos énfasis en que $\theta$ es una VA. Nos referiremos a $p(\theta)$ como la distribución \textbf{a priori} sobre $\theta$, o simplemente el prior sobre $\theta$. 
+El elemento centr
