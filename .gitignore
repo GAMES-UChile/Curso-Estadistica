@@ -1,3 +1,6 @@
+## Private folder
+private/
+
 ## Jupyter temporary
 .ipynb_checkpoints
 
