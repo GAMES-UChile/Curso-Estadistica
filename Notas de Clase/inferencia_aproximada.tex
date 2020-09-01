@@ -1,0 +1,21 @@
+\chapter{Markov Chain Monte Carlo}
+
+Como hemos visto en los capítulos anteriores, con frecuencia el enfoque bayesiano implica calcular integrales que no son calculables con métodos convencionales, como el denominador cuando ocupamos Bayes, la marginalización de variables y el cálculo de esperanzas. También es necesario optimizar funciones que es muy difícil optimizar explícitamente, por ejemplo, al momento de maximizar la distribución posterior de un parámetro.  \\
+Dados estos problemas, se hace natural buscar herramientas que nos permitan aproximar estas cantidades usando métodos numéricos, y con frecuencia, un computador. La herramienta que estudiaremos en esta sección, juega un rol fundamental en la integración, optimización, y también en la simulación de fenómenos físicos. 
+
+\section{El principio de Monte Carlo}
+
+La idea detrás de las simulaciones de Monte Carlo es extraer una muestra de observaciones i.i.d, $\mathcal{D}=\left \{ x_i \right \}_{i=1}^{N}$ de una densidad objetivo $p(x)$ desconocida. Las $N$ observaciones pueden usarse para aproximar la densidad objetivo de la forma: 
+$$
+p_{N}(x)=\dfrac{1}{N} \sum_{i=1}^{N} \delta_{x_i}(x)
+$$
+con $\delta_{x_i}(x)$ denota la delta de Dirac centrada en $x_i$. De esta forma, si buscamos aproximar la esperanza de $f$, $I(f)=\int f(x)p(x)$, lo haremos mediante las sumas: 
+$$
+I_{N}(f)= \dfrac{1}{N} \sum_{i=1}^{N}f(x_i) \overset{c.s}{ \underset{N \to \infty}{\rightarrow }} I(f)= \int f(x)p(x) 
+$$
+La convergencia anterior se cumple por la Ley de los Grandes Números Fuerte, e implica que $I_{N}(f)$ es un estimador insesgado. 
+
+
+
+
+
