@@ -1,0 +1,51 @@
+\chapter{Ejercicios}
+
+\section{Estadísticos}
+
+\begin{enumerate}
+    \item Estudiemos el problema de estimación del área de un rectángulo. Consideremos un rectángulo de lados a,b desconocidos. Sea $X=(X_1,...,X_n)$ una MAS que representa el lado a) del rectángulo con $X_i\sim \mathcal{N}(a,\sigma^2)$ e $Y=(Y_1,...,Y_n)$ otra MAS que representa el lado b) del rectángulo con $Y_i\sim \mathcal{N}(b,\sigma^2)$, $\sigma$ conocido y X e Y independientes. Plantee el modelo paramétrico asociado y encuentre un estadístico suficiente. 
+    \item Se desea estudiar el tiempo que demora en realizarse cierto proceso. Digamos que el proceso posee 2 etapas. Se consta de una MAS dada por $X=(X_1,...,X_n)$ donde cada $X_i\sim \Gamma(2,\theta)$ la distribución Gamma con $X_i$ el tiempo total que demora en realizarse un proceso completo (ambas etapas), $\theta$ es desconocido. Plantee el modelo parametrico y demuestre que $T(X)=\sum\limits_{i=1}^{n}X_i$ es un estadístico suficiente.
+    
+    \item Sea $X=(X_1,...,X_n)$ una MAS con $X_i\sim U(\alpha,\beta)$ donde $\alpha,\beta$ son desconocidos. Demuestre que $T(X)=\left(\min\limits_{i=1,...,n}{X_i},\max\limits_{i=1,...,n}{X_i}\right)$ es un estadístico suficiente para $(\alpha,\beta)$.
+    
+    \item Sea $X=(X_1,...,X_n)$ una MAS con $X_i\sim \Gamma(\alpha,\beta)$ la distribución Gamma dada por:
+    \begin{equation}
+        \nonumber 
+        \Gamma(\alpha,\beta)\sim \frac{1}{\Gamma(\alpha)\beta^\alpha}x^{\alpha-1}e^{-\frac{1}{\beta}x}
+    \end{equation}
+    Demuestre que $T(X)=\left (\prod\limits_{i=1}^{n}x_i,\sum\limits_{i=1}^{n}x_i  \right )$ es un estadistico suficiente para $(\alpha,\beta)$
+    
+    \item Sea $X=(X_1,...,X_n)$ una MAS con función de densidad dada por:
+    \begin{equation}
+        \nonumber 
+        f(x\mid \theta)=\frac{\theta}{(1+x)^{1+\theta}} , 0<x<\infty,\theta>0
+    \end{equation}
+    Con $\theta$ desconocido. Encuentre un estadístico suficiente.
+    
+    \item Sea $X=(X_1,...,X_n)$ una MAS con una función de densidad dada por:
+    \begin{equation}
+        \nonumber 
+        f(x|\theta)=\theta x^{\theta -1},\theta>0,x\in (0,1)
+    \end{equation}
+    
+    \begin{itemize}
+        \item[(i)] ¿Es $\sum\limits_{i=1}^{n}X_i$ un estadístico suficiente para $\theta$?
+        
+        \item[(ii)] Encuentre un estadístico minimal suficiente para $\theta$
+    
+        \item[(iii)]  ¿Es $T'(X)=\sum\limits_{i=1}^{n}ln(X_i)$ un estadístico minimal para $\theta$?
+        
+        \item[(iv)] Encuentre un estadístico suficiente y completo para $\theta$.
+        
+        \item[(v)] Sea S(X) un estadístico ancilario para $\theta$. Encuentre la correlación entre S(X) y $T'(X)$.
+        
+    \end{itemize}
+    
+\end{enumerate}
+
+
+\section{Estimador de Máxima Verosimilitud}
+
+
+\section{Modelos Lineales}
+

@@ -1,0 +1,152 @@
+\chapter{Introducción a Series de Tiempo}
+
+Las series de tiempo son un tipo de datos, que están indexados por el tiempo. Si bien esto puede parecer natural, es importante notar que a este punto, normalmente hemos trabado con datos que podemos re-indexar sin ningún problema. Las series de tiempo, al estar indexadas por el tiempo le dan un orden a los datos. Explicado de otra forma, no podemos intercambiar índices de forma aleatoria y modelar los datos con la misma distribución. \\
+Una propiedad bastante particular de las series de tiempo es que los datos "crudos" aportan muy poca información. Como consecuencia, graficar o resumir los datos no aporta mucho al análisis de las series de tiempo. \\
+La literatura sobre series de tiempo es bastante extensa, por lo que nos concentraremos sólo en conceptos básicos de estas. \\
+Sea $(X_t)_{t \geq 0}$ una serie de tiempo. El comportamiento estocástico está determinado por las densidades: 
+$$
+p(X_{t_1},X_{t_2},...,X_{t_m}), \text{  } m \in \N
+$$
+(\begin{definition}
+Una serie de tiempo $(X_t)_t\geq 0$ se dice estrictamente estacionaria si cumple invarianza bajo traslaciones temporales:
+$$
+p(X_{t_1+\tau},X_{t_2+\tau},...,X_{t_m}+\tau)=p(X_{t_1},X_{t_2},...,X_{t_m}) \forall \tau, \forall m, \forall \left \{ t_1,...,t_m \right \}
+$$
+\end{definition}
+
+En otras palabras, desde un punto de vista distribucional, una serie de tiempo es invariante bajo shifts. Dado que la definición es para todo $m$, incluyendo $m=1$, la media y la varianza para estos procesos son constantes. \\
+A veces, esta propiedad resulta ser muy fuerte. Por ello podemos "debilitarla" un poco con la siguiente definición: 
+ \begin{definition}
+ Una serie de tiempo es estacionaria de segundo orden si su media es constante y su covarianza entre dos valores de tiempo sólo depende de la diferencia de estos valores. Es decir:
+ $$
+ \mathbb{E}(X_t)=\mu \forall t
+ $$
+ $$
+ Cov(X_t,X_{t+\tau}=\gamma(\tau) \forall \tau
+ $$
+La función $\gamma(\tau)$ se conoce como función de auto-covarianza. 
+ \end{definition}
+ 
+ La intuición detrás de las series de tiempo estacionarias es que la distribución de los datos no depende de $t$, por lo que el conocimiento que se tenga sobre el tiempo no nos dirá nada sobre la distribución. 
+ Esto nos permite considerar que las series de tiempo son estables en tiempo, por lo que no habrá mayores cambios en las tendencias en el tiempo. \\
+ Es importante mencionar que no todas las series de tiempo son estacionarias. Un buen ejemplo de esto es el clima. Imaginemos que tenemos una serie de tiempo con la temperatura en Santiago. Si la miramos en invierno, las temperatura serán considerablemente más bajas que 6 meses después en verano, por lo que el tiempo si cambia la distribución de los datos. 
+ 
+ \begin{definition} [Operador Lag] El operador Lag $L()$ se define como el operador que hace un shift en un incremento de tiempo:
+ $$
+ L(X_t)=X_{t-1}
+ $$
+ Aplicándolo de forma recursiva: 
+ $$ 
+ L^{0}(X_t)=X_t; L(X_t)=X_{t-1}; L^{2}(X_t)=X_{t-2};...; L^{n}(X_t)=X_{t-n}
+ $$
+ La inversa de estos operadores está bien definida: 
+ $$
+ L^{-n}(X_t)=X_{t+n}
+ $$
+ \end{definition}
+ 
+\section{Modelos AR}
+ 
+\begin{definition}
+Una serie de tiempo $(X_t)_{t \geq 0}$ sigue un modelo autorregresivo de orden $p$ si: 
+$$
+X_t=\mu + \phi_1 (X_{t-1}-\mu)+...+\phi_p (X_{t-p}-\mu) + \epsilon_t
+$$
+con $ \epsilon_t \sim \mathcal{N}(0,\sigma^2)$. Si definimos: 
+$$
+\phi(L)=(1-\phi_1 L +...-\phi _p L^{p}),
+$$
+con $L$ el operador Lag, podemos caracterizar los modelos autorregresivos por: 
+$$
+\phi(L)\cdot (X_t - \mu)=\epsilon_t
+$$
+\end{definition}
+
+Consideremos $\phi(z)$, reemplazando $L$ por una variable compleja, y sean $\lambda_1,...,\lambda_p$ las raíces de la ecuación $\phi(z)=0$. Entonces: 
+$$
+\phi(Z)=(1-\dfrac{1}{\lambda_1}L) 
+\cdot \cdot \cdot(1-\dfrac{1}{\lambda_p}L)  $$
+
+La ecuación $\phi(z)=0$ se llamará la ecuación característica. El siguiente lema no será demostrado pues requiere mayor profundidad en series de tiempo. 
+
+\begin{lemma}
+Una serie de tiempo $(X_t)_{t \geq 0}$ que sigue un modelo $AR$ es estacionaria de segundo orden si y sólo si todas las raíces de su ecuación característica están fuera del círculo unitario. Es decir, $|\lambda_j| > 1 \forall j \in \left \{ 1,...,p \right \}$.
+\end{lemma}
+
+\begin{example}
+Sea $(X_t)_{t\geq0}$ una serie de tiempo que sigue un modelo autorregresivo de orden 1, es decir: 
+$$
+X_t=c+\phi X_{t-1} + \epsilon_t \forall t
+$$
+con $\epsilon_t \sim  \mathcal{N}(0,\sigma^2) \forall t $. Definimos $\theta= [c, \phi, \sigma^{2} ]$. 
+
+La ecuación característica del modelo es: 
+$$
+(1-\phi z)=0,
+$$
+con raíz $\lambda=1/\phi$. Luego el modelo AR(1) es estacionario de segundo orden si $|\phi|<1$. Además:
+$$
+\mathbb{E}(X_t)=\mu
+$$
+$$
+\mathbb{V}(X_t)=\dfrac{\sigma^{2}}{1-\phi} 
+$$
+\end{example}
+
+\section{Estimación en modelos AR}
+
+En un modelo de series de tiempo AR, la construcción de la densidad conjunta de observaciones $y_1,..y_n$ no se puede calcular de la forma usual, al igual que su log-verosimilitud, pues estas no son observaciones i.i.d.\\ 
+En estos casos, el enfoque más usando consiste en factor izar la densidad conjunta en una serie de densidades condicionales y la densidad de un conjunto de valores iniciales. Para ver esto, consideremos la densidad conjunta de dos observaciones $y_1$ e $y_2$ de una serie de tiempo AR. Tenemos: 
+$$
+f(X_1;X_2;\theta)= f(X_2|X_1,\theta) f(X_1;\theta) 
+$$
+Luego para tres observaciones: 
+$$
+f(X_1;X_2;X_3;\theta)= f(X_3|X_2;X_1;\theta) f(X_2|X_1,\theta) f(X_1;\theta) 
+$$
+De forma inductiva: 
+$$
+f(X_T;...;X_1;\theta)=(\prod_{t=p+1}^{T} f(X_t | I_{t-1} ;\theta )) f(X_p;..;X_1;\theta)  
+$$
+donde $I_t= \left \{ X_t;...;X_1 \right \}$ denota la información a tiempo $t$ y $X_1,..,X_p$ los valores iniciales. Así, la función de log-verosimilitud es: 
+$$
+l(\theta | X) = \sum_{p+1}^{T} ln(f( X_t | I_{t-1} )) + ln(f(X_p;..;X_1;\theta))
+$$
+\begin{example}[Estimación en el modelo AR(1)]
+Consideremos el modelo estacionario de segundo orden: 
+$$
+X_t=c+\phi X_{t-1} + \epsilon_t \forall t
+$$
+con $\epsilon_t \sim  \mathcal{N}(0,\sigma^2) \forall t $. Definimos $\theta= [c, \phi, \sigma^{2} ]$
+Luego: 
+$$
+X_t | I_{t-1} \sim  \mathcal{N}(c+\phi X_{t-1};\sigma^{2})
+$$
+Entonces, condicional a $X_{t-1}$:
+$$
+f(X_t | X_{t-1};\theta) = (2 \pi \sigma^{2} )^{\frac{1}{2}} exp ( \frac{-1}{2 \sigma^2} (X_t-c-\phi X_{t-1} )^2);  t=1,...,T 
+$$
+Como la serie es estacionaria: 
+$$
+\mathbb{E}(X_1)=\mu=\dfrac{c}{1- \phi}
+$$
+$$
+\mathbb{V} (X_1) = \dfrac{\sigma^2}{1-\phi^2}
+$$
+Con esto: 
+$$
+X_1 \sim \mathcal{N}(\dfrac{c}{1- \phi};\dfrac{\sigma^2}{1-\phi^2} )
+$$
+$$
+f(X_1;\theta) = (2 \pi \dfrac{\sigma^2}{1-\phi^2})^{\frac{1}{2}} exp ( -\frac{1-\phi^2}{2\sigma^2} (X_t- \dfrac{c}{1- \phi})^2)
+$$
+Teniendo esta distribución, podemos obtener la log-verosimilitud, usando la factorización en densidades condicionales, obteniendo:  
+$$
+log L(X_{t}|\theta) = \dfrac{log(1 -\phi^{2})}{2} - \dfrac{T log(2 \pi \sigma^{2})}{2} + \dfrac{(\phi^{2}-1)(X_{1}-\dfrac{c}{1-\phi})^{2}}{2\sigma^{2}}+ 
+    \sum_{i=2}^{T} \dfrac{-(X_{t}-c-\varphi X_{t-1})^{2} }{2\sigma^{2}}
+$$
+Usando métodos numéricos, podemos obtener una expresión para el estimador de máxima verosimilitud. \\
+Notemos que, dado conocimiento experto, también podemos encontrar el estimador máximo a posteriori. 
+\end{example}
+
+ 

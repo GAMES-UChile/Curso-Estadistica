@@ -1,0 +1,215 @@
+\chapter{Inferencia Causal} 
+
+En este capítulo nos enfocaremos en métodos matemáticos que nos permitan modelar causas. Los métodos aquí presentados son bastante recientes, e intentan responder la pregunta \emph{"¿Cuándo $X$ causa $Y$?"}.\\
+Estas dudas surgen de forma natural en un curso de estadística. Siempre se enseñan herramientas que permiten ver cuándo dos variables están asociadas, por ejemplo, con su correlación. Sin embargo, siempre se dice que \emph{"Asociación no implica causa"}. Es así como la estadística clásica respondió muchas veces la pregunta "¿Qué \textbf{no} es $X$ causa $Y$?", pero nunca "¿Qué es $X$ causa $Y$?". Esto fue así hasta que Judea Pearl introdujo la inferencia causal a finales del sigo pasado. Este trabajo logró que le dieran a Pearl un premio Turing, considerado el premio Nobel de ciencias de la computación, en el año 2011. \\
+Informalmente, diremos que $X$ causa $Y$ si un cambio en el valor de $X$ cambia la distribución de $Y$. Podemos notar que cuando $X$ causa $Y$, $X$ e $Y$ están asociadas, pero la recíproca no es cierta. 
+
+\section{El modelo contrafactual}
+
+Sea $X$ una variable binaria, donde $X=1$ si $X$ "fue expuesta" y $X=0$, si $X$ "no fue expuesta". En este ámbito, la palabra "expuesta" puede referirse, por ejemplo, a que $X$ se expuso a un tratamiento médico, o a que $X$ realizó determinada acción. Por otro lado, sea $Y$ la variable resultado, por ejemplo, si hay o no una enfermedad. 
+
+\definition Introducimos las variables aleatorias $C_0$ y $C_1$, llamadas resultados potenciales como: 
+\begin{itemize}
+    \item $C_0$ es el resultado si $X=0$
+    \item $C_1$ es el resultado si $X=1$
+\end{itemize}
+Así: 
+$$
+Y=  \begin{cases}
+      C_0, &  \text{ Si X =0} \\
+		C_1, & \text{Si } X =1
+    \end{cases}
+$$
+
+Esto se puede expresar como: 
+$$
+Y=C_{X}
+$$
+Lo anterior se llama la \textbf{Ecuación de Consistencia}. 
+\begin{remark}
+\begin{enumerate}
+    \item Podemos pensar en $C_0$ y $C_1$ como variables escondidas que tienen toda la información relevante de un sujeto. 
+    \item Si $X=0$, no observamos $C_1$. Luego decimos que $C_1$ es un contrafactual de $X=0$, pues es el resultado que hubiésemos obtenido si, contra los hechos (\emph{counter the facts}), $X=1. $
+\end{enumerate}
+\end{remark}
+
+\definition Definimos el efecto causal promedio de $X$ sobre $Y$ por:
+$$
+\theta= \mathbb{E}(C_1)- \mathbb{E}(C_0)
+$$
+
+\begin{remark}
+\begin{itemize}
+    \item $\theta$ es el promedio si $X=1$ para todos, menos el promedio si $X=0$ para todos los sujetos.  
+    \item $\theta$ mide el efecto causal de $X$. 
+\end{itemize}
+\end{remark}
+
+\definition Se define la asociación de $X$ e $Y$ por: 
+$$
+\alpha= \mathbb{E}(Y|X=1)- \mathbb{E}(Y|X=0)
+$$
+
+\theorem En general, $\theta \not = \alpha$. (Asociación no implica causa). 
+\example Queremos analizar el efecto que tiene una vitamina sobre una condición. Luego: 
+$$
+X= \begin{cases}
+      1, &  \text{ Si la persona toma la vitamina} \\
+		0, & \text{Si no }
+    \end{cases}
+$$
+Por otra parte: 
+$$
+Y= \begin{cases}
+      1, &  \text{ Si la persona está saludable} \\
+		0, & \text{Si no }
+    \end{cases}
+$$
+Observamos: 
+\begin{center}
+\begin{tabular}{cccc}
+$X$ & $Y$ & $C_0$ & $C_1$ \\ \hline
+$0$ & $0$ & $0$ & $0$* \\ 
+$0$ & $0$ & $0$ & $0$* \\ 
+$0$ & $0$ & $0$ & $0$* \\ 
+$0$ & $0$ & $0$ & $0$* \\  \hline
+$1$ & $1$ & $1$*& $1$ \\ 
+$1$ & $1$ & $1$* & $1$ \\ 
+$1$ & $1$ & $1$* & $1$ \\ 
+$1$ & $1$ & $1$* & $1$ \\  
+\end{tabular}
+\end{center}
+
+Los asteriscos hacen referencia a cantidades no observadas. Como $C_0=C_1$ para cada sujeto, tendremos: 
+$$
+\theta= \mathbb{E}(C_1)- \mathbb{E}(C_0)= \dfrac{1}{8} \sum_{i=1}^{8}C_{1,i}-\dfrac{1}{8} \sum_{i=1}^{8}C_{0,i}=0
+$$
+Luego el efecto causal promedio es $0$. Sin embargo, 
+$$
+\alpha= 1
+$$
+
+Luego $\theta \not = \alpha$. Sólo podemos concluir que la gente sana ($Y=1$) tiende a tomar la vitamina, mientras que la gente no sana, no.
+
+En la mayoría de los casos, se hace difícil estimar $\theta$. Luego, se hace natural preguntarse cuando es posible dar un estimador para $\theta$. La respuesta es, cuando se hace una asignación aleatoria al tratamiento: 
+
+\theorem Supongamos que asignamos el tratamiento al azar a los sujetos, y que $\mathbb{P}(X=0)>0$ y $\mathbb{P}(X=1)>0$. Entonces $\alpha = \theta$, y por lo tanto cualquier estimador consistente de $\alpha$ es un estimador consistente de $\theta$. 
+En particular: 
+$$
+\hat{\theta}= \hat{\mathbb{E}}(Y|X=1)- \hat{\mathbb{E}}(Y|X=0) = \dfrac{1}{n_1} \sum_{i=1}^{n}Y_i X_i - \dfrac{1}{n_0} \sum_{i=1}^{n}Y_i (1-X_i),
+$$
+con $n_1= \sum_{i=1}^{n}X_i$ y $n_2=\sum_{i=1}^{n}1-X_i$. 
+
+\textbf{Dem:} Como el tratamiento es asignado de forma aleatoria, tenemos que: 
+$$
+X \indep C_0, C_1
+$$
+Con esto: 
+$$
+\theta=\mathbb{E}(C_1)-\mathbb{E}(C_0) = \mathbb{E}(C_1|X=1) - \mathbb{E}(C_0|X=0) = \mathbb{E}(Y|X=1) - \mathbb{E}(Y|X=0) = \alpha \blacksquare
+$$ 
+
+\section{El modelo contrafactual: Generalización}
+En la sección anterior se estudió que sucedía en el caso binario, es decir, el sujeto podía estar expuesto o no expuesto. Sin embargo, esta es una sobre simplificación de la realidad. Por ejemplo, si se desea estudiar el efecto de un medicamento sobre una enfermedad, no sólo será importante para el modelo si un sujeto se expuso o no a un medicamento, sino también cuál fue la dosis que tomaron. \\
+Sea $x \in \mathcal{X}$. El vector $(C_0,C_1)$ pasará a ser la  \textit{función contrafactual} $C(x)$. Luego, en el ejemplo del medicamento $x$ será la dosis que tomó un sujeto, y $C(x)$ será el resultado que habría tenido un sujeto si hubiese recibido una dosis $x$. \\
+Con lo anterior, la ecuación de consistencia se transforma en: 
+$$
+Y=C(X)
+$$
+Por otro lado, cambiamos el efecto causal promedio de $X$ sobre $Y$ por la función de regresión causal: 
+$$
+\theta(x)= \mathbb{E}(C(X)).
+$$
+Por otra parte la asociación se mide por la función de regresión: 
+$$
+r(x)=\mathbb{E}(Y|X=x)
+$$
+
+\theorem En general, $\theta(x) \not = r(x)$. Sin embargo, si X es asignado al azar (por ejemplo, por una prueba controlada aleatorizada), entonces $\theta(x)=r(x)$. 
+
+Lamentablemente, dadas las dificultades que podría significar, la exposición de $X$ no suele ser al azar. Luego, ¿Cómo separamos aquello que podemos controlar para estudiar causalidad, y aquello que no?
+
+\section{Confounders}
+
+El problema que presenta que la exposición de $X$ no sea aleatoria es que genera que $C(X)$ no sea independiente de $X$. Pero, ¿Qué pasaría si pudiésemos separar los sujetos en grupos de forma que $X$ y $C(X)$ fueran independientes dentro de los grupos?.\\
+Si lo pensamos, lo anterior no es muy difícil. Por ejemplo si estudiamos el efecto de un tratamiento médico, podríamos separar a las personas en distintos grupos según su edad, género, hábitos, etc. Dentro de un mismo grupo, se hace razonable que $X$ y $C(X)$ sean independientes. Las variables que usamos para asignar los distintos grupos se llaman \textbf{confounders} o \textbf{factores de confusión}. Si denotamos por $Z$ a todas estas variables, entonces: 
+$$
+\left \{ C(x): x \in \mathcal{X} \right \} \indep X |Z.
+$$
+
+\theorem Si $\left \{C(x): x \in \mathcal{X} \right \} \indep X |Z $, entonces: 
+\begin{equation}
+    \theta(x)= \int \mathbb{E}(Y | X=x,Z=z) dF_{Z}(z)dz
+\end{equation}
+
+Si $\hat{r}(x,z)$ es un estimador consistente de la funcióon de regresión $\mathbb{E}(Y|X=x,Z=z)$, entonces un estimador consistent de $\theta(x)$ es: 
+\begin{equation}
+    \hat{\theta}(x)= \dfrac{1}{n} \sum_{i=1}^{n} \hat{r}(x,Z_i)
+    \label{eq: EAT}
+\end{equation}
+
+\begin{remark}
+\begin{enumerate}
+    \item Si $r(x,z)=\beta_0 + \beta_1 x + \beta_2 z$ entonces: 
+    $$
+    \hat{\theta}(x)= \hat{\beta}_0 + \hat{\beta}_1 x + \hat{\beta}_2 z,
+    $$
+    donde $(\hat{\beta}_0, \hat{\beta}_1, \hat{\beta}_2)$ son los estimadores de MCO. 
+    \item Los epidemiólogos suelen llamar a la expresión de la ecuación \ref{eq: EAT} efecto ajustado de tratamiento. 
+    \item La selección de factores de confusión \textbf{requiere} conocimiento experto. No es posible asegurarse de que no haya confounders que no conozcamos. 
+    
+\end{enumerate}
+\end{remark}
+
+Esta última observación tiene un efecto muy potente en la "filosofía" de la inteligencia artificial y en particular en el aprendizaje de máquinas según Judea Pearl. No es posible hacer que una máquina entienda relaciones causales sin un modelo con conocimiento humano experto. Pasar a ese nivel de "inteligencia" requiere que un humano haya modelado el fenómeno estudiado. 
+
+\section{DAGs}
+
+\definition Sean $X, Y,Z$ variables aleatorias. $X$ e $Y$ se dicen condicionalmente independientes dado $Z$ si: 
+$$
+f_{X,Y|Z}(x,y|z)= f_{X|Z}(x|z) f_{Y|Z}(y|z)\forall x,y,z  
+$$
+Esta relación se denota $X \indep Y |Z $.
+
+\definition Un grafo dirigido $G$ es un par $(V,E)$, donde $V$ corresponde a los vértices, y $E$ a pares ordenados de vértices. 
+
+Si se considera cada vértice en un grafo dirigido como una variable aleatoria, entonces esta se convierte en una forma muy conveniente de indicar independencia de las distintas variables. Para comprender este método, se hacen necesarias algunas definiciones y conceptos de Teoría de Grafos. 
+
+\definition \begin{itemize}
+    \item Si $\exists e \in E$ tal que $e=(X,Y)$, $X $ e $Y$ se dicen adyacentes. 
+    \item  Si $\exists e \in E$ tal que $e=(X,Y)$, es decir el grafo tiene la configuración $X \rightarrow Y$ , se dice que $X$ es padre de $Y$, y que $Y$ es hijo de $X$. Se denota por $\pi_X$ o $\pi(X)$ al conjunto de padres de $X$.
+    \item Un camino dirigido entre dos variables aleatorias es un conjunto de flechas apuntando en la misma dirección que va dese una variable a la otra. 
+    \item $X$ es ancestro de $Y$ si existe un $X,Y$-camino dirigido. En este caso, $Y$ se dice descendiente de $X$. 
+\end{itemize}
+
+Esto nos permite graficar distintos tipos de relaciones causales e independencia entre variables. \\
+
+\textbf{Insertar Dibujo}
+
+\definition Una configuración de la forma $X \rightarrow Y \leftarrow Z $ se llama \textbf{collider}. Cualquier otra configuración se llama \textbf{no-collider}. 
+
+Un camino dirigido se dice ciclo si empieza hay termina en el mismo vértice. Un grafo dirigido se dice acíclico si no contiene ciclos. De ahora en adelante, sólo trabajaremos con grafos dirigidos acíclicos o \textbf{DAGs} por su sigla en inglés (Directed Acyclic Graph).  
+
+Si bien hoy en día el uso de DAGs como herramienta es bastante más común que hace un par de décadas, se debe tener en cuenta que fue muy difícil que la escuela clásica de la estadística lograra aceptarlos como una herramienta útil. Es más, no fueron los matemáticos ni los estadísticos los qu comenzaron usando esta herramienta, sino los epidemiólogos.  \\
+
+\definition Sea $G=(V,E)$ un DAG, y sea $\mathbb{P}$ una distribución para $V$ con función de probabilidad $f$. Se dice que $G$ representa a $\mathbb{P}$ si: 
+$$
+f(v)=\prod_{i=1}^{k} f(x_i|\pi_i) 
+$$
+con $\pi_i$ padres de $x_i$. Se denota por $M(G)$ al conjunto de distribuciones representadas por $G$. 
+
+\example \textbf{[insertar dibujo]} $\text{Sobrepeso} \rightarrow \text{Enfermedades al Corazón} \leftarrow \text{Fumar} \rightarrow \text{Tos} $
+
+Tenemos que las enfermedades al corazón son un collider en el camino $ \text{Sobrepeso} \rightarrow \text{Enfermedades al Corazón} \leftarrow \text{Fumar}$. Además: 
+$$
+f(\text{Sobrepeso},\text{Enfermedades al Corazón}, \text{Fumar},\text{Tos})= 
+$$
+
+$$
+f(\text{Sobrepeso}) f(\text{Fumar}) f(\text{Enfermedades al Corazón}|\text{Sobrepeso},\text{Fumar}) f(\text{Tos}|\text{Fumar}) 
+$$
+
+\theorem Dado $G=(V,E)$ un DAG, $\mathbb{P} \in M(G)$ si y sólo si $\forall W $ variable aleatoria, $W \indep \widetilde{W} | \pi_W $, con $\widetilde{W}$ todas las variables excepto padres y descendientes de $W$. 
+
+\section{d-Separación}
+

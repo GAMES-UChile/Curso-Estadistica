@@ -1,0 +1,45 @@
+\documentclass[11pt]{book}
+\def\byn{1} %de-comentar para generar cuadros con fondo blanco
+
+%\input{utils/preambulo}
+\input{utils/Preamble}
+
+\author{{ Felipe Tobar}\\Universidad de Chile}
+\title{\vspace{7cm} Estadística}
+\input{utils/portada}
+
+\begin{document}
+% Maketitle
+\thispagestyle{empty}		% Remove page numbering on this page
+\printtitle					% Print the title data as defined above
+  	\vfill
+\printauthor				% Print the author data as defined above
+\clearpage
+% 
+
+\input{capitulos/prefacio}\clearpage
+
+\tableofcontents
+\clearpage
+
+\input{capitulos/Introduccion}
+
+\input{capitulos/Repaso}
+
+\input{capitulos/Estadísticos}\clearpage
+
+\input{capitulos/Estimadores}\clearpage
+
+\input{capitulos/Test de Hipótesis}\clearpage
+
+\input{capitulos/Estimadores Bayesianos}\clearpage
+
+%\input{capitulos/Series de Tiempo}\clearpage
+%\input{capitulos/Inferencia Aproximada}\clearpage
+%\input{capitulos/Inferencia Causal}\clearpage
+%\input{capitulos/Apéndice}\clearpage
+
+%\bibliography{capitulos/referencias}
+%\bibliographystyle{apacite}
+
+\end{document} 
