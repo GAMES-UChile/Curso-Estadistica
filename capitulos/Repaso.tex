@@ -1,47 +1,50 @@
+%!TEX root = ../notas_de_clase.tex
+
+
 \chapter{Repaso de Probabilidades}
 
-Este capítulo tiene como finalidad realizar un repaso breve sobre conceptos claves en la teoría de probabilidad, los cuales deben ser dominados para entender los contenidos del curso. Además, se hará una breve introducción a la teoría de la información, dando definiciones y teoremas claves de esta.
+Este capítulo contiene un breve repaso sobre conceptos claves en la teoría de probabilidad, los cuales deben ser dominados para entender los contenidos del curso. Además, se hará una introducción a la teoría de la información, dando definiciones y teoremas claves de esta.
 
-\section{Notación y conceptos básicos (Incompleto)}
+\section{Notación y conceptos básicos}
 
 \subsection{Espacio de probabilidad}
 
-Sea $\Omega$ un conjunto cualquiera, se considera a $\mathcal{P}(\Omega)$ el conjunto potencia de $\Omega$ dado por $\mathcal{P}(\Omega)=\{A:A\subseteq \Omega\}$, es decir, el conjunto de todos los subconjuntos de $\Omega$. Notar que el conjunto  vacío $\{\}=\phi$ siempre es un elemento en $\mathcal{P}(\Omega)$. 
+Sea $\Omega$ un conjunto cualquiera, se considera a $\mathcal{P}(\Omega)$ el conjunto potencia de $\Omega$ dado por $\mathcal{P}(\Omega)=\{A:A\subseteq \Omega\}$, es decir, el conjunto de todos los subconjuntos de $\Omega$. Notar que el conjunto  vacío $\{\}=\phi$ siempre es un elemento en $\mathcal{P}(\Omega)$. También nos referimos a $\mathcal{P}(\Omega)$ como "las partes de $\Omega$."
 
-\begin{definition}[$\sigma-$álgebra] Se define $\Sigma$ una $\sigma-$álgebra a un sub conjunto $\Sigma\subseteq\mathcal{P}(\Omega)$ tal que:
+\begin{definition}[$\sigma-$álgebra] Una $\sigma-$álgebra es un subconjunto $\Sigma\subseteq\mathcal{P}(\Omega)$ con las siguientes propiedades:
 \begin{enumerate}
     \item $\Omega\in\Sigma$, $\phi\in\Sigma$,
-    \item Si $A\in\Sigma$ entonces $A^{c}\in\Sigma$,
-    \item Si $\{A_i\}_{i\in\mathbb{N}}\subseteq \Sigma$ entonces $\bigcup\limits_{i\in\mathbb{N}}A_i\in\Sigma$
+    \item Si $A\in\Sigma$, entonces $A^{c}\in\Sigma$,
+    \item Si $\{A_i\}_{i\in\mathbb{N}}\subseteq \Sigma$, entonces $\bigcup\limits_{i\in\mathbb{N}}A_i\in\Sigma$.
 \end{enumerate}
 \end{definition}
 
-En adelante, se considera a $\Sigma$ una $\sigma-$álgebra sobre $\Omega$. A $(\Omega, \Sigma)$ se le denomina espacio medible. 
+En adelante, se considera a $\Sigma$ una $\sigma-$álgebra sobre $\Omega$. Además, a la dupla $(\Omega, \Sigma)$ se le denomina \emph{espacio medible}. 
 
 \begin{definition}[Medida]
-Se dice que una función $\mu$ es una medida sobre $\Sigma$ si es que $\mu$ cumple que:
+Se dice que una función $\mu:\Sigma\rightarrow\R$ es una medida sobre $\Sigma$ si es que $\mu$ cumple que:
 
 \begin{enumerate}
     \item Positividad: $\forall A \in\Sigma$, $\mu(A)\geq 0$,
     \item $\mu(\phi)=0$,
     \item $\sigma$-aditividad: Si $\{A_i\}_{i\in\mathbb{N}}$ es un conjunto disjunto, es decir, que $A_i\cap A_j=\phi, \forall i\neq j$, entonces:
-    \[\mu\left( \bigcup\limits_{i\in\mathbb{N}}A_i \right)=\sum_{i\in\mathbb{N}}\mu(A_i)\]
+    \[\mu\left( \bigcup\limits_{i\in\mathbb{N}}A_i \right)=\sum_{i\in\mathbb{N}}\mu(A_i).\]
     
 \end{enumerate}
-En el caso de que $\mu(\Omega)=1$, se habla de que $\mu$ es una medida de probabilidad.
+En el caso $\mu(\Omega)=1$, $\mu$ es una \emph{medida de probabilidad}.
 \end{definition}
 
-Antes de introducir lo que entenderemos como espacio de probabilidad, es necesario entender lo que es la $\sigma$-álgebra de Borel. Para esto, se necesita las siguientes definiciones:
+Antes de introducir lo que entenderemos como espacio de probabilidad, es necesario entender lo que es la $\sigma$-álgebra de Borel. Para esto, necesitamos la siguiente definición:
 
 \begin{definition}[$\sigma$-álgebra generada por un conjunto]
-Sea $\mathcal{L}\subseteq\mathcal{P}(\Omega)$ una familia de partes de $\Omega$. Consideremos a $\mathcal{J}$ como $\mathcal{J}(\mathcal{L})=\{\mathcal{B}:\mathcal{B}\text{ es $\sigma$-álgebra en }\Omega, \mathcal{L}\subseteq\mathcal{B}\}$. La $\sigma$-álgebra generada por un conjunto $\mathcal{L}$, $\sigma(\mathcal{L})$ viene dada por:
+Sea $\mathcal{L}\subseteq\mathcal{P}(\Omega)$ una familia de partes de $\Omega$. Consideremos a $\mathcal{J}$ como $\mathcal{J}(\mathcal{L})=\{\mathcal{B}:\mathcal{B}\text{ es $\sigma$-álgebra en }\Omega, \mathcal{L}\subseteq\mathcal{B}\}$, es decir, $\mathcal{J}(\mathcal{L})$ es el conjunto de todas las $\sigma$-álgebras sobre $\Omega$ que contienen al conjunto $\mathcal{J}$. La $\sigma$-álgebra \emph{generada por un conjunto $\mathcal{L}$}, $\sigma(\mathcal{L})$ está dada por:
 
-\[\sigma(\mathcal{L})=\bigcap\limits_{\mathcal{B}\in\mathcal{J}}\mathcal{B}\]
+\[\sigma(\mathcal{L})=\bigcap\limits_{\mathcal{B}\in\mathcal{J}}\mathcal{B}.\]
 \end{definition}
 
- Basicamente, $\sigma(\mathcal{L})$ se entiende como la $\sigma$-álgebra más pequeña que contiene a $\mathcal{L}$, esto en el sentido de si $\sigma_0$ es otra $\sigma-$álgebra que contiene a $\mathcal{L}$, entonces $\sigma(\mathcal{L})\subseteq\sigma_0$. 
+ Basicamente, $\sigma(\mathcal{L})$ se entiende como la \emph{$\sigma$-álgebra más pequeña que contiene a $\mathcal{L}$}. Es decir, si $\sigma_0$ es cualquier $\sigma-$álgebra que contiene a $\mathcal{L}$, entonces necesariamente $\sigma(\mathcal{L})\subseteq\sigma_0$. 
 
-En el caso que $\Omega=\mathbb{R}$, se dotará de este espacio de una $\sigma$-álgebra especial, la $\sigma$-álgebra de los Borelianos, la cual es clave en la teoría de probabilidades. Si se considera que $\mathcal{L}=\{(-\infty, x]:x\in\mathbb{\mathbb{R}}\}$, la $\sigma$-álgebra de Borel viene dada por $\sigma(\mathcal{L})$ que se denotará por $\mathbb{B}(\mathbb{R})$ o simplemente por $\mathbb{B}$. A los elementos de $\mathbb{B}$ se le llaman los borelianos.
+En el caso que $\Omega=\mathbb{R}$, se dotará de este espacio de una $\sigma$-álgebra especial, la $\sigma$-álgebra de los \emph{Borelianos}, la cual es clave en la teoría de probabilidades. Si se considera que $\mathcal{L}=\{(-\infty, x]:x\in\mathbb{\mathbb{R}}\}$, la $\sigma$-álgebra de Borel  $\sigma(\mathcal{L})$ se denotará por $\mathbb{B}(\mathbb{R})$ o simplemente por $\mathbb{B}$. A los elementos de $\mathbb{B}$ se le llaman los \emph{borelianos}.
 
 Consideremos a $\mu$ una medida, a la tripleta $(\Omega, \Sigma, \mu)$ se le denomina espacio de medida, en el caso de que $\mu$ sea una medida de probabilidad, entonces $(\Omega, \Sigma, \mu)$ es un espacio de probabilidad. En un espacio de probabilidad, a los elementos $\omega\in\Omega$ se le denominan eventos. Se denotará a las medidas de probabilidad como $\mathbb{P}$.  
 
@@ -64,22 +67,25 @@ En adelante, se considera a $(\Omega, \Sigma, \mathbb{P})$ un espacio de probabi
 \begin{definition}
 Sean $A,B\in\Sigma$ con $\PP (B)>0$. La probabilidad condicional de $A$ dado $B$ es:
 
-\[\PP (A|B)=\dfrac{\PP (A\cap B)}{\PP(B)}\]
+\[\PP (A|B)=\dfrac{\PP (A\cap B)}{\PP(B)}.\]
 \end{definition}
 
-Es facil verificar las siguientes propiedades:
+Es directo verificar las siguientes propiedades:
 
 \begin{enumerate}
     \item Sean $A,B\in\Sigma$ con $\PP (A)>0$ y $\PP (B)>0$. Se tiene que:
 
-\[\PP(A|B)=\dfrac{\PP(B|A)\PP(A)}{\PP(B)}\]
+\[\PP(A|B)=\dfrac{\PP(B|A)\PP(A)}{\PP(B)},\]
+
+lo cual es conocido como el Teorema de Bayes.
+
 
 \item Si $\{A_n:n\in\mathbb{N}\}\subseteq \Sigma$ es una familia disjunta, entonces se tiene que:
 
-\[\PP\left(\bigcup\limits_{n\in\mathbb{N}}A_n|B\right)=\sum\limits_{n\in\mathbb{N}}\PP(A_n|B)\]
+\[\PP\left(\bigcup\limits_{n\in\mathbb{N}}A_n|B\right)=\sum\limits_{n\in\mathbb{N}}\PP(A_n|B).\]
 \end{enumerate}
 
-\textcolor{blue}{Por completar}
+\textcolor{blue}{Para más propiedades revisar: G.~Grimmett \& D.~Stirzaker, \emph{Probability and Random Processes}, Oxford Press, 2001.}
 
 
 %\begin{prop}[Probabilidades totales]
@@ -95,28 +101,30 @@ La teoría de la información es el estudio científico de las leyes matemática
 
 \subsection{Entropía}
 
-Consideramos a $X$ e $Y$ dos variables aleatorias discretas con función de densidad $p_X$ y $q_Y$ y posibles valores $\mathcal{X}=x_1,x_2,...$ e $\mathcal{Y}=y_1,y_2,...$. Un concepto clave es la Entropía, la cual se define de la siguiente forma:
+Consideramos a $X$ e $Y$ dos variables aleatorias (VA) discretas con función de densidad $p_X$ y $q_Y$ y posibles valores $\mathcal{X}=x_1,x_2,...$ e $\mathcal{Y}=y_1,y_2,\ldots$. La Entropía de la VA $X$ se define de la siguiente forma:
 
 \begin{align*}
     H(X)&=\mathbb{E}[-\log p_X]\\
-    &=-\sum\limits_{n\geq 1}p_X(x_n)\log p_X(x_n)
+    &=-\sum\limits_{n\geq 1}p_X(x_n)\log p_X(x_n).
 \end{align*}
 
-la cual refleja la cantidad de bits necesarios para describir $X$. Se definen las entropías condicionales de $X$ dado $Y$ como:
+La entropía, en analogía a la termodinámica, es una medida de \emph{desorden} en los valores que puede tomar una VA, es decir, mientras menos predecible es el valor de la VA, mayor es su entropía. Se dice también que la Entropía es la cantidad de \emph{bits} necesarios para describir $X$. 
+
+Se definen las entropías condicionales de $X$ dado $Y$ como:
 
 \begin{align*}
     H(X|Y=y)&=-\sum\limits_{n}p_{x_n|y}\log (p_{X|Y}(x_n|y))\\
-    H(X|Y)&=-\sum\limits_i\sum\limits_j p_{X,Y}(i,j)\log (p_{X|Y}(i|j))
+    H(X|Y)&=-\sum\limits_i\sum\limits_j p_{X,Y}(i,j)\log (p_{X|Y}(i|j)),
 \end{align*}
 se define análogamente a $H(X,Y)$, la entropía conjunta considerando la densidad conjunta $p_{X,Y}$.
 
 \begin{prop}[Propiedades de la entropía]
 Algunas propiedades de la entropía son las siguientes:
 
-\begin{enumerate}
-    \item $0\leq H(X)\leq \log (|\mathcal{X}|)$
-    \item $0\leq H(X|Y)\leq H(X)$
-\end{enumerate}
+\begin{itemize}
+    \item $0\leq H(X)\leq \log (|\mathcal{X}|)$,
+    \item $0\leq H(X|Y)\leq H(X)$.
+\end{itemize}
 
 \end{prop}
 
@@ -126,12 +134,13 @@ La información mutua $I$ entre $X$ e $Y$ se define como:
 
 \begin{align*}
     I(X;Y)&=H(X)-H(X|Y)\\
-    &=\sum\limits_{i,j}p_{X,Y}(i,j)\log \dfrac{p_{X,Y}(i,j)}{p_X(i)p_Y(j)}
+    &=\sum\limits_{i,j}p_{X,Y}(i,j)\log \dfrac{p_{X,Y}(i,j)}{p_X(i)p_Y(j)},
 \end{align*}
 
 la cual tiene las siguientes propiedades:
 
 \begin{prop}[Propiedades Información Mutua]
+Sean $X$ e $Y$ dos VAs, tenemos
 
 \begin{enumerate}
     \item No negatividad: $I(X;Y)\geq 0$
@@ -177,7 +186,7 @@ Para dos densidades de probabilidad $f$ y $g$, definidas sobre un mismo conjunto
  				&= \loga{\int_\cX g(x)}\dx\\
  				&=\log 1=0.,	
  \end{align*} 
-Adempás, como $\log(\cdot)$ es estrictamente convexo, la igualdad $\KL{f}{g}=0$ solo se cumple si el argumento $\frac{g(x)}{f(x)}$ es constante, lo cual se tiene solo para ${g(x)} = {f(x)}$.
+Además, como $\log(\cdot)$ es estrictamente convexo, la igualdad $\KL{f}{g}=0$ solo se cumple si el argumento $\frac{g(x)}{f(x)}$ es constante, lo cual se tiene solo para ${g(x)} = {f(x)}$.
 \end{remark}
 
 Otra propiedad clave de la divergencia KL es que puede ser infinita y es asimétrica, por esta razón nos referimos a KL como divergencia y no \emph{distancia}. La intuición detrás de la KL es que es una medida de \textit{error} de estimar la densidad $f$ mediante la densidad $g$. Algunas propiedades son las siguientes:
