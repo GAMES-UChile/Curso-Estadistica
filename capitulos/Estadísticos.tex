@@ -1,4 +1,53 @@
-\chapter{Estadísticos}
+%!TEX root = ../notas_de_clase.tex
+
+\chapter{Modelos y Estadísticos}
+
+
+\section{El modelo estadístico}
+
+En este curso, en particular, nos enfocaremos en la \emph{estadística matemática}, la cual provee una metodología para realizar inferencia estadística formal basada en herramientas de probabilidades, álgebra y teoría de la medida. Para esto, asumiremos que tenemos datos generados desde un modelo estadístico (o probabilístico, o \emph{generativo}) desconocido, donde nuestro objetivo es usar estos datos para determinar dichos modelos (y en particular sus parámetros) con el fin último de aprender sobre el mecanismo subyacente de la generación de datos y hacer predicciones (usando el modelo aprendido). El primer paso para lograr este objetivo es definir el \emph{Modelo Estadístico}.
+
+\begin{definition} [Modelo estadístico]
+Un modelo estadístico es un conjunto de distribuciones de probabilidad, que pueden ser consideradas como \emph{candidatas} para el mecanismo de generación de datos. 
+\end{definition}
+
+En algunos casos, las distribuciones de ese conjunto pueden ser expresadas mediante parámetros, por ejemplo, en el caso de la distribución normal, expresada mediante su media y su varianza. En dichos casos, el objetivo  de descubrir el mecanismo de generación de datos (la distribución) es simplemente descubrir sus parámetros.  El objetivo entonces de definir el modelo estadístico (paramétrico o no) es delinear los posibles representaciones para el mecanismo de generación de datos y, en base a los datos y algún criterio de eficiencia, encontrar el(los) modelo(s) apropiado(s). En este contexto, antes de encontrar ese modelo, consideramos que nuestro modelo tiene \emph{parámetros desconocidos.}
+
+En el trayecto del curso, asumiremos que disponemos de un conjunto de datos $x$, que pertenece a un espacio abstracto $\mathfrak{X}$, donde típicamente $\mathfrak{X} = \mathbb{R}^n$; aunque también podremos tener datos funcionales, como por ejemplo $\mathfrak{X} = \{f:[0,1]\rightarrow \mathbb{R} \}$. Asumiremos entonces  que $x$ es la realización de una variable aleatoria $X\in\mathfrak{X}$; con lo que implícitamente asumimos que $\mathfrak{X}$ es un espacio medible con su respectiva $\sigma$-álgebra. Podemos entender nuestro modelo estadístico como el espacio de posibles hipótesis que explican los datos observados. En este sentido, una de las preguntas que debemos poder responder es ¿Cuál es la ley de X?, es decir, ¿Cómo calcular $\mathbb{P} (X\in A)$ donde $A \in \beta (\mathfrak{X})$?, con $\beta (\mathfrak{X})$ los borelianos de $\mathfrak{X}$.
+
+En este curso nos enfocaremos en modelos paramétricos, con lo cual es necesario definir formalmente los parámetros y el espacio donde éstos residen.
+
+\begin{definition}[Parámetro y Espacio de Parámetros] 
+En un problema de inferencia estadística, la (o las) característica(s) que determinan la distribución de las variables aleatorias estudiadas son llamadas parámetros. Denotaremos los parámetros mediante el símbolo $\theta\in\Omega$, donde $\Omega$ es el conjunto de todos los posibles valores de los parámetros y lo llamamos espacio de parámetros.
+\end{definition}
+
+Regresando a la pregunta, no habrá una, sino muchas posibles medidas de probabilidad como candidatas a ser la ley de ${X}$. A esto nos referíamos arriba cuando mencionamos la familia paramétrica de probabilidades donde cada una de las cuales puede ser la que actúa para generar $x$ a través de ${X}$. Encontrar la (o las) distribuciones, dentro de este conjunto, que son más representativas de haber generado los datos, es un objetivo de la inferencia estadística. 
+
+Denotaremos a la familia paramétrica $\mathcal{P}$ de la siguiente forma:
+\[\mathcal{P} = \{\mathcal{P}_\theta | \theta \in \Omega \},\]
+donde $\mathcal{P}_\theta $ es una medida de probabilidad \emph{indexada} por un parámetro $\theta \in \Omega$ en el espacio de parámetros. En nuestro estudio (pero en general no tiene que ser así) consideraremos que $\Omega$ es finito dimensional, es decir, $\Omega \subseteq \mathbb{R}^n$. Escribimos entonces que:
+\[\theta = [\theta_1, ..., \theta_n]^\top. \]
+
+
+Dado todo lo anterior, en la formulación de un modelo estadístico completo para representar un fenómeno se debiese tener plenamente identificado lo siguiente:
+
+\begin{itemize}
+    \item $\theta$ como parámetro a estimar
+    \item $\Omega$ espacio de parámetros con $\Omega \subseteq \mathbb{R}^n$
+    \item $\mathcal{P}_\theta$ probabilidad sobre $\mathfrak{X}$ (como función de $\theta$)
+    \item ${X}$ vector aleatorio con valores en $\mathfrak{X}$
+    \item $x$ elemento genérico de $\mathfrak{X}$ y realización de $X$ (datos).
+\end{itemize}
+
+\begin{example}[Fábrica de computadores]
+Una fabrica de computadores desea estimar el tiempo de vida de un componente particular en sus computadores. Para ello, en primer lugar se recolectan datos de los computadores que se han usado bajo condiciones normales. Luego de ser asesorados por expertos, deciden usar una distribución normal para modelar el tiempo que se demorará en fallar el componente de interés. Se modela entonces la vida útil de los componentes con un tiempo de vida promedio $\theta$ y varianza $\sigma^2$, con $\theta$ y $\sigma^{2}$  parámetros desconocidos. Si se tienen $N$ componentes, las variables aleatorias que modelan la vida útil de cada componente serán identificadas como 
+$X_1,\ldots,X_N$, con $X_i \sim \mathcal{N}(\theta,\sigma^{2}), \forall i=1,\ldots,N$. ¿Qué opina de este modelo?
+\end{example}
+
+La inferencia estadística es una herramienta que nos permitirá resolver muchos tipos de problemas. Los más importantes serán los de \emph{identificación}, donde nuestro objetivo es descubrir el modelo que genero los datos, y \emph{predicción} donde se intenta estimar una cantidad que no ha sido observada aún. Por supuesto, buscamos alcanzar ambos objetivos de forma estadística, es decir,  modelando apropiadamente la incertidumbre asociada.
+
+\section{Estadísticos}
+
 
 Recordemos que en la aplicación de la estadística, además de nuestros supuestos, solo contamos con \emph{datos}, consecuentemente, todo lo que hagamos partirá desde el uso de éstos. En este sentido, definimos un estadístico como una función de (las realizaciones de) una variable aleatoria, definida desde el espacio muestral. Es decir, cualquier función \emph{medible} de los datos. Recordar que $\Theta$ es el espacio de parámetros.\\ 
 

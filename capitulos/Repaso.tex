@@ -205,8 +205,7 @@ Otra propiedad clave de la divergencia KL es que puede ser infinita y es asimét
 Sea una cadena de markov dada por las variables aleatorias $X\rightarrow Y\rightarrow Z$, se tiene que:
 
 \[I(X;Y)\geq I(X;Z)\]
-
-la cual se llama Data Processing Inequality (DPI), con igualdad si y solo si $X\rightarrow Z\rightarrow Y$ es una cadena de Markov
+la cual se llama Data Processing Inequality (DPI), con igualdad si y solo si $X\rightarrow Z\rightarrow Y$ es una cadena de Markov. Esta desigualdad establece que no es posible realizar ningún procesamiento $Z$, determinístico o estocástico, que uno puede hacer a los datos $Y$ que puedan extraer más información sobre $X$ que la contenida inicialmente en los datos $Y$. 
 \end{theorem}
 
 Como corolario directo de la DPI, se tiene que para cualquier función determinista $g(\cdot)$ se cumple que:
@@ -216,63 +215,6 @@ Como corolario directo de la DPI, se tiene que para cualquier función determini
 y entonces no existe ninguna función de $Y$ la cual pueda aumentar la información que $Y$ contiene sobre $X$.
 
 
- 
-
-
-
-
-
-
-
-
-
-\chapter{Primeros Conceptos}
-
-\section{Modelos estadísticos}
-
-En este curso, en particular, nos enfocaremos en  \emph{estadística matemática}, lo cual provee inferencia estadística formal basada en herramientas de probabilidades, álgebra y teoría de la medida. Para esto asumiremos que tenemos datos generados desde un modelo estadístico (o probabilístico, o \emph{generativo}) desconocido, donde nuestro objetivo es usar estos datos para determnar dichos modelos con el fin 
-último de aprender sobre el mecanismo subyacente de la generación de datos y hacer predicciones (usando el modelo aprendido). El primer paso para lograr este objetivo es definir el \emph{Modelo Estadístico}.
-
-\begin{definition} [Modelo estadístico]
-Un modelo estadístico es un conjunto de distribuciones de probabilidad, que pueden ser consideradas como \emph{candidatas} para el mecanismo de generación de datos. 
-\end{definition}
-
-En algunos casos, las distribuciones de ese conjunto pueden ser expresadas mediante parámetros, por ejemplo, en el caso de la distribución normal, expresada mediante su media y su varianza. En dichos casos, el objetivo  de descubrir el mecanismo de generación de datos (la distribución) es simplemente descubrir sus parámetros.  El objetivo entonces de definir el modelo estadístico (paramétrico o no) es delinear los posibles representaciones para el mecanismo de generación de datos y, en base a los datos y algún criterio de eficiencia, encontrar el(los) modelo(s) apropiado(s). En este contexto, antes de encontrar ese modelo, consideramos que nuestro modelo tiene \emph{parámetros desconocidos.}
-
-En el trayecto del curso, asumiremos que disponemos de un conjunto de datos $x$, que pertenece a un espacio abstracto $\mathfrak{X}$, donde típicamente $\mathfrak{X} = \mathbb{R}^n$; aunque también podremos tener datos funcionales, como por ejemplo $\mathfrak{X} = \{f:[0,1]\rightarrow \mathbb{R} \}$. Asumiremos entonces  que $x$ es la realización de una variable aleatoria $X\in\mathfrak{X}$; con lo que implícitamente asumimos que $\mathfrak{X}$ es un espacio medible con su respectiva $\sigma$-álgebra. Podemos entender nuestro modelo estadístico como el espacio de posibles hipótesis que explican los datos observados. En este sentido, una de las preguntas que debemos poder responder es ¿Cuál es la ley de X?, es decir, ¿ Cómo calcular $\mathbb{P} (X\in A)$ donde $A \in \beta (\mathfrak{X})$?, con $\beta (\mathfrak{X})$ los borelianos de $\mathfrak{X}$
-
-Nos enfocaremos en modelos paramétricos, con lo cual para es necesario definir formalmente los parámetros y el espacio de éstos.
-
-\begin{definition}[Parámetro y Espacio de Parámetros] 
-En un problema de inferencia estadística, la (o las) característica(s) que determinan la distribución de las variables aleatorias estudiadas son llamadas parámetros. El conjunto $\Omega$ de todos los posibles valores de los parámetros se llama espacio de parámetros.
-\end{definition}
-
-Regresando a la pregunta, no habrá una, sino muchas posibles medidas de probabilidad como candidatas a ser la ley de ${X}$. A esto nos referíamos arriba cuando mencionamos la familia paramétrica de probabilidades donde cada una de las cuales puede ser la que actúa para generar $x$ a través de ${X}$. Encontrar la (o las) distribuciones, dentro de este conjunto, que son mas representativas de haber generados los datos, es un objetivo de inferencia estadística. 
-
-Denotaremos a la familia paramétrica $\mathcal{P}$ de la siguiente forma:
-\[\mathcal{P} = \{\mathcal{P}_\theta | \theta \in \Omega, \}\]
-donde $\mathcal{P}_\theta $ es una medida de probabilidad bajo un parámetro $\theta \in \Omega$ en el espacio de parámetros. En nuestro estudio (pero en general no tiene que ser así) consideraremos que $\Omega$ es finito dimensional, es decir, $\Omega \subseteq \mathbb{R}^n$. Escribimos entonces que:
-\[\theta = (\theta_1, ..., \theta_n). \]
-
-
-Dado todo lo anterior, en la formulación de un modelo estadístico completo para representar un fenómeno se debiese tener lo siguiente plenamente identificado lo siguiente:
-
-\begin{itemize}
-    \item $\theta$ como parámetro a estimar
-    \item $\Omega$ espacio de parámetros con $\Omega \subseteq \mathbb{R}^n$
-    \item $\mathcal{P}_\theta$ probabilidad sobre $\mathfrak{X}$ (como función de $\theta$)
-    \item ${X}$ vector aleatorio con valores en $\mathfrak{X}$
-    \item $x$ elemento genérico de $\mathfrak{X}$ y realización de $X$ (datos).
-\end{itemize}
-
-\begin{example}[Fábrica de computadores]
-Una compañía de fabricación de computadores desea estimar el tiempo de vida de un componente particular en sus computadores. Para ello, en primer lugar se recolectan datos de los computadores que se han usado bajo condiciones normales. Luego de ser asesorados por expertos, deciden usar una distribución normal para modelar el tiempo que se demorará un componente en fallar. Se busca modelar todos los componentes con un tiempo de vida promedio $\theta$ y varianza $\sigma
-^2$, con $\theta$ y $\sigma^{2}$  parámetros desconocidos. Si se tienen $N$ componentes, las variables aleatorias que modelan la vida útil de cada componente serán identificadas como 
-$X_1,..X_N$, con $X_i \sim \mathcal{N}(\theta,\sigma^{2})$. ¿Qué opina de este modelo?
-\end{example}
-
-La inferencia estadística es una herramienta que nos permitirá resolver muchos tipos de problemas. Los más importantes serán los de \emph{identificación}, donde nuestro objetivo es descubrir el modelo que genero los datos, y \emph{predicción} donde se intenta estimar una cantidad que no ha sido observada aún. Por supuesto, buscamos alcanzar ambos objetivos de forma estadística, es decir,  modelando apropiadamente la incertidumbre asociada.
-
 
 %\section{Modelos estadísticos de una muestra}
 
@@ -280,26 +222,26 @@ La inferencia estadística es una herramienta que nos permitirá resolver muchos
 
 \subsection{Chi-Cuadrado}
 
-Sean $Z_1,..., Z_n$ variables aleatorias con $Z_i\sim\mathcal{N}(0,1)$ independientes, se tiene que la suma de sus cuadrados 
-\[Q=\sum\limits_{i=1}^{n} Z_i^2\]
-distribuye según una distribución \textit{Chi-Cuadrado} con n grados de libertad. Esto lo denotamos como:
+Sean $Z_1,\ldots, Z_n$ variables aleatorias $Z_i\sim\mathcal{N}(0,1)$ independientes, se tiene que la suma de sus cuadrados 
+\[Q=\sum\limits_{i=1}^{n} Z_i^2,\]
+distribuye según una distribución \textit{Chi-Cuadrado} con $n$ grados de libertad. Esto lo denotamos como:
 
-\[Q\sim\mathcal{X}^2_n \]
-Algunas propiedades de esta distribución:
+\[Q\sim\mathcal{X}^2_n. \]
+Algunas propiedades de esta distribución son:
 \begin{enumerate}
     \item [a.] $\mathbb{E}(\mathcal{X}^2_n) = n$
     \item [b.] $\mathbb{V}(\mathcal{X}^2_n) = 2n$
-    \item [c.] $M_{\mathcal{X}^2_n}(t) = (1-2t)^{\frac{-n}{2}}$ con $t<\frac{1}{2}$
+    \item [c.] $M_{\mathcal{X}^2_n}(t) = (1-2t)^{\frac{-n}{2}}$ con $t<\frac{1}{2}$.
     
 \end{enumerate}
 
 \subsection{T-Student}
 
 Sea $X_1,...,X_n$ una muestra i.i.d de una variable aleatoria $X\sim\mathcal{N}(\mu,\sigma^2)$. Consideremos el promedio muestral:
-\[\overline{X}_n=\dfrac{1}{n}\sum\limits_{i=1}^n X_i\]
+\[\overline{X}_n=\dfrac{1}{n}\sum\limits_{i=1}^n X_i,\]
 y la varianza muestral insesgada:
-\[S^2=\dfrac{1}{n-1}\sum\limits_{i=1}^n (X_i-\overline{X}_n)^2\]
+\[S^2=\dfrac{1}{n-1}\sum\limits_{i=1}^n (X_i-\overline{X}_n)^2.\]
 
 Entonces:
-\[\dfrac{\overline{X}_n-\mu}{S/\sqrt{n}}\sim t_{n-1}\]
+\[\dfrac{\overline{X}_n-\mu}{S/\sqrt{n}}\sim t_{n-1},\]
 siendo $t_{n-1}$ la distribución t-student con $n-1$ grados de libertad.
