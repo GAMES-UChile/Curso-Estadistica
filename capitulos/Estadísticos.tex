@@ -76,14 +76,14 @@ En base a los datos $x$, algunos estadísticos pueden ser:
 \end{equation}
 
 \section{Suficiencia}
-En términos generales, el objetivo de un estadístico es \textit{encapsular} o \textit{resumir} la información contenida en una muestra (de datos) $x = (x_1,x_2,\ldots,x_n)$ que es de utilidad para determinar (o estimar) un/el/los parámetros de la distribución de $X$ o alguna otra propiedad de ésta. Por esta razón, la función identidad o el promedio parecen cumplir, al menos intuitivamente, con esta misión. Esto es por que se intuitivamente queremos extraer la mayor información posible de la data, esto lo logran el estadístico $T$ (que resume todos los datos) y el estadístico $T'$ (que contiene todos los datos). Por el contrario, notemos que el estadístico $T''$ \emph{pierde información}, dado que solo se extrae el mínimo valor de toda la data obtenida, así, perdiendo la representación de la, e.g., dispersión de la muestra. El mismo análisis se puede hacer para el estadístico constante, el que no contiene  información alguna de los datos.\\
+En términos generales, el objetivo de un estadístico es \textit{encapsular} o \textit{resumir} la información contenida en una muestra (de datos) $x = (x_1,x_2,\ldots,x_n)$ que es de utilidad para determinar (o estimar) un/el/los parámetros de la distribución de $X$ o alguna otra propiedad de ésta. Por esta razón, la función identidad o el promedio parecen cumplir, al menos intuitivamente, con esta misión. Esto es por que se intuitivamente queremos extraer la mayor información posible de los datos, esto lo logran el estadístico $T$ (que resume todos los datos) y el estadístico $T'$ (que contiene todos los datos). Por el contrario, notemos que el estadístico $T''$ \emph{pierde información}, dado que solo se extrae el mínimo valor de toda la data obtenida, así, perdiendo la representación de la, e.g., dispersión de la muestra. El mismo análisis se puede hacer para el estadístico constante, el que no contiene  información alguna de los datos.\\
 
 Coloquialmente, la idea de suficiencia de un estadístico (con respecto a un parámetro) puede ser expresada como  
 \begin{displayquote}[Ronald Fisher, On the mathematical foundations of theoretical statistics] \it
 “…no other statistic that can be calculated from the same sample provides any additional information as to the value of the parameter.”
 \end{displayquote}
 
-Formalmente, definimos un estadístico mediante. 
+Formalmente, definimos un estadístico suficiente mediante. 
 \begin{definition}[Estadístico Suficiente]
 \label{def:estadístico_suficiente}
 Sea $(S,\cA,\mu)$ un espacio de probabilidad y $X\in\cX$ una variable aleatoria con distribución paramétrica $\cP = \{P_\theta\ \tq\ \theta\in\Theta\}$. Diremos que la función $T:\cX\rightarrow\cT$ es un estadístico suficiente para $\theta$ (o para $X$ o para $\cP$) si la ley condicional $X|T(X)$ no depende del parámetro $\theta$, es decir, 
@@ -94,21 +94,20 @@ Sea $(S,\cA,\mu)$ un espacio de probabilidad y $X\in\cX$ una variable aleatoria 
 \end{definition}
 
 Observemos entonces que si $T(X)$ es un estadístico suficiente, entonces, existe una función que
-
 \begin{equation}
 \nonumber
-	H(\cdot,\cdot): \cB(X)\times\cT \rightarrow [0,1]
+	H(\cdot,\cdot): \cB(X)\times\cT \rightarrow [0,1],
 \end{equation}
-que es una distribución de probabilidad en el primer argumento y es medible en el segundo argumento.\\
+que es una distribución de probabilidad en el primer argumento y es medible en el segundo argumento.
 
-Para poder entender mejor el concepto de un Estadístico Suficiente, se dan los siguientes ejemplos:
+Para poder entender mejor el concepto de \emph{Estadístico Suficiente}, se dan los siguientes ejemplos:
 
 \begin{example}[Estadístico suficiente trivial]
 	\label{ex:suficiencia_trivial}
 	Para cualquier familia paramétrica $\cP$, el estadístico definido por
 	\begin{equation}
 	\nonumber
-		T(x) = x
+		T(x) = x,
 	\end{equation}
 es suficiente. En efecto, $P_\theta(X\in A|X=x) = \ind_{A}(x)$ no depende del parámetro de la familia. 
 \end{example}
@@ -128,7 +127,7 @@ es suficiente. En efecto, $P_\theta(X\in A|X=x) = \ind_{A}(x)$ no depende del pa
 	Consecuentemente, $T(x)=\sum\limits_{i=1}^{n} x_i$ es estadístico suficiente.
 \end{example}
 
-Intuitivamente, nos gustaría poder verificar directamente de la suficiencia de un estadístico desde la distribución (o densidad) de una VA, o al menos verificar una condición más simple que la definición. Esto es porque verificar la no-dependencia de la distribución condicional $P(X|T)$ puede ser no trivial, engorroso o tedioso. Para esto enunciaremos el Teorema de Fisher-Neyman, el cual primero requiere revisar la siguiente definición. 
+Intuitivamente, nos gustaría poder determinar directamente de la suficiencia de un estadístico desde la distribución (o densidad) de una VA, o al menos verificar una condición más simple que la definición. Esto es porque evaluar la no-dependencia-de-$\theta$ de la distribución condicional $P(X|T)$ puede ser no trivial, engorroso o tedioso. Para esto enunciaremos el Teorema de Fisher-Neyman, el cual primero requiere revisar la siguiente definición. 
 
 \begin{definition}[Familia Dominada]
 	Una familia de modelos paramétricos $\familiaparametrica$ es dominada si existe una medida $\mu$, tal que $\forall \theta\in\Theta, P_\theta$ es absolutamente continua con respecto a $\mu$ (denotado $ P_\theta \ll \mu$), es decir, 
@@ -194,19 +193,19 @@ Primero probamos la implicancia hacia la derecha ($\Rightarrow$), es decir, asum
 	es decir, la factorización deseada.
 
 	Ahora probamos la implicancia hacia la izquierda ($\Leftarrow$), es decir, asumimos la factorización en la ecuación \eqref{eq:neyman-fisher}. En primer lugar, tenemos que el modelo se puede escribir como (Bayes)
-	\begin{equation*}
+	\begin{equation}
 		\label{eq:bayes_NF}
 		p_\theta(X=x|T(X)=t)=  \frac{p_\theta(T(X)=t|X=x)p_\theta(X=x)}{p_\theta(T(X)=t)}.
-	\end{equation*}
+	\end{equation}
 	Donde $p_\theta(T(X)=t|X=x)= \ind_{T(x)=t}$ y la hipótesis esto nos permite escribir 
 	\begin{alignat*}{3}
 		p_\theta(X=x)&=  g_\theta(T(x))h(x)\\
-		p_\theta(T(X)=t) &= \sum_{x';T(x')=t}p_\theta(X=x') = \sum_{x';T(x')=t}g_\theta(T(x'))h(x')
+		p_\theta(T(X)=t) &= \sum_{x';T(x')=t}p_\theta(X=x') = \sum_{x';T(x')=t}g_\theta(T(x'))h(x').
 	\end{alignat*}
 	Incluyendo estas últimas dos expresiones en la ec.~\eqref{eq:bayes_NF}, tenemos 
 	\begin{equation}
 		\label{eq:NF_final}
-		p_\theta(X=x|T(X)=t)=  \frac{\ind_{T(x)=t}\cancel{g_\theta(T(x))}h(x)}{\sum_{x';T(x')=t}\cancel{g_\theta(T(x'))}h(x')}=  \frac{\ind_{T(x)=t}h(x)}{\sum_{x';T(x')=t}h(x')}
+		p_\theta(X=x|T(X)=t)=  \frac{\ind_{T(x)=t}\cancel{g_\theta(T(x))}h(x)}{\sum_{x';T(x')=t}\cancel{g_\theta(T(x'))}h(x')}=  \frac{\ind_{T(x)=t}h(x)}{\sum_{x';T(x')=t}h(x')},
 	\end{equation}
 	donde los términos que se cancelan son todos iguales a $g_\theta(t)$.\\
 
