@@ -197,7 +197,7 @@ Primero probamos la implicancia hacia la derecha ($\Rightarrow$), es decir, asum
 		\label{eq:bayes_NF}
 		p_\theta(X=x|T(X)=t)=  \frac{p_\theta(T(X)=t|X=x)p_\theta(X=x)}{p_\theta(T(X)=t)}.
 	\end{equation}
-	Donde $p_\theta(T(X)=t|X=x)= \ind_{T(x)=t}$ y la hipótesis esto nos permite escribir 
+	Donde $p_\theta(T(X)=t|X=x)= \ind_{T(x)=t}$ y la hipótesis nos permite escribir 
 	\begin{alignat*}{3}
 		p_\theta(X=x)&=  g_\theta(T(x))h(x)\\
 		p_\theta(T(X)=t) &= \sum_{x';T(x')=t}p_\theta(X=x') = \sum_{x';T(x')=t}g_\theta(T(x'))h(x').
@@ -214,7 +214,7 @@ Primero probamos la implicancia hacia la derecha ($\Rightarrow$), es decir, asum
 
 \subsection{Particiones Suficientes}
 
-Un estadístico induce una partición en el conjunto de \emph{outcomes}  posibles. Es posible estudiar la suficiencia en términos de estas particiones, dadas por $\left \{ x | T(x) = t \right  \}$, para cada $ t $. 
+Un estadístico induce una partición en el conjunto de posibles realizaciones (o resultados, o \emph{outcomes}). Es posible estudiar la suficiencia en términos de estas particiones, dadas por $\left \{ x | T(x) = t \right  \}$, para cada $ t $. 
 
 \begin{definition}
     Una partición $ \left \{ B_1,...B_k \right \}$ se dice suficiente si $f(x | x \in B_i) $ no depende de $\theta$. 
@@ -228,7 +228,6 @@ Ejercicio.
 
 \begin{example}
 Sean $X_1,X_2, X_3\sim Bernoulli(\theta)$. Sea $T= \sum_{i} X_i$. En el Cuadro \ref{tab: Part.Bernoulli suficiente} se puede observar los \emph{outcomes} y los estadísticos: 
-\newpage
 \begin{table}[h]
     \centering
     \begin{tabular}{c  c  c}  
