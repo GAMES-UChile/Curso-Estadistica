@@ -362,13 +362,13 @@ donde definimos lo siguiente:
     Definamos la siguiente función de densidad de probabilidad parametrizada por $\eta\in\{\eta | A(\eta)<\infty\}$ con $\theta\in\Theta$
 \begin{equation}
 	\label{eq:densidadexponencial}
- 	p_\theta(x) = \expo{\sum_{i=1}^s\eta_i(\theta)T_i(x)-A(\theta)}h(x)
+ 	p_\theta(x) = \expo{\sum_{i=1}^s\eta_i(\theta)T_i(x)-A(\theta)}h(x),
  \end{equation} 
- donde el hecho que $p_\eta(x)$ integra uno puede claramente verificarse reemplazando la ecuación \eqref{eq:lognormalizador} en \eqref{eq:densidadexponencial}, con lo cual se puede ver que $A$ definido en \eqref{eq:lognormalizador} es precisamente el logaritmo de la constante de normalización de la densidad definida en la ec.~ \eqref{eq:densidadexponencial}. Equivalemente, y comunmente, se utiliza que la familia exponencial viene dada por funciones de densidad de la forma:
+ donde el hecho que $p_\theta(x)$ integra uno puede claramente verificarse reemplazando la ecuación \eqref{eq:lognormalizador} en \eqref{eq:densidadexponencial}, con lo cual se puede ver que $A$ definido en \eqref{eq:lognormalizador} es precisamente el logaritmo de la constante de normalización de la densidad definida en la ec.~ \eqref{eq:densidadexponencial}. Equivalemente, y comunmente, se utiliza que la familia exponencial viene dada por funciones de densidad de la forma:
  
  \[p_\theta(x) = \expo{\sum_{i=1}^s\eta_i(\theta)T_i(x)}h(x)g(\theta)\]
  
- donde $g$ es una función no-negativa.
+ donde $g(\theta) = e^{-A(\theta)}$ es una función no-negativa.
 \end{definition}
 
  Muchas de las distribuciones que usalmente consideramos pertenecen a la familia exponencial, por ejemplo, la distribución normal, exponencial, gamma, chi-cuadrado, beta, Dirichlet, Bernoulli, categórica, Poisson, Wishart (inversa) y geométrica. Otras distribuciones solo pertenecen a la familia exponencial para una determinada elección de sus parámetros, como lo ilustra el siguiente ejemplo.
@@ -379,17 +379,16 @@ Recordemos la distribución binomial está dada por
 \begin{align*}
 	\bin{x|\theta,n} 	&=\binom{n}{x}\theta^x(1-\theta)^{n-x},\quad x\in\{0,1,2\ldots,n\}\\
 					&=
-					\underbrace{\binom{n}{x}}_{h(x)}\expo{x\underbrace{\loga{\frac{\theta}{1-\theta}}}_{\text{parámetro natural}} + \underbrace{n\loga{1-\theta}}_{-{A(\theta)}}}\\
+					\underbrace{\binom{n}{x}}_{h(x)}\expo{x\underbrace{\loga{\frac{\theta}{1-\theta}}}_{\text{parámetro natural}} + \underbrace{n\loga{1-\theta}}_{-{A(\theta)}}},
 \end{align*}
 consecuentemente, para que $h(x)$ sea únicamente una función de la variable aleatoria, entonces el número de intentos $n$ tiene que se una cantidad conocida, \textbf{no un parámetro}. 	
  \end{example} 
 
 \begin{example} [El modelo normal pertenece a la familia exponencial]
 La distribución normal $\mathcal{N}(\mu,\sigma^{2})$ tiene densidad:
-
 \begin{align}
     p_{\theta}(x) = &  \dfrac{1}{\sqrt{2\pi \sigma^{2}}} e^{\frac{-1}{2\sigma^{2}}(x-\mu)^{2}}\\
-    & = \dfrac{1}{\sqrt{2\pi}}\exp\left(\dfrac{\mu}{\sigma^{2}}x -\frac{-1}{2\sigma^{2}}x^{2} - \left(\dfrac{\mu^{2}}{2\sigma^{2}} + \log \sigma \right)\right)
+    & = \dfrac{1}{\sqrt{2\pi}}\exp\left(\dfrac{\mu}{\sigma^{2}}x -\frac{-1}{2\sigma^{2}}x^{2} - \left(\dfrac{\mu^{2}}{2\sigma^{2}} + \log \sigma \right)\right),
 \end{align}
 donde $\theta = (\mu, \sigma^{2})$. Esta es una familia exponencial de dos parámetros con
 \begin{itemize}
@@ -409,7 +408,7 @@ donde $\theta = (\mu, \sigma^{2})$. Esta es una familia exponencial de dos pará
  El estadístico $T$ es un estadístico suficiente para $\nu$ en la familia exponencial. En efecto, notemos que 
  \begin{equation}
 	\label{eq:densidadexponencial2}
- 	p_\theta(x) = \underbrace{\expo{\sum_{i=1}^s\eta_i(\theta)T_i(x)-A(\theta)}}_{g_\theta(T(x))}\underbrace{h(x)}_{h(x)}
+ 	p_\theta(x) = \underbrace{\expo{\sum_{i=1}^s\eta_i(\theta)T_i(x)-A(\theta)}}_{g_\theta(T(x))}\underbrace{h(x)}_{h(x)},
  \end{equation} 
 consecuentemente, por el Teorema  \ref{teo:neyman-fisher} (Neyman-Fisher), tenemos que $T$ es un estadístico suficiente para $\nu$.
 \end{remark}
@@ -430,7 +429,7 @@ si asumimos que estas VA son independientes, entonces densidad conjunta de $X=(X
 \end{align}
 con lo que eligiendo $\theta=[\theta_1,\theta_2]$ y $T=[T_1,T_2]$, vemos que $X$ está dado por una distribución de la familia exponencial.  
 
-Otra propiedad de las familia exponencial es la relación entre los momentos de la distribucion y el lognormalizador $A$. Denotando
+Otra propiedad de las familia exponencial es la relación entre los momentos de la distribución y el log-normalizador $A$. Denotando
 \begin{equation}
 	Q(\theta) =\expo{A(\theta)} = \int_\cX \expo{\theta T (x)}h(x)\dx,
 \end{equation}
@@ -443,14 +442,14 @@ podemos observar que la derivada de $A(\theta)$ está dada por
 \end{align}
 
 \begin{example}
-Verificar para derivadas de orden superior (ejercicio)
+Verificar para derivadas de orden superior (ejercicio).
 \end{example}
 
 
 \begin{remark}
-Consideremos el mapa
+Consideremos la función
 \begin{equation}
-    \theta \mapsto \mu = \frac{dA(\theta)}{d\theta} = \int_\cX T (x) \expo{\theta T (x) -A(\theta)}h(x)\dx =\E{T(x)}
+    \theta \mapsto \mu = \frac{dA(\theta)}{d\theta} = \int_\cX T (x) \expo{\theta T (x) -A(\theta)}h(x)\dx =\E{T(x)}.
 \end{equation}
 Para ciertas familias, este mapa es biyectivo (familia minimal $\rightarrow$ $A(\theta)$ estrictamente convexo), es decir, podemos expresar el modelo mediante los parámetros $\mu$ en vez de $\theta$, esto se llama \emph{mean parametrisation} (MP), manteniendo la relación 1-1 entre modelos a distintas parametrizaciones. La MP es fundamental en el problema de estimación: ¿por qué?
 
