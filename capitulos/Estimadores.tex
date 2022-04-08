@@ -262,7 +262,7 @@ Observemos que, en base al riesgo cuadrático definido en la ecuación \eqref{eq
 	\end{equation}
 	Veamos ahora que la varianza de $\phi_3(X)$ está dada por
 	\begin{equation}
-		\Vt{\phi_3(X)} = \Vt{\frac{1}{n}\sum_{i=1}^n X_i} = \frac{1}{n^2}\sum_{i=1}^n \Vt{X_i} = \frac{\theta(1-\theta)}{n}
+		\Vt{\phi_3(X)} = \Vt{\frac{1}{n}\sum_{i=1}^n X_i} = \frac{1}{n^2}\sum_{i=1}^n \Vt{X_i} = \frac{\theta(1-\theta)}{n},
 	\end{equation}
 	pues $\Vt{X_i} = \Et{(\theta - X_i)^2} = \Et{X_i^2} - \theta^2 = (0^2 \cdot (1-\theta) + 1^2 \cdot \theta) - \theta^2 = \theta(1-\theta)$. Consecuentemente, la varianza de los estimadores considerados decae como la inversa del número de muestras $1/n$.
 \end{example}
@@ -318,14 +318,14 @@ Para entender esta propiedad, primero definamos la función de puntaje o \textit
 \end{equation}
 
 \begin{remark}
-La esperanza de la función de puntaje cero. En efecto, derivando la igualdad fundamental $1 = \int_\cX p_\theta(x)\dx$ con respecto a $\theta$, obtenemos 
+La esperanza de la función de puntaje es cero. En efecto, derivando la igualdad fundamental $1 = \int_\cX p_\theta(x)\dx$ con respecto a $\theta$, obtenemos 
 \begin{align}
-	0 = \int_\cX \frac{\partial  p_\theta(X)}{\partial\theta} \dx = \int_\cX \frac{1}{p_\theta(X)}\frac{\partial  p_\theta(X)}{\partial\theta} p_\theta(X) \dx = \int_\cX \frac{\partial \log   p_\theta(X)}{\partial\theta} p_\theta(X) \dx = \Et{S_\theta(X)}
+	0 = \int_\cX \frac{\partial  p_\theta(X)}{\partial\theta} \dx = \int_\cX \frac{1}{p_\theta(X)}\frac{\partial  p_\theta(X)}{\partial\theta} p_\theta(X) \dx = \int_\cX \frac{\partial \log   p_\theta(X)}{\partial\theta} p_\theta(X) \dx = \Et{S_\theta(X)}.
 \end{align}
 Sorprendente. 
 \end{remark}
 
-Además, veamos que al derivar por segunda vez la función de puntaje, obtenemos: 
+Además, veamos que al derivar por segunda vez la expresión anterior, obtenemos: 
 \begin{align*}
 	0 &= \int_\cX \frac{\partial}{\partial \theta }\left(\frac{\partial \log   p_\theta(X)}{\partial\theta} p_\theta(X) \right)\dx\\ 
 	&= \int_\cX \left(\frac{\partial^2 \log   p_\theta(X)}{\partial\theta^2} p_\theta(X) + \frac{\partial \log   p_\theta(X)}{\partial\theta}\frac{\partial   p_\theta(X)}{\partial\theta}  \right)\dx\\
@@ -338,7 +338,7 @@ La cantidad denotada mediante
 \begin{equation}
 		I(\theta) = \Et{\left(\frac{\partial \log   p_\theta(X)}{\partial\theta}\right)^2} = 	-\Et{\frac{\partial^2 \log   p_\theta(X)}{\partial\theta^2}},
 \end{equation}	
-es conocida como información de Fisher. Además, como la esperanza de la función de puntaje es cero, la varianza de $I(\theta)$ puede ser expresada como 
+es conocida como información de Fisher. Además, como la esperanza de la función de puntaje es cero, la varianza de $S_\theta(X)$ puede ser expresada como 
 \begin{equation}
 	\Vt{S_\theta(X)} = \Et{S_\theta(X)^2} - \cancel{\Et{S_\theta(X)}^2} = \Et{\left(\frac{\partial \log   p_\theta(X)}{\partial\theta}\right)^2}.
 \end{equation}
