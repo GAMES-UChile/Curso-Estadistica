@@ -549,7 +549,7 @@ En esta sección, veremos cómo construir estimadores usando directamente la den
 \begin{definition}[Estimador de máxima verosimilitud (MV)]
 	Sea una observación $x$ y una función de verosimilitud $L(\theta)$, el estimador de máxima verosimilitud está dado por 
 	\begin{equation}
-		\thetaMV = \underset{\theta}{\arg\max}\ L(\theta|x)
+		\thetaMV = \underset{\theta}{\arg\max}\ L(\theta|x).
 	\end{equation}	
 \end{definition}
 
@@ -583,7 +583,7 @@ Notemos que este estimador de MV ¡es a su vez el EIVUM!
 \begin{example}
 	Sea la VA $X\sim\uni{\theta}$, es decir, $p(x) = \theta^{-1} \ind_{0\leq x \leq \theta}$. Para calcular la verosimilitud, recordemos en primer lugar que la verosimilitud factoriza de acuerdo a  
 	\begin{equation}
-		L(\theta) = \prod_{i=1}^n p_\theta(x_i)
+		L(\theta) = \prod_{i=1}^n p_\theta(x_i),
 	\end{equation}
 	y observemos que necesariamente $p_\theta(x_i) = 0$ si $x_i>\theta$. Consecuentemente, $L(\theta)>0$ solo si $\theta$ es mayor que toda las observaciones, en particular, si $\theta\geq\max\{x_i\}_1^n$.
 
@@ -618,7 +618,7 @@ El estimador de MV puede ser obtenido de la maximización de
 
  Consecuentemente, como el objetivo del estimador de MV tiende a la KL negativa, entonces maximizar la verosimilitud es equivalente a minimizar la KL-divergencia entre el modelo real y el modelo generado por el parámetro. 
 \begin{remark}
- Máxima verosimilitud es (asintóticamente) efectivavamente equivalente a minimizar discrepancias en el espacio de modelos.
+ Máxima verosimilitud es (asintóticamente) efectivamente equivalente a minimizar discrepancias en el espacio de modelos.
 \end{remark}
  
 \begin{remark}
@@ -645,12 +645,12 @@ Formalmente, si tenemos una colección de VA $X_1,\ldots,X_n\sim p_\theta$ con $
 lo cual intuitivamente corresponde a que, para $n$ suficientemente grande, el estimador de MV está distribuido de forma normal en torno al parámetro real con varianza $(nI(\theta))^{-1}$. Lo que implica también \textit{eficiencia asintótica}: si $n$ es suficientemente grande, entonces la distribución del estimador es normal y su varianza tiende a cero. Es decir, asintóticamente, el EMV alcanza la Cota de Cramer Rao para la varianza. 
 
 
-\section{Estimador de Mínimo Cuadrático Ordinario (MCO)}
+\section{Estimador de Mínimos Cuadrados Ordinarios (MCO)}
 
-El Estimador de Mínimo Cuadrático Ordinario (MCO) es un tipo de aproximación de mínimos cuadrados mediante una función lineal de los datos. Formalmente, supongamos que se busca predecir $Y_i\in\mathbb{R}$ con $i=1,...,n$ donde $n$ representa la cantidad de datos mediante una función lineal de los datos $(X_i) \in R^{k}$, es decir, mediante una ponderación y suma de $k$ variables. Se asume que $X_{i1}=1,\forall i$ para considerar un intercepto y que existe un error $\epsilon_i$ de estimación para cada dato. Con esto, el modelo lineal viene dado por:
+El Estimador de Mínimos Cuadrados Ordinarios (MCO) es un tipo de aproximación de mínimos cuadrados mediante una función lineal de los datos. Formalmente, supongamos que se busca predecir $Y_i\in\mathbb{R}$ con $i=1,...,n$ donde $n$ representa la cantidad de datos mediante una función lineal de los datos $(X_i) \in R^{k}$, es decir, mediante una ponderación y suma de $k$ variables. Se asume que $X_{i1}=1,\forall i$ para considerar un intercepto y que existe un error $\epsilon_i$ de estimación para cada dato. Con esto, el modelo lineal viene dado por:
 
 $$
-Y_i= \sum_{j=1}^{k}\beta_j X_{ij} + \varepsilon_i
+Y_i= \sum_{j=1}^{k}\beta_j X_{ij} + \varepsilon_i.
 $$
 con $\mathbb{E}(\varepsilon_i)=0$. En forma matricial, se considera que:
 $$
@@ -678,28 +678,28 @@ X_n\\
 \varepsilon_2\\
 \vdots\\
 \varepsilon_n\\
-\end{pmatrix}
+\end{pmatrix}.
 $$
 
 Recordar que para fila de $X\in \R^{n \times k }$ es una observación. Con esto, el modelo lineal en su forma matricial viene dado por: 
 $$
-Y=X\beta + \varepsilon
+Y=X\beta + \varepsilon.
 $$
 
 \begin{definition}[Estimador de Mínimo Cuadrático Ordinario (MCO)]
 
 La idea es buscar una solución del sistema $X\beta=Y$, el cual generalmente no tiene solución, por lo cual se busca una aproximación para $\beta$. Bajo la siguiente función de costo:
 
-\[S(\beta)=\sum\limits_{i=1}^{n}|y_i-\sum\limits\limits_{i=1}^{n}X_{ij}\beta_{j}|^2=||Y-X\beta||^2\]
+\[S(\beta)=\sum\limits_{i=1}^{n}|y_i-\sum\limits\limits_{i=1}^{n}X_{ij}\beta_{j}|^2=||Y-X\beta||^2,\]
 
 el estimador $\hat{\beta}$ viene dado por:
 
-\[\hat{\beta}=\argmin_\beta S(\beta)\]
+\[\hat{\beta}=\argmin_\beta S(\beta),\]
 
-el cual tiene como solución, si es que $X^{T}X$ es invertible, dada por:
+el cual tiene como solución, si es que $X^\top X$ es invertible, dada por:
 
 $$
-\hat{\beta}= (X^{T}X)^{-1}X^{T}Y
+\hat{\beta}= (X^\top X)^{-1}X^\top Y.
 $$
 
 Cuando se cumplen las siguientes condiciones:
@@ -709,22 +709,24 @@ Cuando se cumplen las siguientes condiciones:
     \item No autocorrelación: $\mathbb{E}[\varepsilon_i\varepsilon_j|X]=0,\forall i\neq j$.
 \end{itemize}
 
-se entiende a $\hat{\beta}$ como el estimador de mínimos cuadrados ordinarios (MCO, o OLS por su nombre en ingles), en donde además:
+Observe que no se requiere que el error $\varepsilon$ sea Gaussiano. 
+
+Se entiende a $\hat{\beta}$ como el estimador de mínimos cuadrados ordinarios (MCO, o OLS por su nombre en inglés), en donde además:
 $$
-\mathbb{V}(\hat{\beta})= \sigma^{2}(X^{T}X)^{-1}
+\mathbb{V}(\hat{\beta})= \sigma^{2}(X^\top X)^{-1}.
 $$
 \end{definition}
 
 \subsection{Teorema de Gauss-Markov}
 
 \begin{prop}
-El estimador $\hat{\beta}$ es insesgado, es decir, $\mathbb{E}[\hat{\beta}|X]=\beta$
+El estimador $\hat{\beta}$ es insesgado, es decir, $\mathbb{E}[\hat{\beta}|X]=\beta$.
 \end{prop}
 
-\begin{theorem}][Teorema de Gauss-Markov]
-Si es que se cumple homocedasticidad y no autocorrelación de los errores para el estimador MCO, se tiene que el estimador $\hat{\beta}$ es eficiente en la clase de estimadores lineales insesgados. Lo anterior se denomina un estimador lineal insesgado óptimo (ELIO), o en su nombre en ingles, best linear unbiased estimator (BLUE). Esta eficiencia es en el sentido de que, sea $\bar{\beta}$ otro estimador lineal e insesgado de $\beta$, entonces se tiene que:
+\begin{theorem}[Teorema de Gauss-Markov]
+Si es que se cumple homocedasticidad y no autocorrelación de los errores para el estimador MCO, se tiene que el estimador $\hat{\beta}$ es eficiente en la clase de estimadores lineales insesgados. Lo anterior se denomina un estimador lineal insesgado óptimo (ELIO), o en su nombre en inglés, \emph{best linear unbiased estimator (BLUE)}. Esta eficiencia es en el sentido de que, sea $\bar{\beta}$ otro estimador lineal e insesgado de $\beta$, entonces se tiene que:
 
-\[\mathbb{V}[\hat{\beta}|X]-\mathbb{V}[\bar{\beta}]\leq 0\]
+\[\mathbb{V}[\hat{\beta}|X]-\mathbb{V}[\bar{\beta}]\leq 0,\]
 \end{theorem}
 es decir, el estimador MCO $\hat{\beta}$ es el estimador linear insesgado con menor varianza. 
 
@@ -733,11 +735,12 @@ es decir, el estimador MCO $\hat{\beta}$ es el estimador linear insesgado con me
 
 \section{Regresión}
 
-La palabra \emph{regresión} fue introducida por Francis Galton (1822-1911), haciendo referencia a que los hijos de personas altas, tendían a ser más bajos que sus padres,  fenómeno que denominó \textbf{Regresión a la media}. Este mismo fenómeno se puede observar cuando la segunda película de una saga no es tan buena como la primera parte. \\
-La regresión es un método para estudiar la relación entre una variable $Y$, y otra variable independiente $X$, denominada característica. 
+La palabra \emph{regresión} fue introducida por Francis Galton (1822-1911), haciendo referencia a que los hijos de personas altas, tendían a ser más bajos que sus padres,  fenómeno que denominó \textit{regresión a la media}. Este mismo fenómeno se puede observar cuando la segunda película de una saga no es tan buena como la primera parte. 
+
+La regresión es un método para estudiar la relación entre una variable $Y$ (llamada \emph{expresión}), y otra variable independiente $X$ (llamada \emph{característica}). 
 \begin{definition}[Función de Regresión] Se define la función de regresión $r(x)$ como:
 $$
-r(x)=\mathbb{E}(Y|X=x)=\int yf(y|x)dx
+r(x)=\mathbb{E}(Y|X=x)=\int yf(y|x)dx.
 $$
 
 \end{definition}
@@ -751,7 +754,7 @@ $$
 r(x)=\beta_0 + \beta_1 x,
 $$
 
- es decir, de forma que y sea una función lineal (o lineal a fin ) de x. 
+ es decir, de forma que $r$ sea una función lineal (o lineal afín) de $x$. 
 Supondremos que hay un ruido $\varepsilon_i$ tal que $\mathbb{V}(\varepsilon_i)=\sigma^2$, y es independiente de $x$. \\
 \begin{definition}
 Se define el modelo de regresión lineal simple como: 
@@ -771,11 +774,11 @@ $$
 \hat{\beta_1}=\dfrac{\sum_{i=1}^{n}(X_i-\bar{X})(Y_i-\bar{Y_i})}{\sum_{i=1}^{n}(X_i-\bar{X})^{2}}
 $$
 $$
-\hat{\beta_0}=\bar{Y}-\hat{\beta_1}\bar{X}
+\hat{\beta_0}=\bar{Y}-\hat{\beta_1}\bar{X}.
 $$
 Un estimador insesgado de $\sigma^2$ es:
 $$
-\hat{\sigma^2}=\dfrac{1}{n-2} J(\hat{\beta_0},\hat{\beta_1})
+\hat{\sigma^2}=\dfrac{1}{n-2} J(\hat{\beta_0},\hat{\beta_1}).
 $$
 \end{theorem}
 
@@ -784,20 +787,20 @@ Supongamos ahora que $\varepsilon \sim \mathcal{N}(0,\sigma^2$, es decir,
 $Y_i|X_i \sim \mathcal{N}(\mu_i,\sigma^2)$, con $\mu_i=\beta_0 + \beta_1 X_i$.
 Calculemos la verosimilitud: 
 $$
-\mathcal{L}=\prod_{i=1}^{n}f_{X}(X_i) f_{Y|X}(Y_i|X_i)= \prod_{i=1}^{n}f_{X}(X_i) \prod_{i=1}^{n}f_{Y|X}(Y_i|X_i)
+\mathcal{L}=\prod_{i=1}^{n}f_{X}(X_i) f_{Y|X}(Y_i|X_i)= \prod_{i=1}^{n}f_{X}(X_i) \prod_{i=1}^{n}f_{Y|X}(Y_i|X_i).
 $$
 Llamemos $\mathcal{L}_1$ a la primera parte de este producto, y $\mathcal{L}_2$ a la segunda parte. Como $\mathcal{L}_1$ no depende de $\beta_0 $ y $\beta_1$, tenemos que para calcular los estimadores de máxima verosimilitud de estos parámetros, nos importa el segundo parámetro. Entonces, considerando la log-verosimilitud de $\mathcal{L}_2$:
 
-$$ \mathcal{L}_2 = \prod_{i=1}^{n} f_{Y|X}(Y_i|X_i) \propto \sigma^{-n} exp(\dfrac{-1}{2\sigma^2}\sum_{i} (Y_i-\mu_i)^2) 
+$$ \mathcal{L}_2 = \prod_{i=1}^{n} f_{Y|X}(Y_i|X_i) \propto \sigma^{-n} \exp(\dfrac{-1}{2\sigma^2}\sum_{i} (Y_i-\mu_i)^2) 
 $$ 
 $$
-\implies l=-nlog(\sigma)-\dfrac{-1}{2\sigma^2}\sum_{i=1}^{n}(Y_i-(\beta_0 + \beta_1 X_i)^2
+\implies l=-n\log(\sigma)-\dfrac{-1}{2\sigma^2}\sum_{i=1}^{n}(Y_i-(\beta_0 + \beta_1 X_i)^2.
 $$
 Notemos que al minimizar esto, como el primer término es constante con respecto a $\beta_0 $ y $\beta_1$, tenemos: 
 \begin{theorem}
 Bajo la hipótesis de normalidad, el estimador de mínimos cuadrados coincide con el estimador de máxima verosimilitud. También se tiene: 
 $$
-\hat{\sigma}^2=\dfrac{1}{n} \sum_{i=1}^{n}(Y_i-\hat{Y_i})
+\hat{\sigma}^2=\dfrac{1}{n} \sum_{i=1}^{n}(Y_i-\hat{Y_i}).
 $$
 \end{theorem}
 \begin{remark}
@@ -830,19 +833,19 @@ $$
 p_i \equiv p_i(\beta) \equiv \mathbb{P}(Y_i=1 | X=x)= f(\beta_0+\sum_{j=1}^{k}\beta_{j} x_{ij}),
 $$ 
 
-con $f$ la función logística. De forma equivalente, si definimos $logit(p)=log(\dfrac{p}{1-p})$: 
+con $f$ la función logística. De forma equivalente, si definimos $logit(p)=\log(\dfrac{p}{1-p})$: 
 
 $$
-p_i=logit(p_i)= \beta_0+\sum_{j=1}^{k}\beta_j x_{ij}
+p_i=logit(p_i)= \beta_0+\sum_{j=1}^{k}\beta_j x_{ij}.
 $$
 
 Como $Y_i$ son variables binarias, se tiene que   $Y_i|X_i=x_i \sim Ber(p_i)$. Así, la función de verosimilitud será:
 $$
-\mathcal{L}=\prod_{i=1}^{n} p_i(\beta)^{Y_i}(1-p_i(\beta))^{1-Y_i}
+\mathcal{L}=\prod_{i=1}^{n} p_i(\beta)^{Y_i}(1-p_i(\beta))^{1-Y_i}.
 $$
 Obtenemos el estimador de $\beta$, $\hat{\beta}$ usando método numéricos de optimización. 
 
-\subsection{Sobre Regresión LinealEMV en práctica: tres ejemplos}
+\subsection{EMV en práctica: tres ejemplos}
 \label{sub:MV_tres_ejemplos}
 
 \subsubsection{Regresión lineal y gaussiana} 
@@ -898,7 +901,7 @@ Esta expresión no tiene mínimo global y a pesar que podemos calcular su gradie
 
 En ciertos escenarios es natural asumir que nuestros datos provienen de una mezcla de modelos, por ejemplo, consideremos la distribución de estaturas en una población, podemos naturalmente modelar esto como una mezcla de distribuciones marginales para las estaturas de hombres y mujeres por separado, es decir, 
 \begin{equation}
-	X\sim p\cN(X|\mu_H,\Sigma_H) + (1-p)\cN(X|\mu_M,\Sigma_M)
+	X\sim p\cN(X|\mu_H,\Sigma_H) + (1-p)\cN(X|\mu_M,\Sigma_M),
 \end{equation}
 donde la verosimilitud de los parámetros $\theta = [p, \mu_H, \sigma_H,, \mu_M, \sigma_M]$ dado un conjunto de observaciones $\{x_i\}_{i=1}^n$ es
 \begin{align*}
@@ -911,10 +914,10 @@ Una interpretación de la diferencia de este modelo con respecto a los anteriore
  
 En este caso, asumamos por un segundo que estas variables latentes están disponibles y consideremos los \textbf{datos completos} $\{(x_i,z_i)\}_{i=1}^n$ para escribir la función de verosimilitud completa mediante
 \begin{align*}
-	l(\theta|z_i,x_i) &= \prod_{i=1}^n \cN(X|\mu_H,\Sigma_H)^{z_i} \cN(X|\mu_M,\Sigma_M)^{(1-z_i)}\\
+	l(\theta|z_i,x_i) &= \log\prod_{i=1}^n \cN(X|\mu_H,\Sigma_H)^{z_i} \cN(X|\mu_M,\Sigma_M)^{(1-z_i)}\\
 	&\hspace{-3em}= \sum_{i=1}^n \left( z_i\log\frac{1}{\sqrt{2\pi\Sigma_H^{-1}}}\expo{\frac{-(x_i-\mu_H)^2}{2\Sigma^2_H}} + (1-z_i)\log\frac{1}{\sqrt{2\pi\Sigma_M^{-1}}}\expo{\frac{-(x_i-\mu_M)^2}{2\Sigma^2_M}}\right).
 \end{align*}
-Esta función objetivo es mucho más fácil de optimizar, pero no es observable pues la VA $Z$ es desconocida. Una forma de resolver esto es tomando la esperanza condicional de la expresión anterior (con respecto a $Z$) condicional a los datos y los parámetros \textit{actuales}, para luego maximizar esta expresión c.r.a. $\theta$ y comenzar nuevamente. Específicamente, como la expresión anterior es lineal en $z_i$ basta con tomar su esperanza: 
+Esta función objetivo es mucho más fácil de optimizar, sin embargo, esta no es \emph{observada} (no la conocemos) pues la VA $Z$ no está disponible. Una forma de resolver esto es tomando la esperanza condicional de la expresión anterior (con respecto a $Z$) condicional a los datos y los parámetros \textit{actuales}, para luego maximizar esta expresión c.r.a. $\theta$ y comenzar nuevamente. Específicamente, como la expresión anterior es lineal en $z_i$ basta con tomar su esperanza: 
 \begin{align*}
 	\Et{Z_i|\theta_t,x_i} &= 1\cdot\Prob{Z_i=1|\theta_t,x_i} + 0\cdot\Prob{Z_i=0|\theta_t,x_i}\\
 	&= 	\frac{\Prob{x_i|\theta_t,z_i=1} p(z_i=1)}{p(x_i|\theta)}\\
