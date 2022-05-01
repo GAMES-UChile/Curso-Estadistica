@@ -1,3 +1,6 @@
+%!TEX root = ../notas_de_clase.tex
+
+
 \chapter{Test de Hipótesis}
 
 
@@ -352,7 +355,7 @@ donde, por definición, $\phi^\star\in T_\alpha$. Consecuentemente, de acuerdo a
 		\label{eq:ejemplo:NR}
 		\frac{p_1(x)}{p_0(x)} = \frac{\theta_1^{\sum x_j}(1-\theta_1)^{n-\sum x_j}}{\theta_0^{\sum x_j}(1-\theta_0)^{n-\sum x_j}} = \left(\frac{1-\theta_1}{1-\theta_0}\right)^n\left(\frac{\theta_1(1-\theta_0)}{\theta_0(1-\theta_1)}\right)^{\sum x_j}\geq k. 
 	\end{equation}
-	Como $\theta_1\geq\theta_0$, la expresión anterior es monótona en  $\sum x_j$, consecuentemente, $\sum x_j$ debe ser lo suficientemente grande para rechazar $H_0$. 
+	Como $\theta_1\geq\theta_0$, la expresión anterior es monótona en  $\sum x_j$, consecuentemente, $\sum x_j$ debe ser lo suficientemente grande para rechazar $H_0$ (digamos, más grande que $k'$). 
 	
 	Para calcular el valor de $k$ dado un $\alpha$, tenemos que resolver $\Probtz{x\in R^*} = \alpha$, para lo cual notemos que la ecuación \eqref{eq:ejemplo:NR} es equivalente a 
 	\begin{align}
@@ -364,7 +367,7 @@ donde, por definición, $\phi^\star\in T_\alpha$. Consecuentemente, de acuerdo a
 	 	& \Leftrightarrow 
 	 	\sum x_j \geq \frac{n \loga{k \left(\frac{1-\theta_0}{1-\theta_1}\right)}}{\loga{\frac{\theta_1(1-\theta_0)}{\theta_0(1-\theta_1)}}} = k'. \nonumber
 	 \end{align} 
-	 Finalmente, como $\sum x_j$ es binomial, podemos resolver directamente para $k'$ (y consecuentemente para $k$). La región crítica  está definida mediante 
+	 Finalmente, como $\sum x_j$ es binomial\footnote{Recordemos que si $X_j\sim\ber{\theta_0}$, entonces  $\sum_{j=1}^n X_j\sim\text{Bin}(n,\theta_0)$}, podemos resolver directamente para $k'$ (y consecuentemente para $k$). La región crítica  está definida mediante 
 	 \begin{equation}
 	     R^* = \left\{(x_1,\ldots,x_1) \text{ t.q. } \sum x_j\geq k'\right\}.
 	 \end{equation}
@@ -413,9 +416,9 @@ donde $\thetahat$ es el EMV y $\thetahat_0$ es el EMV restringido a $\{\theta\in
 	\end{equation}
 donde $\theta_0$ es conocido y sabemos que $p_\theta(x) = \theta^{n\bar{x}}(1-\theta)^{n(1-\bar{x})}$. En la notación de la definición anterior del TRV, podemos identificar
 \begin{equation}
-	\Theta_0 = [0,\theta_0] \quad \& \quad \Theta_1 = (\theta_0, 1]
+	\Theta_0 = [0,\theta_0] \quad \& \quad \Theta_1 = (\theta_0, 1].
 \end{equation}
-calculamos el EMV (restricto e irrestricto) mediante 
+Calculamos los EMVs (restricto e irrestricto) mediante 
 \begin{align}
 	\thetahat &= \bar{x}\quad \text{irrestricto}\\
 	\thetahat_0 &= \bar{x} \quad \text{si } \bar{x}\in\Theta_0,\ \theta_0 \text{ si no.}
@@ -425,7 +428,7 @@ podemos escribir esta última expresión como $\thetahat_0 = \bar{x} \ind_{\bar{
 \begin{align}
 	\lambda(x) &= \frac{L(\thetahat_0)}{L(\thetahat)}\\ 
 				&= \frac{L(\bar{x})}{L(\bar{x})} \ind_{\bar{x}\in\Theta_0} + \frac{L(\theta_0)}{L(\bar{x})} \ind_{\bar{x}\notin\Theta_0} \\
-				&= \ind_{\bar{x}\in\Theta_0} + \ind_{\bar{x}\notin\Theta_0} \left(\frac{\theta_0}{\bar{x}}\right)^{n\bar{x}}\left(\frac{1-\theta_0}{1-\bar{x}}\right)^{n(1-\bar{x})}
+				&= \ind_{\bar{x}\in\Theta_0} + \ind_{\bar{x}\notin\Theta_0} \left(\frac{\theta_0}{\bar{x}}\right)^{n\bar{x}}\left(\frac{1-\theta_0}{1-\bar{x}}\right)^{n(1-\bar{x})}.
 \end{align}
 \begin{figure}[ht]
     \centering
@@ -434,11 +437,11 @@ podemos escribir esta última expresión como $\thetahat_0 = \bar{x} \ind_{\bar{
     \label{fig:lk_ratio}
 \end{figure}
 
-Donde ahora rechazaremos si $\lambda(x)\leq C$, pero, ¿cómo elegimos $C$?
+Ahora rechazamos $H_0$ si $\lambda(x)\leq C$, pero, ¿cómo elegimos $C$?
 
 Al igual que en TNP, podemos imponer que el test sea de nivel $\alpha$, es decir, 
 \begin{equation}
- 	\sup_{\theta\in\Theta_0} \Probt{\lambda(x)\leq C} = \alpha
+ 	\sup_{\theta\in\Theta_0} \Probt{\lambda(x)\leq C} = \alpha,
  \end{equation} 
  donde recordemos que $\lambda(x)$ es una función decreciente de $\bar{x}$, por lo que la condición $\lambda(x)\leq C$ puede expresarse como $\bar{x}\geq C'$, para algún $C'$. Esta expresión dependerá de $C'$, que es función de $C$, de $\theta_0$ y de $\alpha$; despejamos para $C$.
  
@@ -532,16 +535,15 @@ Se le denomina Test T de Student a cualquier test de hipótesis donde bajo la hi
 
 \subsubsection{One-Sample T-Test}
 
-Se tiene una MAS $X_1,...,X_n$ de una variable aleatoria con media $\mu$ y varianza $\sigma^2$, donde ambos parámetros son desconocidos. Se tiene que se desea saber si es que $\mu$ es igual a un valor $\mu_0$. Para esto, planteamos el siguiente test de hipótesis:
+Se tiene una MAS $X_1,...,X_n$ de una variable aleatoria gaussiana con media $\mu$ y varianza $\sigma^2$, donde ambos parámetros son desconocidos. Se quiere saber si $\mu$ es igual a un valor $\mu_0$, para lo cual planteamos el siguiente test de hipótesis:
 
 $$
-H_0:\mu= \mu_0 \quad H_1:\mu\neq \mu_0
+H_0:\mu= \mu_0 \quad H_1:\mu\neq \mu_0,
 $$
 
 el cual corresponde a un test bilateral. El estadístico a utilizar viene dado por:
 
-\[t=\dfrac{\overline{X}_n-\mu_0}{S/\sqrt{n}}\]
-
+\[t=\dfrac{\overline{X}_n-\mu_0}{S/\sqrt{n}},\]
 donde $\overline{X}_n$ representa al promedio muestral y $S^2$ a la varianza muestral insesgada. Se tiene que bajo la hipótesis nula, $t$ distribuye según una t-student con $n-1$ grados de libertad. En el caso de rechazar el test, se tiene que $\mu\neq \mu_0$. 
 
 
@@ -558,10 +560,10 @@ $$
 H_0:\mathbb{P}(X>Y)=\mathbb{P}(X<Y) \quad H_1:\mathbb{P}(X>Y)\neq\mathbb{P}(X<Y)
 $$
 
-es decir, la hipótesis alternativa es que la probabilidad de que la observación $X$ de una población sea mayor a otra observación $Y$ de otra población sea distinta que la probabilidad de $Y$ sea mayor a $X$. Consideremos a $X_1,...,X_n$ muestras iid de X y $Y_1,...,Y_m$ muestras iid de Y, ambas muestras independiente entre ellas. El estadístico de Mann-Whitney, el estadístico U, se define como:
+es decir, la hipótesis alternativa es que la probabilidad de que la observación $X$ de una población sea mayor a otra observación $Y$ de otra población sea distinta que la probabilidad de $Y$ sea mayor a $X$. Consideremos a $X_1,...,X_n$ muestras iid de $X$ y $Y_1,...,Y_m$ muestras iid de $Y$, ambas muestras independiente entre ellas. El estadístico de Mann-Whitney, el estadístico U, se define como:
 
 $$
-U=\sum\limits_{i=1}^n\sum\limits_{j=1}^mS(X_i, Y_j)
+U=\sum\limits_{i=1}^n\sum\limits_{j=1}^mS(X_i, Y_j),
 $$
 
 donde:
@@ -616,9 +618,20 @@ Se le denomina Test $\mathcal{X}^2$  a cualquier test de hipótesis donde bajo l
 
 \subsubsection{Prueba $\mathcal{X}^2$ de Pearson}
 
-\textcolor{blue}{Por completar}
+Asuma que tiene $n$ obsevaciones $x_1,\ldots,x_n$ de una VA $X$, donde cada observaciones proviene de una de $k$ clases y cada clase fue observada $n_j$ veces con $j=1,\ldots,k$. La hipótesis nula dice que la probabildiad de que una observación sea de clase $c_j$ es $p_j$ (claramente $\sum_{j=1}^kp_j=1$). Con esto, tenemos que la cantidad de obsevaciones esperadas por clases es $m_j = np_j$. Además, 
+
+\begin{equation}
+	  	\sum_{j=1}^k n_j = n  = n \sum_{j=1}^k p_j = \sum_{j=1}^k m_j.
+  \end{equation}  
 
 
+Bajo la hipótesis nula, el test $\mathcal{X}^2$ de Pearson dice que el estadístico
+
+
+\begin{equation}
+	  	X^2 = \sum_{j=1}^k  \frac{(n_j - m_j)^2}{m_j} = \sum_{j=1}^k  \frac{n_j^2}{m_j} - n,
+  \end{equation}  
+sigue una ditribución $\chi^2$.
 
 
 
