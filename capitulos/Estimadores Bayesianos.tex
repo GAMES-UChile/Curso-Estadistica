@@ -1,3 +1,5 @@
+%!TEX root = ../notas_de_clase.tex
+
 \chapter{Enfoque bayesiano}
 
 En esta sección complementaremos el enfoque visto hasta ahora en cuanto a la incorporación de un modelo para la incertidumbre asociada al parámetro $\theta$. En el paradigma bayesiano, consideraremos que el parámetro es una variable aleatoria, es decir, $\Theta$, la cual para una realización particular tomar el valor $\Theta = \theta$. Esto nos permite información \emph{a priori} sobre la estimación a realizar, lo que permite, en muchos casos, ayudar a la inferencia. Una diferencia conceptual entre ambos enfoques, es que la estadística frecuentista evita la subjetividad, mientras que la estadística bayesiana se basa en la convicción del(a) investigador(a), para emitir juicios sobre una hipótesis.
@@ -570,12 +572,12 @@ donde tenemos las 3 opciones mencionadas arriba.
 
 
 \section{Test de Hipótesis Bayesiano}
- Hasta ahora sólo hemos visto los distintos test de hipótesis desde una perspectiva frecuentista. En todos estos test, había una relación asimétrica entre dos hipótesis: la hipótesis nula $H_0$ y la hipótesis alternativa $H_1$. Un proceso de desición se lleva acabo, y luego, en base a los datos observados, la hipótesis nula se va a rechazar a favor de $H_1$, o se aceptará. \\
- En el test de hipótesis Bayesiano, puede haber más de dos hipótesis en consideración, y no deben tener, necesariamente, una relación asimétrica.
- Para simplificar el análisis, consideremos dos hipótesis: $H_1$ y $H_2$.\\
- Sabemos que en algún momento tendremos datos $X$, sin embargo, aún no los tenemos. Nos interesa calcular las distribuciones posteriores $P(H_1|X)$ y $P(H_2|X)$. Usando Bayes: 
+ Hasta ahora sólo hemos visto los distintos test de hipótesis desde una perspectiva frecuentista. En todos estos test, había una relación asimétrica entre dos hipótesis: la hipótesis nula $H_0$ y la hipótesis alternativa $H_1$. Un proceso de decisión se lleva acabo, y luego, en base a los datos observados, la hipótesis nula se rechaza a favor de $H_1$ (de existir suficiente evidencia). \\
+ En el test de hipótesis Bayesiano, puede haber dos o más hipótesis en consideración, y no es necesaria la exitencia de una asimétrica entre ellas.\\
+
+ Consideremos dos hipótesis: $H_1$ y $H_2$. Sabemos que en algún momento recibiremos datos $X$. Nos interesa calcular las distribuciones posteriores $P(H_1|X)$ y $P(H_2|X)$. Usando Bayes: 
  $$
- P(H_1|X)=\dfrac{P(X|H_1)P(H_1)}{P(X)} \text{ ; }
+ P(H_1|X)=\dfrac{P(X|H_1)P(H_1)}{P(X)} \text{ ; } 
  P(H_2|X)=1-P(H_1|X).
  $$
 Por probabilidades totales: 
@@ -585,11 +587,11 @@ $$
 \begin{example}
     Consideremos un lanzamiento de una moneda, y las hipótesis: $H_1=$"La moneda está cargada" ($\theta=\frac{1}{2}$) y $H_2$="La moneda no está cargada". Entonces, si $\theta$ es la probabilidad de que salga cara (C):
     $$
-    P(\theta|H_1)=1_{\theta=0.5}
+    P(\theta|H_1)=1_{\theta=0.5}.
     $$
     Esto es una distribución a priori. Por otra parte, la hipótesis 2 es la que indica que la moneda está cargada. Consideremos que si la moneda está cargada, $\theta$ puede valer $1/3$ o $2/3$ de forma igualmente probable: 
      $$
-    P(\theta|H_2)= 0.5 *1_{\theta=\frac{1}{3}} + 0.5* 1_{\theta=\frac{2}{3}}
+    P(\theta|H_2)= 0.5 *1_{\theta=\frac{1}{3}} + 0.5* 1_{\theta=\frac{2}{3}}.
     $$
     Por último, necesitamos las probabilidades $P(H_1)$ y $P(H_2)$. Consideremos (como se suele hacer) que $P(H_1)=P(H_2)=0.5$. Supongamos que al lanzar la moneda obtenemos la secuencia: CCSCSC. Entonces: 
     $$
